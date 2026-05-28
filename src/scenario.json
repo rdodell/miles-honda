@@ -97,27 +97,27 @@
       "milesMessages": [
         {
           "id": "greeting",
-          "text": "Hi Ian. Here's an update on Project X."
+          "text": "Hey Ian — here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?"
         }
       ],
       "summaryCards": [
         {
           "label": "3 emails",
-          "sublabel": "customer feedback",
-          "tooltip": "Demo: would expand here."
+          "sublabel": "customer feedback on the prototype",
+          "tooltip": "Prototype feedback: runtime · swap-battery logistics · cut quality on tall/wet grass · weight & maneuverability · deck width vs. productivity · noise (positive). Follow-up — Laura (sole-op landscaper): Ran the demo on 3 lawns Tuesday. Got through ~2.5 properties before charge dropped — needs a full morning on one charge or a battery she can swap mid-route. So quiet her 7am client didn't complain for the first time. Fix the runtime and she's in."
         },
         {
           "label": "2 Slack threads",
-          "sublabel": "follow-up on Project X",
+          "sublabel": "supplier + runtime follow-ups",
           "tooltip": "Demo: would expand here."
         },
         {
           "label": "1 project update",
-          "sublabel": "weekly digest",
+          "sublabel": "battery & runtime test log",
           "tooltip": "Demo: would expand here."
         }
       ],
-      "promptMessage": "Where do you want to start?",
+      "promptMessage": "Where do you want to start? I've got a recommendation if you want one.",
       "inputModes": [
         {
           "id": "voice",
@@ -141,14 +141,15 @@
       ],
       "footerLine": "Recommended next step:",
       "footerLinkText": "customer validation",
-      "footerLinkAdvance": "1.2"
+      "footerLinkAdvance": "1.2",
+      "footerReason": "Segment choice is your highest-leverage move right now. It shapes your pricing, channels, and proof points for the next 90 days."
     },
     "1.2": {
       "id": "1.2",
       "stage": "spark",
       "timeIndicator": "Week 2 · Tuesday",
       "ianMessage": "I need to validate who my customer will be.",
-      "milesResponse": "Cool. Based on our previous ideation session, here are three customers worth testing. Want to walk through each?",
+      "milesResponse": "From our last session I pulled three landscaper profiles — each one's a different direction for the lawnmower. Who's jumping out at you?",
       "personas": [
         {
           "id": "laura",
@@ -185,8 +186,32 @@
       "id": "1.3",
       "stage": "spark",
       "timeIndicator": "Week 2 · Tuesday",
-      "milesIntro": "Great pick. Laura is who I'd start with too — sole entrepreneurs are the fastest to validate.",
-      "milesFollowup": "I drafted three interview questions and found five Lauras in the Honda network. Want me to set up conversations?",
+      "milesIntro": "Great pick — Laura's who I'd start with too. Sole operators feel the pain every morning and decide fast, so they're the quickest way to learn whether this is real.",
+      "milesQuestion": "Before we lock in, help me think out loud: among landscapers like Laura, who's the best first customer — the highest-volume operators, the sustainability-minded ones, or the ones whose clients are already asking them to go electric?",
+      "ianIdea": "Probably the ones whose clients are already pushing them toward electric — they've got a reason to switch now.",
+      "milesSupplement": "Smart — that's a buying trigger, not just a nice-to-have. I'd stack one more filter on top: high weekly volume, because those operators feel the gas and maintenance cost the most. 'Client pressure' plus 'high volume' equals your beachhead. Okay — how do you want to actually learn from them?",
+      "researchOptions": [
+        {
+          "id": "ai-personas",
+          "title": "Talk to AI personas",
+          "description": "Start here. I'll spin up AI personas of Laura, Matt, and Diana built from real landscaper data — you can interview them in minutes and sharpen your questions before spending a single real conversation.",
+          "primary": true,
+          "advance": "1.4"
+        },
+        {
+          "id": "dscout",
+          "title": "Talk to real customers (Dscout)",
+          "description": "Recruit and message real landscapers through Dscout for live feedback. Higher signal, but it takes a few days to schedule.",
+          "tooltip": "Demo: not in this preview."
+        },
+        {
+          "id": "funding",
+          "title": "Request funding for 1:1 interviews",
+          "description": "Ask for a small research budget to run paid 1:1 interviews. Deepest insight, but it needs sign-off and time.",
+          "tooltip": "Demo: not in this preview."
+        }
+      ],
+      "milesRecommendation": "My recommendation: start with the AI personas. It's free, it's instant, and it sharpens your questions so the real conversations later are worth far more. Want to meet them?",
       "personaCard": {
         "name": "Laura",
         "age": 42,
@@ -210,18 +235,7 @@
           "Facebook landscaper groups (78K members nationally)",
           "Regional trade shows (4 in the next 90 days)"
         ]
-      },
-      "actions": [
-        {
-          "label": "See interview questions",
-          "tooltip": "Demo: would expand here."
-        },
-        {
-          "label": "Find me five Lauras →",
-          "advance": "1.4",
-          "primary": true
-        }
-      ]
+      }
     },
     "1.4": {
       "id": "1.4",
@@ -234,7 +248,7 @@
         "Booked 3 customer conversations for next week",
         "Logged hypothesis: Sole-entrepreneur landscapers will pay a premium for quiet, electric equipment."
       ],
-      "milesFooter": "When you're back from those interviews, we'll head to The Garage.",
+      "milesFooter": "Curious what you'll hear. When you're back from those interviews, we'll head to The Garage.",
       "cta": {
         "label": "Jump ahead → Month 1, The Garage",
         "advance": "2.1"
@@ -244,7 +258,7 @@
       "id": "2.1",
       "stage": "garage",
       "timeIndicator": "Month 1 · Wednesday",
-      "milesMessage": "Welcome to The Garage, Ian. You're not building alone anymore — 127 Honda intrapreneurs have been exactly where you are.",
+      "milesMessage": "Ian, ever wonder who else at Honda has tackled this? You're not building alone — 127 intrapreneurs have been exactly where you are.",
       "recommended": [
         {
           "id": "priya",
@@ -275,7 +289,7 @@
       "id": "2.2",
       "stage": "garage",
       "timeIndicator": "Month 1 · Wednesday",
-      "milesMessage": "I've introduced you to Priya. She replied within the hour — she's free Thursday at 2 PM.",
+      "milesMessage": "I reached out to Priya — she replied within the hour. Thursday at 2 PM work for you?",
       "meetingCard": {
         "day": "Thursday",
         "time": "2:00 PM",
@@ -302,7 +316,7 @@
       "id": "2.3",
       "stage": "garage",
       "timeIndicator": "Month 1 · Friday",
-      "milesMessage": "The meeting happened. I've added Priya to your network and logged what came out of it.",
+      "milesMessage": "Good meeting with Priya — I've logged the key takeaways and added her to your network.",
       "networkContact": {
         "name": "Priya Okafor",
         "title": "Project Manager, Honda R&D",
@@ -328,7 +342,7 @@
         "3 supplier contacts from Priya's network added",
         "Battery cost assumption corrected — $37/unit better than expected"
       ],
-      "milesFooter": "Next: let's see if the numbers hold up.",
+      "milesFooter": "Next question: do the lawnmower's numbers hold up under pressure?",
       "cta": {
         "label": "Jump ahead → Month 3, The Test Track",
         "advance": "3.1"
@@ -338,7 +352,7 @@
       "id": "3.1",
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Monday",
-      "milesMessage": "Welcome back from lunch. Let's work on your Business Model Canvas — there's one thing I want to flag before the seed review next week.",
+      "milesMessage": "Welcome back. One thing caught my eye in the BMC before the seed review next week — want to take a look?",
       "flaggedSection": "Revenue Streams",
       "flaggedTooltip": "Miles flagged this",
       "bmcAdvance": "3.2",
@@ -348,8 +362,8 @@
       "id": "3.2",
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Monday",
-      "milesMessage": "I noticed an issue with your initial financial analysis. The cost of lithium has moved since your first draft — I'd recommend updating your cost of materials before the review.",
-      "milesQuestion": "Approve change?",
+      "milesMessage": "Lithium pricing has moved since your February draft — did you catch it? Worth updating your cost of materials before the seed review.",
+      "milesQuestion": "Want to update the model?",
       "comparison": {
         "original": {
           "label": "Original assumption",
@@ -365,7 +379,7 @@
         "marginAfter": "24%"
       },
       "updatedTable": {
-        "intro": "Here's the updated picture.",
+        "intro": "Here's what changes.",
         "rows": [
           {
             "item": "Battery cells",
@@ -404,7 +418,7 @@
       "id": "3.3",
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Monday",
-      "milesIntro": "Before we take this to seed review, I want to play devil's advocate. Here's what a skeptical CFO is going to ask. I'd rather you hear these from me than from leadership.",
+      "milesIntro": "Before the seed review — want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
       "questions": [
         {
           "id": "q1",
@@ -438,8 +452,8 @@
       "id": "3.4",
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Monday",
-      "milesMessage": "Here's where you stand for the seed review.",
-      "milesFollowup": "You're in good shape on 3 of 5. The two ⚠s are normal at this stage — and we have a plan for each.",
+      "milesMessage": "Seed review is next week — want to see exactly where you stand?",
+      "milesFollowup": "3 of 5 are solid. The two ⚠s are normal at this stage — and there's a plan for each.",
       "scorecard": [
         {
           "status": "pass",
@@ -575,7 +589,7 @@
           ]
         }
       ],
-      "milesCorner": "Or just ask me — I'll pick the right one.",
+      "milesCorner": "Not sure where to start? Just ask — I'll match you to the right tool.",
       "toolTooltip": "Demo: would open this tool."
     }
   }

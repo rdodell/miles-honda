@@ -57,7 +57,7 @@ export default function SparkChat({ onAdvance, showTooltip }: SparkChatProps) {
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
       {/* Prior Miles message (persisted) */}
-      <MilesMessage text="Hi Ian. Here's an update on Project X." instant />
+      <MilesMessage text="Hey Ian — here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?" instant />
 
       {/* Ian typing */}
       <IanTyping message={s.ianMessage} onSent={() => setIanSent(true)} />
