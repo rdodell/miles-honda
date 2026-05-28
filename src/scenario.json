@@ -1,0 +1,582 @@
+{
+  "roadStages": [
+    {
+      "id": "spark",
+      "label": "Spark",
+      "position": 0.25
+    },
+    {
+      "id": "garage",
+      "label": "The Garage",
+      "position": 0.55
+    },
+    {
+      "id": "testTrack",
+      "label": "The Test Track",
+      "position": 0.85
+    }
+  ],
+  "tooltips": {
+    "disabledFeature": "Demo flow continues elsewhere — try the highlighted button.",
+    "voiceSandbox": "Voice and Sandbox modes aren't in this preview.",
+    "futureStage": "Ian hasn't reached this stage yet.",
+    "pastStage": "Ian has already completed this stage.",
+    "escRestart": "Restart Ian's journey from the beginning?"
+  },
+  "presenterClickPath": [
+    {
+      "screen": "0.1",
+      "action": "Start Ian's journey"
+    },
+    {
+      "screen": "1.1",
+      "action": "Chat"
+    },
+    {
+      "screen": "1.2",
+      "action": "Laura card"
+    },
+    {
+      "screen": "1.3",
+      "action": "Find me five Lauras"
+    },
+    {
+      "screen": "1.4",
+      "action": "Jump ahead → Month 1, The Garage"
+    },
+    {
+      "screen": "2.1",
+      "action": "Schedule with Priya"
+    },
+    {
+      "screen": "2.2",
+      "action": "Send"
+    },
+    {
+      "screen": "2.3",
+      "action": "BMC preview card"
+    },
+    {
+      "screen": "2.4",
+      "action": "Jump ahead → Month 3, The Test Track"
+    },
+    {
+      "screen": "3.1",
+      "action": "Revenue Streams (flagged section)"
+    },
+    {
+      "screen": "3.2",
+      "action": "Yes, update"
+    },
+    {
+      "screen": "3.3",
+      "action": "Continue to readiness check"
+    },
+    {
+      "screen": "3.4",
+      "action": "See my prep plan"
+    }
+  ],
+  "screens": {
+    "0.1": {
+      "id": "0.1",
+      "stage": null,
+      "timeIndicator": null,
+      "headline": "Meet Miles.",
+      "subhead": "An AI companion for Honda intrapreneurs.",
+      "tagline": "Three stages. One trusted guide.",
+      "cta": {
+        "label": "Start Ian's journey",
+        "advance": "1.1"
+      }
+    },
+    "1.1": {
+      "id": "1.1",
+      "stage": "spark",
+      "timeIndicator": "Week 2 · Tuesday",
+      "milesMessages": [
+        {
+          "id": "greeting",
+          "text": "Hi Ian. Here's an update on Project X."
+        }
+      ],
+      "summaryCards": [
+        {
+          "label": "3 emails",
+          "sublabel": "customer feedback",
+          "tooltip": "Demo: would expand here."
+        },
+        {
+          "label": "2 Slack threads",
+          "sublabel": "follow-up on Project X",
+          "tooltip": "Demo: would expand here."
+        },
+        {
+          "label": "1 project update",
+          "sublabel": "weekly digest",
+          "tooltip": "Demo: would expand here."
+        }
+      ],
+      "promptMessage": "Where do you want to start?",
+      "inputModes": [
+        {
+          "id": "voice",
+          "label": "Voice",
+          "icon": "Mic",
+          "tooltip": "Voice and Sandbox modes aren't in this preview."
+        },
+        {
+          "id": "chat",
+          "label": "Chat",
+          "icon": "MessageCircle",
+          "advance": "1.2",
+          "primary": true
+        },
+        {
+          "id": "sandbox",
+          "label": "Sandbox",
+          "icon": "Wrench",
+          "tooltip": "Voice and Sandbox modes aren't in this preview."
+        }
+      ],
+      "footerLine": "Recommended next step:",
+      "footerLinkText": "customer validation",
+      "footerLinkAdvance": "1.2"
+    },
+    "1.2": {
+      "id": "1.2",
+      "stage": "spark",
+      "timeIndicator": "Week 2 · Tuesday",
+      "ianMessage": "I need to validate who my customer will be.",
+      "milesResponse": "Cool. Based on our previous ideation session, here are three customers worth testing. Want to walk through each?",
+      "personas": [
+        {
+          "id": "laura",
+          "name": "Laura",
+          "role": "Sole-entrepreneur landscaper",
+          "bio": "Services 40 lawns/week, mostly residential",
+          "pain": "Gas mowers are loud, clients complain",
+          "tam": "38% of TAM",
+          "advance": "1.3",
+          "primary": true
+        },
+        {
+          "id": "matt",
+          "name": "Matt",
+          "role": "Commercial property manager",
+          "bio": "12 sites, contracts out maintenance",
+          "pain": "Rising fuel costs, sustainability mandates",
+          "tam": "27% of TAM",
+          "tooltip": "Demo flow continues with Laura — try the highlighted card."
+        },
+        {
+          "id": "diana",
+          "name": "Diana",
+          "role": "DIY suburban homeowner",
+          "bio": "Half-acre lot, mows weekly in season",
+          "pain": "Storing gas, weekend noise complaints",
+          "tam": "35% of TAM",
+          "tooltip": "Demo flow continues with Laura — try the highlighted card."
+        }
+      ],
+      "inputBarTooltip": "Demo flow continues with Laura."
+    },
+    "1.3": {
+      "id": "1.3",
+      "stage": "spark",
+      "timeIndicator": "Week 2 · Tuesday",
+      "milesIntro": "Great pick. Laura is who I'd start with too — sole entrepreneurs are the fastest to validate.",
+      "milesFollowup": "I drafted three interview questions and found five Lauras in the Honda network. Want me to set up conversations?",
+      "personaCard": {
+        "name": "Laura",
+        "age": 42,
+        "location": "Phoenix, AZ",
+        "dayInLife": [
+          "Up at 5 AM, four properties before noon",
+          "Truck, trailer, two gas mowers, blower, edger",
+          "Books new clients through Facebook and word of mouth"
+        ],
+        "painPoints": [
+          "Gas costs eat 14% of revenue",
+          "First start of the morning wakes the whole neighborhood",
+          "Three clients have asked her to switch to electric"
+        ],
+        "painPointBoldIndex": 2,
+        "wouldPayFor": [
+          "Same runtime as gas — won't accept a downgrade",
+          "Service network she trusts"
+        ],
+        "whereToFind": [
+          "Facebook landscaper groups (78K members nationally)",
+          "Regional trade shows (4 in the next 90 days)"
+        ]
+      },
+      "actions": [
+        {
+          "label": "See interview questions",
+          "tooltip": "Demo: would expand here."
+        },
+        {
+          "label": "Find me five Lauras →",
+          "advance": "1.4",
+          "primary": true
+        }
+      ]
+    },
+    "1.4": {
+      "id": "1.4",
+      "stage": "spark",
+      "stageComplete": "spark",
+      "timeIndicator": "Week 2 · Friday",
+      "header": "Nice work this week, Ian.",
+      "bullets": [
+        "Drafted Laura persona",
+        "Booked 3 customer conversations for next week",
+        "Logged hypothesis: Sole-entrepreneur landscapers will pay a premium for quiet, electric equipment."
+      ],
+      "milesFooter": "When you're back from those interviews, we'll head to The Garage.",
+      "cta": {
+        "label": "Jump ahead → Month 1, The Garage",
+        "advance": "2.1"
+      }
+    },
+    "2.1": {
+      "id": "2.1",
+      "stage": "garage",
+      "timeIndicator": "Month 1 · Wednesday",
+      "milesMessage": "Welcome to The Garage, Ian. You're not building alone anymore — 127 Honda intrapreneurs have been exactly where you are.",
+      "recommended": [
+        {
+          "id": "priya",
+          "name": "Priya Okafor",
+          "title": "Project Manager, Honda R&D",
+          "initial": "P",
+          "color": "#5B5FD9",
+          "reason": "Priya solved your exact supplier problem in 2022. She built the e-bike battery supply chain from scratch.",
+          "advance": "2.2",
+          "primary": true
+        }
+      ],
+      "directoryStats": "127 intrapreneurs · 43 mentors · 18 alumni",
+      "emptyNetworkMsg": "You haven't connected with anyone yet.",
+      "actions": [
+        {
+          "label": "Connect with Priya →",
+          "advance": "2.2",
+          "primary": true
+        },
+        {
+          "label": "Browse directory",
+          "tooltip": "The full directory is not in this demo preview."
+        }
+      ]
+    },
+    "2.2": {
+      "id": "2.2",
+      "stage": "garage",
+      "timeIndicator": "Month 1 · Wednesday",
+      "milesMessage": "I've introduced you to Priya. She replied within the hour — she's free Thursday at 2 PM.",
+      "meetingCard": {
+        "day": "Thursday",
+        "time": "2:00 PM",
+        "duration": "30 min",
+        "person": "Priya Okafor",
+        "title": "Project Manager, Honda R&D",
+        "initial": "P",
+        "color": "#5B5FD9",
+        "context": "She's already navigated the supplier and safety review process you're about to hit. She estimates she can save you 6 weeks."
+      },
+      "actions": [
+        {
+          "label": "Suggest another time",
+          "tooltip": "Demo flow continues with Thursday 2 PM."
+        },
+        {
+          "label": "Book it →",
+          "advance": "2.3",
+          "primary": true
+        }
+      ]
+    },
+    "2.3": {
+      "id": "2.3",
+      "stage": "garage",
+      "timeIndicator": "Month 1 · Friday",
+      "milesMessage": "The meeting happened. I've added Priya to your network and logged what came out of it.",
+      "networkContact": {
+        "name": "Priya Okafor",
+        "title": "Project Manager, Honda R&D",
+        "initial": "P",
+        "color": "#5B5FD9",
+        "metLabel": "Met Thursday · 32 min"
+      },
+      "takeaways": [
+        "Priya's supplier contacts added to your Key Partners",
+        "Battery cost actuals revised: $103/unit (vs. your $140 assumption)",
+        "She can save you 6 weeks on the internal safety review"
+      ],
+      "advance": "2.4"
+    },
+    "2.4": {
+      "id": "2.4",
+      "stage": "garage",
+      "stageComplete": "garage",
+      "timeIndicator": "Month 1 · Friday",
+      "header": "You're not building alone anymore.",
+      "bullets": [
+        "Connected with Priya — Honda's e-bike battery lead",
+        "3 supplier contacts from Priya's network added",
+        "Battery cost assumption corrected — $37/unit better than expected"
+      ],
+      "milesFooter": "Next: let's see if the numbers hold up.",
+      "cta": {
+        "label": "Jump ahead → Month 3, The Test Track",
+        "advance": "3.1"
+      }
+    },
+    "3.1": {
+      "id": "3.1",
+      "stage": "testTrack",
+      "timeIndicator": "Month 3 · Monday",
+      "milesMessage": "Welcome back from lunch. Let's work on your Business Model Canvas — there's one thing I want to flag before the seed review next week.",
+      "flaggedSection": "Revenue Streams",
+      "flaggedTooltip": "Miles flagged this",
+      "bmcAdvance": "3.2",
+      "bmcSectionTooltip": "Demo: would expand here."
+    },
+    "3.2": {
+      "id": "3.2",
+      "stage": "testTrack",
+      "timeIndicator": "Month 3 · Monday",
+      "milesMessage": "I noticed an issue with your initial financial analysis. The cost of lithium has moved since your first draft — I'd recommend updating your cost of materials before the review.",
+      "milesQuestion": "Approve change?",
+      "comparison": {
+        "original": {
+          "label": "Original assumption",
+          "value": "$148 / unit",
+          "note": "Feb pricing"
+        },
+        "updated": {
+          "label": "Updated benchmark",
+          "value": "$172 / unit",
+          "note": "current spot + Priya's supplier quote"
+        },
+        "marginBefore": "31%",
+        "marginAfter": "24%"
+      },
+      "updatedTable": {
+        "intro": "Here's the updated picture.",
+        "rows": [
+          {
+            "item": "Battery cells",
+            "before": "$89",
+            "after": "$103"
+          },
+          {
+            "item": "Motor controller",
+            "before": "$38",
+            "after": "$46"
+          },
+          {
+            "item": "Frame & deck",
+            "before": "$21",
+            "after": "$23"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "label": "No",
+          "tooltip": "Demo flow continues with approval."
+        },
+        {
+          "label": "Update to a different value",
+          "tooltip": "Demo flow continues with approval."
+        },
+        {
+          "label": "Yes, update →",
+          "advance": "3.3",
+          "primary": true
+        }
+      ]
+    },
+    "3.3": {
+      "id": "3.3",
+      "stage": "testTrack",
+      "timeIndicator": "Month 3 · Monday",
+      "milesIntro": "Before we take this to seed review, I want to play devil's advocate. Here's what a skeptical CFO is going to ask. I'd rather you hear these from me than from leadership.",
+      "questions": [
+        {
+          "id": "q1",
+          "header": "What if Laura's willingness-to-pay is wrong?",
+          "challenge": "Your 12 interviews skewed toward Lauras who already complained about gas. The broader landscaper market hasn't signaled the same urgency, and your price point sits 22% above the closest competitor.",
+          "response": "Lead with the three paid pilots — that's revealed preference, not stated. Then acknowledge the sampling skew and show the plan to validate with a colder segment.",
+          "buttonTooltip": "Demo: would open coaching."
+        },
+        {
+          "id": "q2",
+          "header": "Your COGS still assumes Honda's supplier pricing. What if we don't get those terms?",
+          "challenge": "Priya's quotes are favorable because she's been in those relationships for two years. A new venture in year one rarely gets the same pricing tier.",
+          "response": "Two angles — the venture is internal so the relationships transfer, and here's the margin at standard-tier pricing. Both numbers still clear the hurdle.",
+          "buttonTooltip": "Demo: would open coaching."
+        },
+        {
+          "id": "q3",
+          "header": "Sole-entrepreneur landscapers are 12% of the market. Where's the scale story?",
+          "challenge": "Even if you win 100% of Lauras, that ceiling is too low for Honda's portfolio criteria.",
+          "response": "Laura is the wedge, not the destination. Show the adjacency path — once the product proves out with sole operators, the case for Matt (commercial fleet) becomes much easier to make internally and externally.",
+          "buttonTooltip": "Demo: would open coaching."
+        }
+      ],
+      "footerCta": {
+        "label": "Continue to readiness check →",
+        "advance": "3.4",
+        "primary": true
+      }
+    },
+    "3.4": {
+      "id": "3.4",
+      "stage": "testTrack",
+      "timeIndicator": "Month 3 · Monday",
+      "milesMessage": "Here's where you stand for the seed review.",
+      "milesFollowup": "You're in good shape on 3 of 5. The two ⚠s are normal at this stage — and we have a plan for each.",
+      "scorecard": [
+        {
+          "status": "pass",
+          "label": "Customer validated",
+          "detail": "12 interviews, 3 paid pilots"
+        },
+        {
+          "status": "pass",
+          "label": "Business model",
+          "detail": "3 versions compared, one chosen"
+        },
+        {
+          "status": "warn",
+          "label": "Financials",
+          "detail": "updated, but margin sensitivity still tight"
+        },
+        {
+          "status": "pass",
+          "label": "Competitive landscape",
+          "detail": "mapped, 4 direct competitors profiled"
+        },
+        {
+          "status": "warn",
+          "label": "Path to outside investment",
+          "detail": "2 of 4 conversations started"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Go to seed review",
+          "tooltip": "Demo: would launch review flow."
+        },
+        {
+          "label": "See my prep plan →",
+          "advance": "3.5",
+          "primary": true
+        }
+      ]
+    },
+    "3.5": {
+      "id": "3.5",
+      "stage": "testTrack",
+      "stageComplete": "testTrack",
+      "timeIndicator": "Month 3 · Monday",
+      "headline": "Ian's three months with Miles.",
+      "columns": [
+        {
+          "stage": "spark",
+          "label": "Spark · Week 2",
+          "bullets": [
+            "Drafted Laura persona",
+            "Booked 3 customer conversations",
+            "Logged the central hypothesis"
+          ]
+        },
+        {
+          "stage": "garage",
+          "label": "The Garage · Month 1",
+          "bullets": [
+            "Met with Priya (e-bike battery lead)",
+            "Updated Business Model Canvas",
+            "4 new contacts in the intrapreneur network"
+          ]
+        },
+        {
+          "stage": "testTrack",
+          "label": "The Test Track · Month 3",
+          "bullets": [
+            "Financial model updated with current data",
+            "Three CFO-level objections answered",
+            "Seed review · ready"
+          ]
+        }
+      ],
+      "stats": [
+        {
+          "value": "12",
+          "label": "customer interviews"
+        },
+        {
+          "value": "4",
+          "label": "Honda intrapreneurs connected"
+        },
+        {
+          "value": "3",
+          "label": "business models compared"
+        },
+        {
+          "value": "1",
+          "label": "seed review · ready"
+        }
+      ],
+      "cta": {
+        "label": "Restart the journey",
+        "advance": "0.1"
+      }
+    },
+    "T.1": {
+      "id": "T.1",
+      "stage": null,
+      "header": "Your toolbox.",
+      "subhead": "Stage-by-stage. Use what you need, when you need it.",
+      "shelves": [
+        {
+          "stage": "spark",
+          "header": "Spark · Find your customer",
+          "tools": [
+            "SWOT",
+            "5 Es Journey Map",
+            "Ecosystem Map",
+            "Customer Persona Builder",
+            "Interview Question Generator"
+          ]
+        },
+        {
+          "stage": "garage",
+          "header": "The Garage · Build with Honda",
+          "tools": [
+            "Business Model Canvas",
+            "Intrapreneur Network Search",
+            "Email Drafter",
+            "Meeting Brief Generator"
+          ]
+        },
+        {
+          "stage": "testTrack",
+          "header": "The Test Track · Prove it",
+          "tools": [
+            "Financial Sensitivity Model",
+            "Devil's Advocate",
+            "Readiness Scorecard",
+            "Seed Review Prep"
+          ]
+        }
+      ],
+      "milesCorner": "Or just ask me — I'll pick the right one.",
+      "toolTooltip": "Demo: would open this tool."
+    }
+  }
+}

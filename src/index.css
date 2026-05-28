@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Caveat:wght@400;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Honda brand anchors */
+  --honda-red:   #CC0000;
+  --honda-black: #231F20;
+
+  /* Expressive palette (atmospheric, from Honda's evolved brand) */
+  --dream-indigo:     #5B5FD9;
+  --periwinkle-mist:  #A8B0F0;
+  --sky-wash:         #E8ECFA;
+
+  /* Stage semantic colors */
+  --spark:   #F4B942;   /* warm amber — a literal spark                */
+  --garage:  #5B5FD9;   /* dream indigo — where the dream takes shape  */
+  --track:   #CC0000;   /* honda red — the seed review earns the brand */
+
+  /* Functional neutrals */
+  --canvas:    #FAFAFA;
+  --hairline:  #E5E5E5;
+  --muted:     #6B6B6B;
+  --warn-amber:#F4B942;
+
+  /* Legacy convenience */
+  --text:     #231F20;
+  --red:      #CC0000;
+  --border:   #E5E5E5;
+  --card-bg:  #F5F5F5;
+  --bg:       #FAFAFA;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--honda-black);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { height: 100%; }
+
+/* Display / stage headings */
+.font-display { font-family: 'Fraunces', Georgia, serif; }
+/* Caveat accent (road labels, flagged badges) */
+.font-accent  { font-family: 'Caveat', cursive; }
+
+/* --- Animations --- */
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+.pulse-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.35s ease both; }
+
+/* --- Atmospheric gradient (Landing · Stage wraps · Journey complete only) --- */
+.gradient-ignition {
+  background: linear-gradient(145deg, #5B5FD9 0%, #A8B0F0 55%, #E8ECFA 100%);
+}
