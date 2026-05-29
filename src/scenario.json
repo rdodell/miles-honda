@@ -433,7 +433,7 @@
         ]
       },
       "actions": [
-        { "label": "Update the model", "advance": "3.3", "primary": true },
+        { "label": "Want to update the model?", "advance": "3.3", "primary": true },
         { "label": "Go to other tools", "advance": "T.1", "primary": true }
       ]
     },
