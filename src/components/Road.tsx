@@ -37,7 +37,7 @@ const CAR_POSITIONS: Record<string, [number, number]> = {
   none:      [0,   88],
 }
 
-export default function Road({ completedStages, activeStage }: RoadProps) {
+export default function Road({ completedStages, activeStage, hero = false }: RoadProps) {
   const allDone = completedStages.spark && completedStages.garage && completedStages.testTrack
 
   const progressStages = ['spark', 'garage', 'testTrack'] as StageId[]
@@ -48,8 +48,8 @@ export default function Road({ completedStages, activeStage }: RoadProps) {
       ? CAR_POSITIONS[lastCompleted]
       : CAR_POSITIONS.none
 
-  // Dot radius — larger now that elements render at ~1× scale
-  const dotR = 12
+  // Dot radius
+  const dotR = hero ? 11 : 10
 
   return (
     <div style={{ width: '100%', height: '25vh', minHeight: '120px' }}>
@@ -67,7 +67,7 @@ export default function Road({ completedStages, activeStage }: RoadProps) {
         {/* Road edge highlight */}
         <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={15} strokeLinecap="round" />
         {/* Centre dashes */}
-        <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth={1.5} strokeLinecap="round" strokeDasharray="8 6" />
+        <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth={1.5} strokeLinecap="round" strokeDasharray="8 6" />
 
         {/* Progress highlight (completed road in Honda red) */}
         {(lastCompleted || activeStage) && (
@@ -135,10 +135,10 @@ export default function Road({ completedStages, activeStage }: RoadProps) {
               <text
                 x={cx} y={labelY}
                 textAnchor="middle"
-                fontSize={15}
+                fontSize={hero ? 15 : 12}
                 fill={isActive || isCompleted ? color : '#999'}
                 fontFamily="'Caveat', cursive"
-                fontWeight="600"
+                fontWeight="700"
               >
                 {stage.label}
               </text>
