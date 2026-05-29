@@ -10,9 +10,8 @@ export default function MilesAvatar({ size = 40 }: { size?: number }) {
     >
       <img
         src={foxImg}
-        alt=""
-        aria-hidden="true"
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        alt="Miles"
+        style={{ width: '88%', height: '88%', objectFit: 'contain', display: 'block', margin: 'auto' }}
       />
     </div>
   )
