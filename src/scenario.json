@@ -278,7 +278,7 @@
       "id": "1.5",
       "stage": "spark",
       "timeIndicator": "Month 1 · Wednesday",
-      "milesIntro": "From your last conversation, it seems you're struggling with supply chain. Want to go to The Garage to contact Priya? She built Honda's e-bike battery supply chain from scratch in 2022 — solved the exact supplier problem you're about to hit. I've flagged her in the directory. She'll be your first stop.",
+      "milesIntro": "Hello again, Ian. From your last conversation, it sounds like supply chain is where you're stuck. How do you want to keep going — meet someone who's solved this, or keep working through your customer personas?",
       "bridgeCard": {
         "name": "Priya Okafor",
         "title": "Project Manager, Honda R&D",
@@ -286,7 +286,13 @@
         "color": "#5B5FD9",
         "note": "Built e-bike battery supply chain · saves 6 weeks on internal safety review"
       },
-      "cta": { "label": "Go to The Garage →", "advance": "2.1" }
+      "choice": {
+        "options": [
+          { "label": "Meet Priya in The Garage →", "advance": "2.1", "primary": true },
+          { "label": "Keep working on personas", "advance": "2.1", "soft": true,
+            "milesReply": "Personas are worth a revisit — but the supplier cost is your riskiest open question right now. Let's meet Priya first; you can come back to the personas anytime." }
+        ]
+      }
     },
     "2.1": {
       "id": "2.1",
