@@ -223,7 +223,39 @@
         { "n": "05", "title": "Smoke test", "sub": "Landing page + preorder signal", "status": "Later", "tone": "muted" }
       ],
       "counter": "1 done · 1 next · 2 later · 1 skip",
-      "cta": { "label": "Draft interview script →", "advance": "1.4" }
+      "cta": { "label": "Draft interview script →", "advance": "1.3d" }
+    },
+    "1.3d": {
+      "id": "1.3d",
+      "stage": "spark",
+      "timeIndicator": "Week 2 · Tuesday",
+      "milesIntro": "Your evidence plan points to customer interviews first. Laura is your sharpest lead — she already flagged the runtime problem in your prototype test. Here's what you know going in.",
+      "personaCard": {
+        "name": "Laura",
+        "age": 42,
+        "location": "Phoenix, AZ",
+        "dayInLife": [
+          "Up at 5 AM, four properties before noon",
+          "Truck, trailer, two gas mowers, blower, edger",
+          "Books new clients through Facebook and word of mouth"
+        ],
+        "painPoints": [
+          "Gas costs eat 14% of revenue",
+          "First start of the morning wakes the whole neighborhood",
+          "Three clients have asked her to switch to electric"
+        ],
+        "painPointBoldIndex": 2,
+        "wouldPayFor": [
+          "Same runtime as gas — won't accept a downgrade",
+          "Service network she trusts"
+        ],
+        "whereToFind": [
+          "Facebook landscaper groups (78K members nationally)",
+          "Regional trade shows (4 in the next 90 days)"
+        ]
+      },
+      "milesFollowup": "Ready to book that first call? Or want to refine the script first?",
+      "cta": { "label": "Book the call →", "advance": "1.4" }
     },
     "1.4": {
       "id": "1.4",

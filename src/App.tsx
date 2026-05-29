@@ -13,6 +13,7 @@ import SparkChat          from './screens/SparkChat'
 import FrameProblem       from './screens/FrameProblem'
 import BiasCheck          from './screens/BiasCheck'
 import EvidencePlaybook   from './screens/EvidencePlaybook'
+import LauraIntro         from './screens/LauraIntro'
 import SparkWrap          from './screens/SparkWrap'
 import GarageWelcome      from './screens/GarageWelcome'
 import GarageEmail        from './screens/GarageEmail'
@@ -29,7 +30,7 @@ type StageId = 'spark' | 'garage' | 'testTrack'
 
 const SCREEN_TO_STAGE: Record<string, StageId | null> = {
   '0.1': null,
-  '1.1': 'spark', '1.2': 'spark', '1.3': 'spark', '1.3b': 'spark', '1.3c': 'spark', '1.4': 'spark',
+  '1.1': 'spark', '1.2': 'spark', '1.3': 'spark', '1.3b': 'spark', '1.3c': 'spark', '1.3d': 'spark', '1.4': 'spark',
   '2.1': 'garage','2.2': 'garage','2.3': 'garage','2.4': 'garage',
   '3.1': 'testTrack','3.2': 'testTrack','3.3': 'testTrack','3.4': 'testTrack','3.5': 'testTrack',
   'T.1': null,
@@ -42,7 +43,7 @@ const STAGE_COMPLETES_AT: Record<string, StageId> = {
 }
 
 const TIME_LABELS: Record<string, string> = {
-  '1.1': 'Week 2 · Tuesday', '1.2': 'Week 2 · Tuesday', '1.3': 'Week 2 · Tuesday', '1.3b': 'Week 2 · Tuesday', '1.3c': 'Week 2 · Tuesday', '1.4': 'Week 2 · Friday',
+  '1.1': 'Week 2 · Tuesday', '1.2': 'Week 2 · Tuesday', '1.3': 'Week 2 · Tuesday', '1.3b': 'Week 2 · Tuesday', '1.3c': 'Week 2 · Tuesday', '1.3d': 'Week 2 · Tuesday', '1.4': 'Week 2 · Friday',
   '2.1': 'Month 1 · Wednesday', '2.2': 'Month 1 · Wednesday', '2.3': 'Month 1 · Friday', '2.4': 'Month 1 · Friday',
   '3.1': 'Month 3 · Monday', '3.2': 'Month 3 · Monday', '3.3': 'Month 3 · Monday',
   '3.4': 'Month 3 · Monday', '3.5': 'Month 3 · Monday',
@@ -108,6 +109,7 @@ export default function App() {
       case '1.3':  return <FrameProblem onAdvance={advance} />
       case '1.3b': return <BiasCheck onAdvance={advance} />
       case '1.3c': return <EvidencePlaybook onAdvance={advance} />
+      case '1.3d': return <LauraIntro onAdvance={advance} />
       case '1.4': return <SparkWrap onAdvance={advance} />
       case '2.1': return <GarageWelcome onAdvance={advance} />
       case '2.2': return <GarageEmail onAdvance={advance} />
