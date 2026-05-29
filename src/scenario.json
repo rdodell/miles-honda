@@ -58,7 +58,7 @@
     },
     {
       "screen": "2.4",
-      "action": "Jump ahead → Month 3, The Test Track"
+      "action": "Let's go to the Test Track"
     },
     {
       "screen": "3.1",
@@ -378,7 +378,7 @@
       ],
       "milesFooter": "Next question: do the lawnmower's numbers hold up under pressure?",
       "cta": {
-        "label": "Jump ahead → Month 3, The Test Track",
+        "label": "Let's go to the Test Track",
         "advance": "3.1"
       }
     },
