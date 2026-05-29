@@ -98,8 +98,8 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
           const color = STAGE_COLORS[id]
           // Labels above dots near top of road, below for garage (near bottom)
           const labelY = cy < 88
-            ? cy - dotR - 16
-            : cy + dotR + 16
+            ? cy - dotR - (hero ? 18 : 16)
+            : cy + dotR + (hero ? 18 : 16)
 
           return (
             <g key={id}>
@@ -135,7 +135,7 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
               <text
                 x={cx} y={labelY}
                 textAnchor="middle"
-                fontSize={hero ? 15 : 12}
+                fontSize={hero ? 20 : 18}
                 fill={isActive || isCompleted ? color : '#999'}
                 fontFamily="'Caveat', cursive"
                 fontWeight="700"
