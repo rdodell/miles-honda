@@ -445,7 +445,8 @@
           "label": "Yes, update →",
           "advance": "3.3",
           "primary": true
-        }
+        },
+        { "label": "Explore Tools →", "advance": "T.1" }
       ]
     },
     "3.3": {

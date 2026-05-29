@@ -98,6 +98,19 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
                 </button>
               )
             }
+            // Check if the action has a direct advance (not primary, but navigates)
+            const hasAdvance = 'advance' in action && (action as any).advance
+            if (hasAdvance) {
+              return (
+                <button
+                  key={action.label}
+                  onClick={() => onAdvance((action as any).advance)}
+                  className="flex-1 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-white text-sm hover:bg-[#F2EEE8] transition-colors"
+                >
+                  {action.label}
+                </button>
+              )
+            }
             return (
               <Tooltip key={action.label} text={(action as any).tooltip}>
                 <button className="flex-1 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-white text-sm">
