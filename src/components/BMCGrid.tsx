@@ -40,7 +40,7 @@ const BMC_CONTENT: Record<string, { bullets: string[] }> = {
     bullets: ['Battery cells $103/unit', 'Motor controller $46/unit', 'Frame & deck $23/unit'],
   },
   'Revenue Streams': {
-    bullets: ['Unit sales ($X ASP)', 'Service contracts', 'Fleet leasing (future)'],
+    bullets: ['Unit sales ($2,400 target ASP)', 'Service contracts', 'Fleet leasing (future)'],
   },
 }
 
