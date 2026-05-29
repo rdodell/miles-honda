@@ -229,9 +229,9 @@
       "id": "1.3d",
       "stage": "spark",
       "timeIndicator": "Week 2 · Tuesday",
-      "milesIntro": "Your evidence plan points to customer interviews first. Laura is your sharpest lead — she already flagged the runtime problem in your prototype test. Here's what you know going in.",
+      "milesIntro": "Your evidence plan points to customer interviews first. Mary is your sharpest lead — she already flagged the runtime problem in your prototype test. Here's what you know going in.",
       "personaCard": {
-        "name": "Laura",
+        "name": "Mary",
         "age": 42,
         "location": "Phoenix, AZ",
         "dayInLife": [

@@ -28,7 +28,7 @@ export default function LauraIntro({ onAdvance }: Props) {
           className="bg-white border border-[#E8E4DE] rounded-2xl p-5 shadow-sm"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-[#CC0000] flex items-center justify-center text-white text-lg font-bold">L</div>
+            <div className="w-12 h-12 rounded-full bg-[#CC0000] flex items-center justify-center text-white text-lg font-bold">M</div>
             <div className="font-semibold text-base text-[#1A1A1A]">{pc.name} · {pc.age} · {pc.location}</div>
           </div>
           <div className="space-y-3">
