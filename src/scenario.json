@@ -433,20 +433,8 @@
         ]
       },
       "actions": [
-        {
-          "label": "No",
-          "tooltip": "Demo flow continues with approval."
-        },
-        {
-          "label": "Update to a different value",
-          "tooltip": "Demo flow continues with approval."
-        },
-        {
-          "label": "Yes, update →",
-          "advance": "3.3",
-          "primary": true
-        },
-        { "label": "Explore Tools →", "advance": "T.1" }
+        { "label": "Update the model", "advance": "3.3", "primary": true },
+        { "label": "Go to other tools", "advance": "T.1", "primary": true }
       ]
     },
     "3.3": {

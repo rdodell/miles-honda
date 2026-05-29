@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
-import Tooltip from '../components/Tooltip'
 import scenario from '../scenario.json'
 
 interface TestTrackFinanceProps {
@@ -86,39 +85,15 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
           animate={{ opacity: 1, y: 0 }}
           className="flex gap-2"
         >
-          {s.actions.map((action) => {
-            if (action.primary) {
-              return (
-                <button
-                  key={action.label}
-                  onClick={() => onAdvance(action.advance!)}
-                  className="flex-1 bg-[#CC0000] text-white font-semibold py-3 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
-                >
-                  {action.label}
-                </button>
-              )
-            }
-            // Check if the action has a direct advance (not primary, but navigates)
-            const hasAdvance = 'advance' in action && (action as any).advance
-            if (hasAdvance) {
-              return (
-                <button
-                  key={action.label}
-                  onClick={() => onAdvance((action as any).advance)}
-                  className="flex-1 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-white text-sm hover:bg-[#F2EEE8] transition-colors"
-                >
-                  {action.label}
-                </button>
-              )
-            }
-            return (
-              <Tooltip key={action.label} text={(action as any).tooltip}>
-                <button className="flex-1 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-white text-sm">
-                  {action.label}
-                </button>
-              </Tooltip>
-            )
-          })}
+          {s.actions.map((action) => (
+            <button
+              key={action.label}
+              onClick={() => onAdvance((action as any).advance)}
+              className="flex-1 bg-[#CC0000] text-white font-semibold py-3 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
+            >
+              {action.label}
+            </button>
+          ))}
         </motion.div>
       )}
     </div>
