@@ -42,7 +42,7 @@
     },
     {
       "screen": "1.4",
-      "action": "Jump ahead → Month 1, The Garage"
+      "action": "Head to The Garage"
     },
     {
       "screen": "2.1",
@@ -270,9 +270,23 @@
       ],
       "milesFooter": "Curious what you'll hear. When you're back from those interviews, we'll head to The Garage.",
       "cta": {
-        "label": "Jump ahead → Month 1, The Garage",
-        "advance": "2.1"
+        "label": "Head to The Garage →",
+        "advance": "1.5"
       }
+    },
+    "1.5": {
+      "id": "1.5",
+      "stage": "spark",
+      "timeIndicator": "Month 1 · Wednesday",
+      "milesIntro": "One person worth knowing before you hit The Garage: Priya Okafor. She built Honda's e-bike battery supply chain from scratch in 2022 — solved the exact supplier problem you're about to hit. I've flagged her in the directory. She'll be your first stop.",
+      "bridgeCard": {
+        "name": "Priya Okafor",
+        "title": "Project Manager, Honda R&D",
+        "initial": "P",
+        "color": "#5B5FD9",
+        "note": "Built e-bike battery supply chain · saves 6 weeks on internal safety review"
+      },
+      "cta": { "label": "Go to The Garage →", "advance": "2.1" }
     },
     "2.1": {
       "id": "2.1",
