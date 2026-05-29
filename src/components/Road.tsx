@@ -1,4 +1,4 @@
-import scenario from '../scenario.json'
+﻿import scenario from '../scenario.json'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
 
@@ -17,23 +17,23 @@ const STAGE_COLORS: Record<StageId, string> = {
 // Winding highway path — viewBox 400×160.
 // x-coords are half the original 800-wide path; y-coords shifted +48 to centre
 // the road content (originally y≈12–52) within the taller 160px box.
-const W = 400
+const W = 1600
 const H = 160
 const ROAD_PATH =
   'M 0,88 C 35,88 65,60 100,64 C 140,69 162,104 220,100 C 277,96 300,60 340,64 C 370,68 390,88 400,88'
 
 // Stage dot positions (x÷2, y+48 from original)
 const STAGE_POSITIONS: Record<StageId, [number, number]> = {
-  spark:     [100, 64],
-  garage:    [220, 100],
-  testTrack: [340, 64],
+  spark:     [400, 64],
+  garage:    [880, 100],
+  testTrack: [1360, 64],
 }
 
 // Car position for active stage
 const CAR_POSITIONS: Record<string, [number, number]> = {
-  spark:     [100, 64],
-  garage:    [220, 100],
-  testTrack: [340, 64],
+  spark:     [400, 64],
+  garage:    [880, 100],
+  testTrack: [1360, 64],
   none:      [0,   88],
 }
 
@@ -55,7 +55,7 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
     <div style={{ width: '100%', height: '25vh', minHeight: '120px' }}>
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="none"
         className="overflow-visible"
         style={{ width: '100%', height: '100%' }}
       >
