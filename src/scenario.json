@@ -595,7 +595,6 @@
           "stage": "garage",
           "header": "The Garage · Build with Honda",
           "tools": [
-            "Business Model Canvas",
             "Intrapreneur Network Search",
             "Email Drafter",
             "Meeting Brief Generator"
@@ -605,6 +604,7 @@
           "stage": "testTrack",
           "header": "The Test Track · Prove it",
           "tools": [
+            "Business Model Canvas",
             "Financial Sensitivity Model",
             "Devil's Advocate",
             "Readiness Scorecard",
