@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
@@ -20,7 +20,8 @@ const fadeUp = (i: number) => ({
 
 export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
   const [showDetails, setShowDetails] = useState(false)
-  const [showActions, setShowActions] = useState(false)
+  // Always show buttons — don't gate on streaming animation
+  const [showActions] = useState(true)
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
@@ -73,12 +74,12 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
 
           {/* Miles question */}
           <motion.div {...fadeUp(2)}>
-            <MilesMessage text={s.milesQuestion} instant onDone={() => setShowActions(true)} />
+            <MilesMessage text={s.milesQuestion} instant />
           </motion.div>
         </>
       )}
 
-      {/* Action buttons */}
+      {/* Action buttons — always visible, primary red vs secondary outline */}
       {showActions && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
@@ -86,13 +87,23 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
           className="flex gap-2"
         >
           {s.actions.map((action) => (
-            <button
-              key={action.label}
-              onClick={() => onAdvance((action as any).advance)}
-              className="flex-1 bg-[#CC0000] text-white font-semibold py-3 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
-            >
-              {action.label}
-            </button>
+            (action as any).primary ? (
+              <button
+                key={action.label}
+                onClick={() => onAdvance((action as any).advance)}
+                className="flex-1 bg-[#CC0000] text-white font-semibold py-3 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
+              >
+                {action.label}
+              </button>
+            ) : (
+              <button
+                key={action.label}
+                onClick={() => onAdvance((action as any).advance)}
+                className="flex-1 bg-white text-[#CC0000] font-semibold py-3 rounded-xl border border-[#CC0000] hover:bg-red-50 transition-colors"
+              >
+                {action.label}
+              </button>
+            )
           ))}
         </motion.div>
       )}
