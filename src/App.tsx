@@ -128,37 +128,41 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen max-w-4xl mx-auto flex flex-col relative" style={{ background: '#FAFAFA' }}>
+    <div className="min-h-screen flex flex-col relative" style={{ background: '#FAFAFA' }}>
 
       {/* Sticky header: logo + time + road */}
       {showChrome && (
         <header style={{ background: '#fff', borderBottom: '2px solid #CC0000', position: 'sticky', top: 0, zIndex: 30 }}>
-          {/* Top bar: logo + time indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 20px 0' }}>
-            <MilesLogo size="sm" />
-            {timeLabel && (
-              <span style={{ fontSize: 13, color: '#999', letterSpacing: '0.15em', fontFamily: 'monospace', textTransform: 'uppercase' }}>
-                {timeLabel}
-              </span>
-            )}
+          <div className="max-w-[1400px] mx-auto">
+            {/* Top bar: logo + time indicator */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 20px 0' }}>
+              <MilesLogo size="sm" />
+              {timeLabel && (
+                <span style={{ fontSize: 13, color: '#999', letterSpacing: '0.15em', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                  {timeLabel}
+                </span>
+              )}
+            </div>
+            <Road completedStages={completed} activeStage={activeStage} />
           </div>
-          <Road completedStages={completed} activeStage={activeStage} />
         </header>
       )}
 
       {/* Main content */}
       <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={screen}
-            initial={{ opacity: 0, x: 14 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -14 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
-          >
-            {renderScreen()}
-          </motion.div>
-        </AnimatePresence>
+        <div className="max-w-4xl mx-auto w-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={screen}
+              initial={{ opacity: 0, x: 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -14 }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+            >
+              {renderScreen()}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </main>
 
       {/* Bottom nav */}
