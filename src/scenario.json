@@ -42,7 +42,7 @@
     },
     {
       "screen": "1.4",
-      "action": "Head to The Garage"
+      "action": "Continue"
     },
     {
       "screen": "2.1",
@@ -223,7 +223,7 @@
         { "n": "05", "title": "Smoke test", "sub": "Landing page + preorder signal", "status": "Later", "tone": "muted" }
       ],
       "counter": "1 done · 1 next · 2 later · 1 skip",
-      "cta": { "label": "Draft interview script →", "advance": "1.3d" }
+      "cta": { "label": "Meet your first interviewee →", "advance": "1.3d" }
     },
     "1.3d": {
       "id": "1.3d",
@@ -270,7 +270,7 @@
       ],
       "milesFooter": "Curious what you'll hear. When you're back from those interviews, we'll head to The Garage.",
       "cta": {
-        "label": "Head to The Garage →",
+        "label": "Continue →",
         "advance": "1.5"
       }
     },
