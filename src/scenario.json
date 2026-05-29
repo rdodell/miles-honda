@@ -183,59 +183,47 @@
       "inputBarTooltip": "Demo flow continues with Laura."
     },
     "1.3": {
-      "id": "1.3",
-      "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
-      "milesIntro": "Great pick — Laura's who I'd start with too. Sole operators feel the pain every morning and decide fast, so they're the quickest way to learn whether this is real.",
-      "milesQuestion": "Before we lock in, help me think out loud: among landscapers like Laura, who's the best first customer — the highest-volume operators, the sustainability-minded ones, or the ones whose clients are already asking them to go electric?",
-      "ianIdea": "Probably the ones whose clients are already pushing them toward electric — they've got a reason to switch now.",
-      "milesSupplement": "Smart — that's a buying trigger, not just a nice-to-have. I'd stack one more filter on top: high weekly volume, because those operators feel the gas and maintenance cost the most. 'Client pressure' plus 'high volume' equals your beachhead. Okay — how do you want to actually learn from them?",
-      "researchOptions": [
-        {
-          "id": "ai-personas",
-          "title": "Talk to AI personas",
-          "description": "Start here. I'll spin up AI personas of Laura, Matt, and Diana built from real landscaper data — you can interview them in minutes and sharpen your questions before spending a single real conversation.",
-          "primary": true,
-          "advance": "1.4"
-        },
-        {
-          "id": "dscout",
-          "title": "Talk to real customers (Dscout)",
-          "description": "Recruit and message real landscapers through Dscout for live feedback. Higher signal, but it takes a few days to schedule.",
-          "tooltip": "Demo: not in this preview."
-        },
-        {
-          "id": "funding",
-          "title": "Request funding for 1:1 interviews",
-          "description": "Ask for a small research budget to run paid 1:1 interviews. Deepest insight, but it needs sign-off and time.",
-          "tooltip": "Demo: not in this preview."
-        }
+      "id": "1.3", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
+      "step": "Step 1 of 3 · Frame the problem",
+      "milesIntro": "Before we build, let's pin down the real problem. Five questions — answer what you know, flag what's still a guess. Which one are you least sure about?",
+      "questions": [
+        { "q": "Who has this problem?", "a": "Solo landscapers in mid-density suburbs", "filled": true },
+        { "q": "What's broken today?", "a": "Gas mowers — loud, fumes, constant maintenance", "filled": true },
+        { "q": "Why now?", "a": "Gas-mower regulations tightening in 2026+", "filled": true },
+        { "q": "Why you?", "a": "Honda's brand will obviously win this", "filled": true, "flag": "anecdote, not a pattern" },
+        { "q": "How do you know?", "a": "", "filled": false, "hint": "Point to evidence, not a feeling…" }
       ],
-      "milesRecommendation": "My recommendation: start with the AI personas. It's free, it's instant, and it sharpens your questions so the real conversations later are worth far more. Want to meet them?",
-      "personaCard": {
-        "name": "Laura",
-        "age": 42,
-        "location": "Phoenix, AZ",
-        "dayInLife": [
-          "Up at 5 AM, four properties before noon",
-          "Truck, trailer, two gas mowers, blower, edger",
-          "Books new clients through Facebook and word of mouth"
-        ],
-        "painPoints": [
-          "Gas costs eat 14% of revenue",
-          "First start of the morning wakes the whole neighborhood",
-          "Three clients have asked her to switch to electric"
-        ],
-        "painPointBoldIndex": 2,
-        "wouldPayFor": [
-          "Same runtime as gas — won't accept a downgrade",
-          "Service network she trusts"
-        ],
-        "whereToFind": [
-          "Facebook landscaper groups (78K members nationally)",
-          "Regional trade shows (4 in the next 90 days)"
-        ]
-      }
+      "counter": "3 of 5 answered · 1 flag",
+      "cta": { "label": "Continue → bias check", "advance": "1.3b" }
+    },
+    "1.3b": {
+      "id": "1.3b", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
+      "step": "Step 2 of 3 · Bias check",
+      "milesIntro": "Now the honest part — which of these are hunches? I sorted your claims left to right. Anything on the left is still opinion. Want to defend one, or go test it?",
+      "items": [
+        { "text": "Honda brand will sell it", "pos": 8, "flag": "brand bias" },
+        { "text": "$2k is the magic price point", "pos": 22, "flag": "your guess" },
+        { "text": "Battery life is THE issue", "pos": 36, "flag": "no source" },
+        { "text": "Landscapers want quiet over fast", "pos": 58 },
+        { "text": "Noise complaints drive HOA bans", "pos": 74 },
+        { "text": "Pros replace tools every 4-6 yrs", "pos": 90 }
+      ],
+      "log": "3 hunches caught — go talk to people before building.",
+      "cta": { "label": "Show me how →", "advance": "1.3c" }
+    },
+    "1.3c": {
+      "id": "1.3c", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
+      "step": "Step 3 of 3 · Evidence playbook",
+      "milesIntro": "Here's how to turn those hunches into evidence. Not a blank page — a sequence. Start with interviews. Which five landscapers would you call first?",
+      "steps": [
+        { "n": "01", "title": "Customer interviews", "sub": "5 calls with solo landscapers", "status": "Recommended next", "tone": "next" },
+        { "n": "02", "title": "Direct observation", "sub": "Ride-along on a mowing route", "status": "After 3 interviews", "tone": "muted" },
+        { "n": "03", "title": "Existing research scan", "sub": "Emissions + noise-regulation lit", "status": "Done · 3 papers, 2 surveys", "tone": "done" },
+        { "n": "04", "title": "Competitor teardown", "sub": "Greenworks, EGO, Stihl", "status": "Skip if 01+03 align", "tone": "skip" },
+        { "n": "05", "title": "Smoke test", "sub": "Landing page + preorder signal", "status": "Later", "tone": "muted" }
+      ],
+      "counter": "1 done · 1 next · 2 later · 1 skip",
+      "cta": { "label": "Draft interview script →", "advance": "1.4" }
     },
     "1.4": {
       "id": "1.4",
