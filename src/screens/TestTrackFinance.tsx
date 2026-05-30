@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
@@ -20,8 +20,13 @@ const fadeUp = (i: number) => ({
 
 export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
   const [showDetails, setShowDetails] = useState(false)
-  // Always show buttons — don't gate on streaming animation
-  const [showActions] = useState(true)
+  const [showActions, setShowActions] = useState(false)
+
+  // Safety fallback: never let the buttons stay stuck hidden if onDone doesn't fire
+  useEffect(() => {
+    const t = setTimeout(() => setShowActions(true), 4000)
+    return () => clearTimeout(t)
+  }, [])
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
@@ -74,12 +79,12 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
 
           {/* Miles question */}
           <motion.div {...fadeUp(2)}>
-            <MilesMessage text={s.milesQuestion} instant />
+            <MilesMessage text={s.milesQuestion} onDone={() => setShowActions(true)} />
           </motion.div>
         </>
       )}
 
-      {/* Action buttons — always visible, primary red vs secondary outline */}
+      {/* Action buttons — revealed after Miles finishes the question */}
       {showActions && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
