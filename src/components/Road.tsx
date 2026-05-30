@@ -1,4 +1,4 @@
-﻿import scenario from '../scenario.json'
+import scenario from '../scenario.json'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
 
@@ -21,7 +21,7 @@ const H = 220   // taller viewBox to give labels room below the road
 const ROAD_PATH =
   'M 120,88 C 180,88 250,60 320,64 C 420,69 620,104 800,100 C 960,96 1100,60 1280,64 C 1360,68 1440,88 1480,88'
 
-// Stage dot positions — evenly spaced, centered in the 1600-wide canvas
+// Stage dot positions � evenly spaced, centered in the 1600-wide canvas
 const STAGE_POSITIONS: Record<StageId, [number, number]> = {
   spark:     [320,  64],
   garage:    [800,  100],
@@ -91,7 +91,7 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
           const isActive    = activeStage === id
           const isCompleted = completedStages[id]
           const color = STAGE_COLORS[id]
-          // Labels always below the dot — clear of the road surface
+          // Labels always below the dot � clear of the road surface
           const labelY = cy + dotR + 44
 
           return (
@@ -123,14 +123,15 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
                   {id === 'spark' ? '01' : id === 'garage' ? '02' : '03'}
                 </text>
               )}
-              {/* Stage label — Inter 700, size 35 */}
+              {/* Stage label � Inter 700, size 35 */}
               <text
                 x={cx} y={labelY}
                 textAnchor="middle"
                 fontSize={labelFs}
                 fill={isActive || isCompleted ? color : '#999'}
-                fontFamily="'Inter', sans-serif"
-                fontWeight="700"
+                fontFamily="'Oswald', 'Arial Narrow', sans-serif"
+                fontWeight="600"
+                letterSpacing="1"
               >
                 {stage.label}
               </text>
@@ -153,7 +154,7 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
           </g>
         )}
 
-        {/* ── START badge — just left of road start at x≈120 ── */}
+        {/* ── START badge � just left of road start at x≈120 ── */}
         <g transform="translate(20, 66)">
           <rect x={0} y={0} width={130} height={42} rx={7} fill="#CC0000" />
           <text x={65} y={28} textAnchor="middle" fill="white"
