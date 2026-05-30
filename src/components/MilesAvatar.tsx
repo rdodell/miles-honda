@@ -1,6 +1,6 @@
 ﻿import foxImg from '../assets/miles-fox.png'
 
-// Miles avatar — Honda red circle with the Miles fox image
+// Miles avatar — circle with the Miles fox image
 export default function MilesAvatar({ size = 40 }: { size?: number }) {
   return (
     <div
@@ -11,7 +11,7 @@ export default function MilesAvatar({ size = 40 }: { size?: number }) {
       <img
         src={foxImg}
         alt="Miles"
-        style={{ width: '88%', height: '88%', objectFit: 'contain', display: 'block', margin: 'auto' }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
       />
     </div>
   )

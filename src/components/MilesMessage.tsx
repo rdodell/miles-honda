@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react'
+﻿import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesAvatar from './MilesAvatar'
 
@@ -15,7 +15,7 @@ const CHARS_PER_SEC = 30
 const MS_PER_CHAR = 1000 / CHARS_PER_SEC
 
 function randomThinkMs() {
-  return 1200 + Math.random() * 800 // 1200–2000ms
+  return 1200 + Math.random() * 800 // 1200â€“2000ms
 }
 
 type Phase = 'thinking' | 'streaming' | 'done'
@@ -64,6 +64,8 @@ export default function MilesMessage({ text, children, instant = false, onDone }
     <div className="flex gap-3 items-start">
       <MilesAvatar />
       <div className="flex-1 min-w-0">
+        {/* Sender name */}
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#231F20', display: 'block', marginBottom: 2 }}>Miles</span>
         {/* Thinking indicator */}
         <AnimatePresence>
           {phase === 'thinking' && (
