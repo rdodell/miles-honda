@@ -146,18 +146,18 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
         {/* ── Race car ── */}
         {(activeStage || lastCompleted) && (
           <g
-            transform={`translate(${carPos[0] - 18}, ${carPos[1] - 18})`}
+            transform={`translate(${carPos[0] - 28}, ${carPos[1] - 28})`}
             style={{ filter: 'drop-shadow(0 0 5px #CC0000)' }}
           >
-            <text fontSize={36} style={{ userSelect: "none" }}>&#127950;</text>
+            <text fontSize={56} style={{ userSelect: "none" }}>&#127950;</text>
           </g>
         )}
 
         {/* ── START badge — just left of road start at x≈120 ── */}
-        <g transform="translate(20, 75)">
-          <rect x={0} y={0} width={80} height={26} rx={5} fill="#CC0000" />
-          <text x={40} y={18} textAnchor="middle" fill="white"
-            fontSize={12} fontWeight="800" fontFamily="monospace" letterSpacing="0.5">
+        <g transform="translate(20, 66)">
+          <rect x={0} y={0} width={130} height={42} rx={7} fill="#CC0000" />
+          <text x={65} y={28} textAnchor="middle" fill="white"
+            fontSize={20} fontWeight="800" fontFamily="monospace" letterSpacing="0.5">
             START
           </text>
         </g>
