@@ -1,8 +1,8 @@
-{
+﻿{
   "roadStages": [
     {
       "id": "spark",
-      "label": "Spark",
+      "label": "The Spark",
       "position": 0.25
     },
     {
@@ -17,7 +17,7 @@
     }
   ],
   "tooltips": {
-    "disabledFeature": "Demo flow continues elsewhere — try the highlighted button.",
+    "disabledFeature": "Demo flow continues elsewhere â€” try the highlighted button.",
     "voiceSandbox": "Voice and Sandbox modes aren't in this preview.",
     "futureStage": "Ian hasn't reached this stage yet.",
     "pastStage": "Ian has already completed this stage.",
@@ -93,18 +93,18 @@
     "1.1": {
       "id": "1.1",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Week 2 Â· Tuesday",
       "milesMessages": [
         {
           "id": "greeting",
-          "text": "Hey Ian — here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?"
+          "text": "Hey Ian â€” here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?"
         }
       ],
       "summaryCards": [
         {
           "label": "3 emails",
           "sublabel": "customer feedback on the prototype",
-          "tooltip": "Prototype feedback: runtime · swap-battery logistics · cut quality on tall/wet grass · weight & maneuverability · deck width vs. productivity · noise (positive). Follow-up — Laura (sole-op landscaper): Ran the demo on 3 lawns Tuesday. Got through ~2.5 properties before charge dropped — needs a full morning on one charge or a battery she can swap mid-route. So quiet her 7am client didn't complain for the first time. Fix the runtime and she's in."
+          "tooltip": "Prototype feedback: runtime Â· swap-battery logistics Â· cut quality on tall/wet grass Â· weight & maneuverability Â· deck width vs. productivity Â· noise (positive). Follow-up â€” Laura (sole-op landscaper): Ran the demo on 3 lawns Tuesday. Got through ~2.5 properties before charge dropped â€” needs a full morning on one charge or a battery she can swap mid-route. So quiet her 7am client didn't complain for the first time. Fix the runtime and she's in."
         },
         {
           "label": "2 Slack threads",
@@ -147,9 +147,9 @@
     "1.2": {
       "id": "1.2",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Week 2 Â· Tuesday",
       "ianMessage": "I need to validate who my customer will be.",
-      "milesResponse": "From our last session I pulled three landscaper profiles — each one's a different direction for the lawnmower. Who's jumping out at you?",
+      "milesResponse": "From our last session I pulled three landscaper profiles â€” each one's a different direction for the lawnmower. Who's jumping out at you?",
       "personas": [
         {
           "id": "laura",
@@ -168,7 +168,7 @@
           "bio": "12 sites, contracts out maintenance",
           "pain": "Rising fuel costs, sustainability mandates",
           "tam": "27% of TAM",
-          "tooltip": "Demo flow continues with Laura — try the highlighted card."
+          "tooltip": "Demo flow continues with Laura â€” try the highlighted card."
         },
         {
           "id": "diana",
@@ -177,29 +177,29 @@
           "bio": "Half-acre lot, mows weekly in season",
           "pain": "Storing gas, weekend noise complaints",
           "tam": "35% of TAM",
-          "tooltip": "Demo flow continues with Laura — try the highlighted card."
+          "tooltip": "Demo flow continues with Laura â€” try the highlighted card."
         }
       ],
       "inputBarTooltip": "Demo flow continues with Laura."
     },
     "1.3": {
-      "id": "1.3", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
-      "step": "Step 1 of 3 · Frame the problem",
-      "milesIntro": "Before we build, let's pin down the real problem. Five questions — answer what you know, flag what's still a guess. Which one are you least sure about?",
+      "id": "1.3", "stage": "spark", "timeIndicator": "Week 2 Â· Tuesday",
+      "step": "Step 1 of 3 Â· Frame the problem",
+      "milesIntro": "Before we build, let's pin down the real problem. Five questions â€” answer what you know, flag what's still a guess. Which one are you least sure about?",
       "questions": [
         { "q": "Who has this problem?", "a": "Solo landscapers in mid-density suburbs", "filled": true },
-        { "q": "What's broken today?", "a": "Gas mowers — loud, fumes, constant maintenance", "filled": true },
+        { "q": "What's broken today?", "a": "Gas mowers â€” loud, fumes, constant maintenance", "filled": true },
         { "q": "Why now?", "a": "Gas-mower regulations tightening in 2026+", "filled": true },
         { "q": "Why you?", "a": "Honda's brand will obviously win this", "filled": true, "flag": "anecdote, not a pattern" },
-        { "q": "How do you know?", "a": "", "filled": false, "hint": "Point to evidence, not a feeling…" }
+        { "q": "How do you know?", "a": "", "filled": false, "hint": "Point to evidence, not a feelingâ€¦" }
       ],
-      "counter": "3 of 5 answered · 1 flag",
-      "cta": { "label": "Continue → bias check", "advance": "1.3b" }
+      "counter": "3 of 5 answered Â· 1 flag",
+      "cta": { "label": "Continue â†’ bias check", "advance": "1.3b" }
     },
     "1.3b": {
-      "id": "1.3b", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
-      "step": "Step 2 of 3 · Bias check",
-      "milesIntro": "Now the honest part — which of these are hunches? I sorted your claims left to right. Anything on the left is still opinion. Want to defend one, or go test it?",
+      "id": "1.3b", "stage": "spark", "timeIndicator": "Week 2 Â· Tuesday",
+      "step": "Step 2 of 3 Â· Bias check",
+      "milesIntro": "Now the honest part â€” which of these are hunches? I sorted your claims left to right. Anything on the left is still opinion. Want to defend one, or go test it?",
       "items": [
         { "text": "Honda brand will sell it", "pos": 8, "flag": "brand bias" },
         { "text": "$2k is the magic price point", "pos": 22, "flag": "your guess" },
@@ -208,28 +208,28 @@
         { "text": "Noise complaints drive HOA bans", "pos": 74 },
         { "text": "Pros replace tools every 4-6 yrs", "pos": 90 }
       ],
-      "log": "3 hunches caught — go talk to people before building.",
-      "cta": { "label": "Show me how →", "advance": "1.3c" }
+      "log": "3 hunches caught â€” go talk to people before building.",
+      "cta": { "label": "Show me how â†’", "advance": "1.3c" }
     },
     "1.3c": {
-      "id": "1.3c", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
-      "step": "Step 3 of 3 · Evidence playbook",
-      "milesIntro": "Here's how to turn those hunches into evidence. Not a blank page — a sequence. Start with interviews. Which five landscapers would you call first?",
+      "id": "1.3c", "stage": "spark", "timeIndicator": "Week 2 Â· Tuesday",
+      "step": "Step 3 of 3 Â· Evidence playbook",
+      "milesIntro": "Here's how to turn those hunches into evidence. Not a blank page â€” a sequence. Start with interviews. Which five landscapers would you call first?",
       "steps": [
         { "n": "01", "title": "Customer interviews", "sub": "5 calls with solo landscapers", "status": "Recommended next", "tone": "next" },
         { "n": "02", "title": "Direct observation", "sub": "Ride-along on a mowing route", "status": "After 3 interviews", "tone": "muted" },
-        { "n": "03", "title": "Existing research scan", "sub": "Emissions + noise-regulation lit", "status": "Done · 3 papers, 2 surveys", "tone": "done" },
+        { "n": "03", "title": "Existing research scan", "sub": "Emissions + noise-regulation lit", "status": "Done Â· 3 papers, 2 surveys", "tone": "done" },
         { "n": "04", "title": "Competitor teardown", "sub": "Greenworks, EGO, Stihl", "status": "Skip if 01+03 align", "tone": "skip" },
         { "n": "05", "title": "Smoke test", "sub": "Landing page + preorder signal", "status": "Later", "tone": "muted" }
       ],
-      "counter": "1 done · 1 next · 2 later · 1 skip",
-      "cta": { "label": "Meet your first interviewee →", "advance": "1.3d" }
+      "counter": "1 done Â· 1 next Â· 2 later Â· 1 skip",
+      "cta": { "label": "Meet your first interviewee â†’", "advance": "1.3d" }
     },
     "1.3d": {
       "id": "1.3d",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
-      "milesIntro": "Your evidence plan points to customer interviews first. Mary is your sharpest lead — she already flagged the runtime problem in your prototype test. Here's what you know going in.",
+      "timeIndicator": "Week 2 Â· Tuesday",
+      "milesIntro": "Your evidence plan points to customer interviews first. Mary is your sharpest lead â€” she already flagged the runtime problem in your prototype test. Here's what you know going in.",
       "personaCard": {
         "name": "Mary",
         "age": 42,
@@ -246,7 +246,7 @@
         ],
         "painPointBoldIndex": 2,
         "wouldPayFor": [
-          "Same runtime as gas — won't accept a downgrade",
+          "Same runtime as gas â€” won't accept a downgrade",
           "Service network she trusts"
         ],
         "whereToFind": [
@@ -255,13 +255,13 @@
         ]
       },
       "milesFollowup": "Ready to book that first call? Or want to refine the script first?",
-      "cta": { "label": "Book the call →", "advance": "1.4" }
+      "cta": { "label": "Book the call â†’", "advance": "1.4" }
     },
     "1.4": {
       "id": "1.4",
       "stage": "spark",
       "stageComplete": "spark",
-      "timeIndicator": "Week 2 · Friday",
+      "timeIndicator": "Week 2 Â· Friday",
       "header": "Nice work this week, Ian.",
       "bullets": [
         "Drafted Laura persona",
@@ -270,34 +270,34 @@
       ],
       "milesFooter": "Curious what you'll hear. When you're back from those interviews, we'll head to The Garage.",
       "cta": {
-        "label": "Continue →",
+        "label": "Continue â†’",
         "advance": "1.5"
       }
     },
     "1.5": {
       "id": "1.5",
       "stage": "spark",
-      "timeIndicator": "Month 1 · Wednesday",
-      "milesIntro": "Hello again, Ian. From your last conversation, it sounds like supply chain is where you're stuck. How do you want to keep going — meet someone who's solved this, or keep working through your customer personas?",
+      "timeIndicator": "Month 1 Â· Wednesday",
+      "milesIntro": "Hello again, Ian. From your last conversation, it sounds like supply chain is where you're stuck. How do you want to keep going â€” meet someone who's solved this, or keep working through your customer personas?",
       "bridgeCard": {
         "name": "Priya Okafor",
         "title": "Project Manager, Honda R&D",
         "initial": "P",
         "color": "#5B5FD9",
-        "note": "Built e-bike battery supply chain · saves 6 weeks on internal safety review"
+        "note": "Built e-bike battery supply chain Â· saves 6 weeks on internal safety review"
       },
       "choice": {
         "options": [
-          { "label": "Meet Priya in The Garage →", "advance": "2.1", "primary": true },
+          { "label": "Meet Priya in The Garage â†’", "advance": "2.1", "primary": true },
           { "label": "Keep working on personas", "advance": "2.1", "soft": true,
-            "milesReply": "Personas are worth a revisit — but the supplier cost is your riskiest open question right now. Let's meet Priya first; you can come back to the personas anytime." }
+            "milesReply": "Personas are worth a revisit â€” but the supplier cost is your riskiest open question right now. Let's meet Priya first; you can come back to the personas anytime." }
         ]
       }
     },
     "2.1": {
       "id": "2.1",
       "stage": "garage",
-      "timeIndicator": "Month 1 · Wednesday",
+      "timeIndicator": "Month 1 Â· Wednesday",
       "milesMessage": "Ian, Priya looks like a good option, but there are other options as well we can contact.",
       "recommended": [
         {
@@ -311,11 +311,11 @@
           "primary": true
         }
       ],
-      "directoryStats": "127 intrapreneurs · 43 mentors · 18 alumni",
+      "directoryStats": "127 intrapreneurs Â· 43 mentors Â· 18 alumni",
       "emptyNetworkMsg": "You haven't connected with anyone yet.",
       "actions": [
         {
-          "label": "Connect with Priya →",
+          "label": "Connect with Priya â†’",
           "advance": "2.2",
           "primary": true
         },
@@ -328,8 +328,8 @@
     "2.2": {
       "id": "2.2",
       "stage": "garage",
-      "timeIndicator": "Month 1 · Wednesday",
-      "milesMessage": "I reached out to Priya — she replied within the hour. Thursday at 2 PM work for you?",
+      "timeIndicator": "Month 1 Â· Wednesday",
+      "milesMessage": "I reached out to Priya â€” she replied within the hour. Thursday at 2 PM work for you?",
       "meetingCard": {
         "day": "Thursday",
         "time": "2:00 PM",
@@ -346,7 +346,7 @@
           "tooltip": "Demo flow continues with Thursday 2 PM."
         },
         {
-          "label": "Book it →",
+          "label": "Book it â†’",
           "advance": "2.3",
           "primary": true
         }
@@ -355,14 +355,14 @@
     "2.3": {
       "id": "2.3",
       "stage": "garage",
-      "timeIndicator": "Month 1 · Friday",
-      "milesMessage": "Good meeting with Priya — I've logged the key takeaways and added her to your network. Anything she said that you want to dig into before we move on?",
+      "timeIndicator": "Month 1 Â· Friday",
+      "milesMessage": "Good meeting with Priya â€” I've logged the key takeaways and added her to your network. Anything she said that you want to dig into before we move on?",
       "networkContact": {
         "name": "Priya Okafor",
         "title": "Project Manager, Honda R&D",
         "initial": "P",
         "color": "#5B5FD9",
-        "metLabel": "Met Thursday · 32 min"
+        "metLabel": "Met Thursday Â· 32 min"
       },
       "takeaways": [
         "Priya's supplier contacts added to your Key Partners",
@@ -375,12 +375,12 @@
       "id": "2.4",
       "stage": "garage",
       "stageComplete": "garage",
-      "timeIndicator": "Month 1 · Friday",
+      "timeIndicator": "Month 1 Â· Friday",
       "header": "You're not building alone anymore.",
       "bullets": [
-        "Connected with Priya — Honda's e-bike battery lead",
+        "Connected with Priya â€” Honda's e-bike battery lead",
         "3 supplier contacts from Priya's network added",
-        "Battery cost assumption corrected — $37/unit better than expected"
+        "Battery cost assumption corrected â€” $37/unit better than expected"
       ],
       "milesFooter": "Next question: do the lawnmower's numbers hold up under pressure?",
       "cta": {
@@ -391,8 +391,8 @@
     "3.1": {
       "id": "3.1",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
-      "milesMessage": "Welcome back. One thing caught my eye in the BMC before the seed review next week — want to take a look?",
+      "timeIndicator": "Month 3 Â· Monday",
+      "milesMessage": "Welcome back. One thing caught my eye in the BMC before the seed review next week â€” want to take a look?",
       "flaggedSection": "Revenue Streams",
       "flaggedTooltip": "Miles flagged this",
       "bmcAdvance": "3.2",
@@ -401,8 +401,8 @@
     "3.2": {
       "id": "3.2",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
-      "milesMessage": "Lithium pricing has moved since your February draft — did you catch it? Worth updating your cost of materials before the seed review.",
+      "timeIndicator": "Month 3 Â· Monday",
+      "milesMessage": "Lithium pricing has moved since your February draft â€” did you catch it? Worth updating your cost of materials before the seed review.",
       "milesQuestion": "Want to update the model?",
       "comparison": {
         "original": {
@@ -446,33 +446,33 @@
     "3.3": {
       "id": "3.3",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
-      "milesIntro": "Before the seed review — want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
+      "timeIndicator": "Month 3 Â· Monday",
+      "milesIntro": "Before the seed review â€” want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
       "questions": [
         {
           "id": "q1",
           "header": "What if Laura's willingness-to-pay is wrong?",
           "challenge": "Your 12 interviews skewed toward Lauras who already complained about gas. The broader landscaper market hasn't signaled the same urgency, and your price point sits 22% above the closest competitor.",
-          "response": "Lead with the three paid pilots — that's revealed preference, not stated. Then acknowledge the sampling skew and show the plan to validate with a colder segment.",
+          "response": "Lead with the three paid pilots â€” that's revealed preference, not stated. Then acknowledge the sampling skew and show the plan to validate with a colder segment.",
           "buttonTooltip": "Demo: would open coaching."
         },
         {
           "id": "q2",
           "header": "Your COGS still assumes Honda's supplier pricing. What if we don't get those terms?",
           "challenge": "Priya's quotes are favorable because she's been in those relationships for two years. A new venture in year one rarely gets the same pricing tier.",
-          "response": "Two angles — the venture is internal so the relationships transfer, and here's the margin at standard-tier pricing. Both numbers still clear the hurdle.",
+          "response": "Two angles â€” the venture is internal so the relationships transfer, and here's the margin at standard-tier pricing. Both numbers still clear the hurdle.",
           "buttonTooltip": "Demo: would open coaching."
         },
         {
           "id": "q3",
           "header": "Sole-entrepreneur landscapers are 12% of the market. Where's the scale story?",
           "challenge": "Even if you win 100% of Lauras, that ceiling is too low for Honda's portfolio criteria.",
-          "response": "Laura is the wedge, not the destination. Show the adjacency path — once the product proves out with sole operators, the case for Matt (commercial fleet) becomes much easier to make internally and externally.",
+          "response": "Laura is the wedge, not the destination. Show the adjacency path â€” once the product proves out with sole operators, the case for Matt (commercial fleet) becomes much easier to make internally and externally.",
           "buttonTooltip": "Demo: would open coaching."
         }
       ],
       "footerCta": {
-        "label": "Continue to readiness check →",
+        "label": "Continue to readiness check â†’",
         "advance": "3.4",
         "primary": true
       }
@@ -480,9 +480,9 @@
     "3.4": {
       "id": "3.4",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
-      "milesMessage": "Seed review is next week — want to see exactly where you stand?",
-      "milesFollowup": "3 of 5 are solid. The two ⚠s are normal at this stage — and there's a plan for each.",
+      "timeIndicator": "Month 3 Â· Monday",
+      "milesMessage": "Seed review is next week â€” want to see exactly where you stand?",
+      "milesFollowup": "3 of 5 are solid. The two âš s are normal at this stage â€” and there's a plan for each.",
       "scorecard": [
         {
           "status": "pass",
@@ -516,7 +516,7 @@
           "tooltip": "Demo: would launch review flow."
         },
         {
-          "label": "See my prep plan →",
+          "label": "See my prep plan â†’",
           "advance": "3.5",
           "primary": true
         }
@@ -526,12 +526,12 @@
       "id": "3.5",
       "stage": "testTrack",
       "stageComplete": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
+      "timeIndicator": "Month 3 Â· Monday",
       "headline": "Ian's three months with Miles.",
       "columns": [
         {
           "stage": "spark",
-          "label": "Spark · Week 2",
+          "label": "Spark Â· Week 2",
           "bullets": [
             "Drafted Laura persona",
             "Booked 3 customer conversations",
@@ -540,7 +540,7 @@
         },
         {
           "stage": "garage",
-          "label": "The Garage · Month 1",
+          "label": "The Garage Â· Month 1",
           "bullets": [
             "Met with Priya (e-bike battery lead)",
             "Updated Business Model Canvas",
@@ -549,11 +549,11 @@
         },
         {
           "stage": "testTrack",
-          "label": "The Test Track · Month 3",
+          "label": "The Test Track Â· Month 3",
           "bullets": [
             "Financial model updated with current data",
             "Three CFO-level objections answered",
-            "Seed review · ready"
+            "Seed review Â· ready"
           ]
         }
       ],
@@ -572,7 +572,7 @@
         },
         {
           "value": "1",
-          "label": "seed review · ready"
+          "label": "seed review Â· ready"
         }
       ],
       "cta": {
@@ -588,7 +588,7 @@
       "shelves": [
         {
           "stage": "spark",
-          "header": "Spark · Find your customer",
+          "header": "Spark Â· Find your customer",
           "tools": [
             "SWOT",
             "5 Es Journey Map",
@@ -599,7 +599,7 @@
         },
         {
           "stage": "garage",
-          "header": "The Garage · Build with Honda",
+          "header": "The Garage Â· Build with Honda",
           "tools": [
             "Intrapreneur Network Search",
             "Email Drafter",
@@ -608,7 +608,7 @@
         },
         {
           "stage": "testTrack",
-          "header": "The Test Track · Prove it",
+          "header": "The Test Track Â· Prove it",
           "tools": [
             "Business Model Canvas",
             "Financial Sensitivity Model",
@@ -618,7 +618,7 @@
           ]
         }
       ],
-      "milesCorner": "Not sure where to start? Just ask — I'll match you to the right tool.",
+      "milesCorner": "Not sure where to start? Just ask â€” I'll match you to the right tool.",
       "toolTooltip": "Demo: would open this tool."
     }
   }
