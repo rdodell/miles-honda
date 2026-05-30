@@ -87,14 +87,12 @@ export default function SparkWelcome({ onAdvance, showTooltip }: SparkWelcomePro
           }
           // Voice & Sandbox: wrap Tooltip in flex-1 div so button matches Chat width
           return (
-            <div key={mode.id} className="flex-1">
-              <Tooltip text={mode.tooltip!}>
-                <button className="w-full flex items-center justify-center gap-2 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-[#F2EEE8]">
-                  <Icon size={16} />
-                  {mode.label}
-                </button>
-              </Tooltip>
-            </div>
+            <Tooltip key={mode.id} text={mode.tooltip!} className="relative flex-1">
+              <button className="w-full flex items-center justify-center gap-2 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-[#F2EEE8]">
+                <Icon size={16} />
+                {mode.label}
+              </button>
+            </Tooltip>
           )
         })}
       </motion.div>
