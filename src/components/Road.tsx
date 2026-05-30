@@ -47,7 +47,7 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
       ? CAR_POSITIONS[lastCompleted]
       : CAR_POSITIONS.none
 
-  const dotR    = hero ? 11 : 10
+  const dotR    = hero ? 26 : 24
   const labelFs = hero ? 38 : 35
 
   return (
@@ -59,22 +59,22 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
         style={{ width: '100%', height: '100%' }}
       >
         {/* ── Road layers ── */}
-        <path d={ROAD_PATH} fill="none" stroke="rgba(0,0,0,0.18)" strokeWidth={18} strokeLinecap="round" />
-        <path d={ROAD_PATH} fill="none" stroke="#231F20"           strokeWidth={14} strokeLinecap="round" />
-        <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={15} strokeLinecap="round" />
-        <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.5)"  strokeWidth={1.5} strokeLinecap="round" strokeDasharray="8 6" />
+        <path d={ROAD_PATH} fill="none" stroke="rgba(0,0,0,0.18)" strokeWidth={52} strokeLinecap="round" />
+        <path d={ROAD_PATH} fill="none" stroke="#231F20"           strokeWidth={44} strokeLinecap="round" />
+        <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={46} strokeLinecap="round" />
+        <path d={ROAD_PATH} fill="none" stroke="rgba(255,255,255,0.5)"  strokeWidth={4} strokeLinecap="round" strokeDasharray="22 16" />
 
         {/* ── Progress highlight (Honda red) ── */}
         {(lastCompleted || activeStage) && (
           <>
-            <path d={ROAD_PATH} fill="none" stroke="rgba(204,0,0,0.3)" strokeWidth={13} strokeLinecap="round"
+            <path d={ROAD_PATH} fill="none" stroke="rgba(204,0,0,0.3)" strokeWidth={40} strokeLinecap="round"
               strokeDasharray={
                 activeStage === 'spark'     ? '220 2000'
                 : activeStage === 'garage' || lastCompleted === 'spark' ? '720 2000'
                 : '1400 2000'
               }
             />
-            <path d={ROAD_PATH} fill="none" stroke="#CC0000" strokeWidth={1.5} strokeLinecap="round"
+            <path d={ROAD_PATH} fill="none" stroke="#CC0000" strokeWidth={4} strokeLinecap="round"
               strokeDasharray={
                 activeStage === 'spark'     ? '220 2000'
                 : activeStage === 'garage' || lastCompleted === 'spark' ? '720 2000'
@@ -92,17 +92,17 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
           const isCompleted = completedStages[id]
           const color = STAGE_COLORS[id]
           // Labels always below the dot — clear of the road surface
-          const labelY = cy + dotR + 32
+          const labelY = cy + dotR + 44
 
           return (
             <g key={id}>
               {/* Glow ring */}
               {isActive && (
-                <circle cx={cx} cy={cy} r={dotR + 7}
+                <circle cx={cx} cy={cy} r={dotR + 14}
                   fill={color} opacity={0.18} className="pulse-dot" />
               )}
               {/* Outer ring */}
-              <circle cx={cx} cy={cy} r={dotR + 2}
+              <circle cx={cx} cy={cy} r={dotR + 4}
                 fill={isActive || isCompleted ? color : '#555'}
                 opacity={isActive || isCompleted ? 1 : 0.4}
                 className={isActive ? 'pulse-dot' : ''}
@@ -111,15 +111,15 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
               <circle cx={cx} cy={cy} r={dotR}
                 fill={isCompleted || isActive ? color : '#888'}
                 stroke={isCompleted || isActive ? '#fff' : 'none'}
-                strokeWidth={1.5}
+                strokeWidth={3}
               />
               {/* Check or number */}
               {isCompleted ? (
                 <text x={cx} y={cy + 4} textAnchor="middle"
-                  fontSize={9} fill="white" fontWeight="900">&#10003;</text>
+                  fontSize={20} fill="white" fontWeight="900">&#10003;</text>
               ) : (
                 <text x={cx} y={cy + 4} textAnchor="middle"
-                  fontSize={9} fill="white" fontWeight="800" fontFamily="monospace">
+                  fontSize={20} fill="white" fontWeight="800" fontFamily="monospace">
                   {id === 'spark' ? '01' : id === 'garage' ? '02' : '03'}
                 </text>
               )}
@@ -140,24 +140,24 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
 
         {/* ── Finish flag ── */}
         {allDone && (
-          <text x={W * 0.88} y={52} fontSize={22}>&#127937;</text>
+          <text x={W * 0.88} y={52} fontSize={36}>&#127937;</text>
         )}
 
         {/* ── Race car ── */}
         {(activeStage || lastCompleted) && (
           <g
-            transform={`translate(${carPos[0] - 11}, ${carPos[1] - 11})`}
+            transform={`translate(${carPos[0] - 18}, ${carPos[1] - 18})`}
             style={{ filter: 'drop-shadow(0 0 5px #CC0000)' }}
           >
-            <text fontSize={22} style={{ userSelect: 'none' }}>&#127950;</text>
+            <text fontSize={36} style={{ userSelect: "none" }}>&#127950;</text>
           </g>
         )}
 
         {/* ── START badge — just left of road start at x≈120 ── */}
-        <g transform="translate(55, 72)">
-          <rect x={0} y={0} width={52} height={18} rx={4} fill="#CC0000" />
-          <text x={26} y={13} textAnchor="middle" fill="white"
-            fontSize={8} fontWeight="800" fontFamily="monospace" letterSpacing="0.5">
+        <g transform="translate(20, 75)">
+          <rect x={0} y={0} width={80} height={26} rx={5} fill="#CC0000" />
+          <text x={40} y={18} textAnchor="middle" fill="white"
+            fontSize={12} fontWeight="800" fontFamily="monospace" letterSpacing="0.5">
             START
           </text>
         </g>
