@@ -33,12 +33,8 @@
       "action": "Chat"
     },
     {
-      "screen": "1.2",
-      "action": "Laura card"
-    },
-    {
       "screen": "1.3",
-      "action": "Find me five Lauras"
+      "action": "Continue → bias check"
     },
     {
       "screen": "1.4",
@@ -129,7 +125,7 @@
           "id": "chat",
           "label": "Chat",
           "icon": "MessageCircle",
-          "advance": "1.2",
+          "advance": "1.3",
           "primary": true
         },
         {
@@ -140,8 +136,8 @@
         }
       ],
       "footerLine": "Recommended next step:",
-      "footerLinkText": "customer validation",
-      "footerLinkAdvance": "1.2",
+      "footerLinkText": "product-market fit",
+      "footerLinkAdvance": "1.3",
       "footerReason": "Segment choice is your highest-leverage move right now. It shapes your pricing, channels, and proof points for the next 90 days."
     },
     "1.2": {

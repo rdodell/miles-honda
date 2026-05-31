@@ -9,7 +9,6 @@ import RestartDialog from './components/RestartDialog'
 
 import Landing            from './screens/Landing'
 import SparkWelcome       from './screens/SparkWelcome'
-import SparkChat          from './screens/SparkChat'
 import FrameProblem       from './screens/FrameProblem'
 import BiasCheck          from './screens/BiasCheck'
 import EvidencePlaybook   from './screens/EvidencePlaybook'
@@ -31,7 +30,7 @@ type StageId = 'spark' | 'garage' | 'testTrack'
 
 const SCREEN_TO_STAGE: Record<string, StageId | null> = {
   '0.1': null,
-  '1.1': 'spark', '1.2': 'spark', '1.3': 'spark', '1.3b': 'spark', '1.3c': 'spark', '1.3d': 'spark', '1.4': 'spark', '1.5': 'spark',
+  '1.1': 'spark', '1.3': 'spark', '1.3b': 'spark', '1.3c': 'spark', '1.3d': 'spark', '1.4': 'spark', '1.5': 'spark',
   '2.1': 'garage','2.2': 'garage','2.3': 'garage','2.4': 'garage',
   '3.1': 'testTrack','3.2': 'testTrack','3.3': 'testTrack','3.4': 'testTrack','3.5': 'testTrack',
   'T.1': null,
@@ -106,8 +105,7 @@ export default function App() {
     switch (screen) {
       case '0.1': return <Landing onAdvance={advance} />
       case '1.1': return <SparkWelcome {...commonProps} />
-      case '1.2': return <SparkChat {...commonProps} />
-      case '1.3':  return <FrameProblem onAdvance={advance} />
+case '1.3':  return <FrameProblem onAdvance={advance} />
       case '1.3b': return <BiasCheck onAdvance={advance} />
       case '1.3c': return <EvidencePlaybook onAdvance={advance} />
       case '1.3d': return <LauraIntro onAdvance={advance} />
