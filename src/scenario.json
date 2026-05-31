@@ -192,7 +192,7 @@
         { "q": "Why you?", "a": "Honda's brand will obviously win this", "filled": true, "flag": "anecdote, not a pattern" },
         { "q": "How do you know?", "a": "", "filled": false, "hint": "Point to evidence, not a feeling…" }
       ],
-      "counter": "3 of 5 answered · 1 flag",
+      "counter": "4 of 5 answered · 1 flag",
       "cta": { "label": "Continue", "advance": "1.3b" }
     },
     "1.3b": {

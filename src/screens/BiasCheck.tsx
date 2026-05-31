@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Flag } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import scenario from '../scenario.json'
@@ -13,6 +14,8 @@ const fadeUp = (delay: number) => ({
 })
 
 export default function BiasCheck({ onAdvance }: Props) {
+  const [showRest, setShowRest] = useState(false)
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
       {/* Stage chip */}
@@ -29,9 +32,17 @@ export default function BiasCheck({ onAdvance }: Props) {
         }}>{s.step}</span>
       </motion.div>
 
-      {/* Miles intro */}
-      <MilesMessage text={s.milesIntro} />
+      {/* Miles intro — hunches load only after he finishes */}
+      <MilesMessage text={s.milesIntro} onDone={() => setShowRest(true)} />
 
+      <AnimatePresence>
+        {showRest && (
+          <motion.div
+            className="flex flex-col gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* Spectrum lane */}
       <motion.div {...fadeUp(0.15)} className="relative">
         {/* Labels */}
@@ -95,11 +106,17 @@ export default function BiasCheck({ onAdvance }: Props) {
       <motion.div {...fadeUp(0.35)} className="flex justify-end">
         <button
           onClick={() => onAdvance(s.cta.advance)}
-          className="bg-[#CC0000] text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm text-sm"
+          className="text-white font-semibold py-2.5 px-5 rounded-xl transition-colors shadow-sm text-sm"
+          style={{ background: '#7A1420' }}
+          onMouseEnter={e => (e.currentTarget.style.background = '#5C0F18')}
+          onMouseLeave={e => (e.currentTarget.style.background = '#7A1420')}
         >
           {s.cta.label}
         </button>
       </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
