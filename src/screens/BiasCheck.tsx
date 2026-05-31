@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Flag } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
+import InputBar from '../components/InputBar'
 import scenario from '../scenario.json'
 
 interface Props { onAdvance: (screen: string) => void }
@@ -102,17 +103,12 @@ export default function BiasCheck({ onAdvance }: Props) {
         </div>
       </motion.div>
 
-      {/* CTA */}
-      <motion.div {...fadeUp(0.35)} className="flex justify-end">
-        <button
-          onClick={() => onAdvance(s.cta.advance)}
-          className="text-white font-semibold py-2.5 px-5 rounded-xl transition-colors shadow-sm text-sm"
-          style={{ background: '#7A1420' }}
-          onMouseEnter={e => (e.currentTarget.style.background = '#5C0F18')}
-          onMouseLeave={e => (e.currentTarget.style.background = '#7A1420')}
-        >
-          {s.cta.label}
-        </button>
+      {/* Ian responds — defend a hunch or move on to test it */}
+      <motion.div {...fadeUp(0.35)}>
+        <InputBar
+          onChat={() => onAdvance(s.cta.advance)}
+          suggestion="Fair. Let's go test them."
+        />
       </motion.div>
           </motion.div>
         )}
