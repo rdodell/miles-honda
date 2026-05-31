@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Flag } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
@@ -16,6 +16,14 @@ const fadeUp = (delay: number) => ({
 
 export default function BiasCheck({ onAdvance }: Props) {
   const [showRest, setShowRest] = useState(false)
+  const [showInput, setShowInput] = useState(false)
+
+  // After the hunches chart settles, reveal Ian's input
+  useEffect(() => {
+    if (!showRest) return
+    const t = setTimeout(() => setShowInput(true), 900)
+    return () => clearTimeout(t)
+  }, [showRest])
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
@@ -103,13 +111,22 @@ export default function BiasCheck({ onAdvance }: Props) {
         </div>
       </motion.div>
 
-      {/* Ian responds — defend a hunch or move on to test it */}
-      <motion.div {...fadeUp(0.35)}>
-        <InputBar
-          onChat={() => onAdvance(s.cta.advance)}
-          suggestion="Fair. Let's go test them."
-        />
-      </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Ian responds — appears after the hunches chart has settled */}
+      <AnimatePresence>
+        {showInput && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <InputBar
+              onChat={() => onAdvance(s.cta.advance)}
+              suggestion="Fair. Let's go test them."
+            />
           </motion.div>
         )}
       </AnimatePresence>
