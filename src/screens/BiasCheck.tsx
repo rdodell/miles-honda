@@ -126,6 +126,7 @@ export default function BiasCheck({ onAdvance }: Props) {
             <InputBar
               onChat={() => onAdvance(s.cta.advance)}
               suggestion="Fair. Let's go test them."
+              typeSuggestion
             />
           </motion.div>
         )}
