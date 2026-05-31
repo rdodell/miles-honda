@@ -71,7 +71,7 @@ export default function JourneyComplete({ onAdvance }: JourneyCompleteProps) {
       <motion.button
         {...fadeUp(5)}
         onClick={() => onAdvance(s.cta.advance)}
-        className="w-full border-2 border-[#CC0000] text-[#CC0000] font-semibold py-3.5 rounded-xl hover:bg-[#CC0000] hover:text-white transition-colors"
+        className="w-full border-2 border-[#7A1420] text-[#7A1420] font-semibold py-3.5 rounded-xl hover:bg-[#7A1420] hover:text-white transition-colors"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >

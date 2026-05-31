@@ -41,7 +41,7 @@ export default function SparkWrap({ onAdvance }: SparkWrapProps) {
       <motion.button
         {...fadeUp(5)}
         onClick={() => onAdvance(s.cta.advance)}
-        className="w-full bg-[#CC0000] text-white font-semibold py-3.5 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
+        className="w-full bg-[#7A1420] text-white font-semibold py-3.5 rounded-xl hover:bg-[#5C0F18] transition-colors shadow-sm"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >

@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
+import InputBar from '../components/InputBar'
 import scenario from '../scenario.json'
 
 interface Props { onAdvance: (screen: string) => void }
 const s = scenario.screens['1.3d']
 const pc = s.personaCard
+
+// REVIEW: Reconsider line — confirm framing works in demo context.
+const RECONSIDER_TEXT =
+  "Before we lock in an interviewee, I want to flag something. The prototype test included several people, but Mary stands out. She already experienced the runtime problem firsthand, and she books work through the same Facebook groups where your target market lives. Does she sound right to you?"
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -14,13 +19,29 @@ const fadeUp = (delay: number) => ({
 })
 
 export default function LauraIntro({ onAdvance }: Props) {
-  const [showCard, setShowCard] = useState(false)
+  const [showInput, setShowInput]       = useState(false)
+  const [showCard, setShowCard]         = useState(false)
   const [showFollowup, setShowFollowup] = useState(false)
+
+  function confirmMary() {
+    setShowInput(false)
+    setShowCard(true)
+  }
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
-      <MilesMessage text={s.milesIntro} onDone={() => setShowCard(true)} />
+      {/* Miles surfaces Mary — doesn't assume */}
+      <MilesMessage text={RECONSIDER_TEXT} onDone={() => setShowInput(true)} />
 
+      {/* Ian weighs in before the card appears */}
+      {showInput && !showCard && (
+        <InputBar
+          onChat={confirmMary}
+          suggestion="Mary sounds right. Let's go with her"
+        />
+      )}
+
+      {/* Mary's profile card */}
       {showCard && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -28,8 +49,13 @@ export default function LauraIntro({ onAdvance }: Props) {
           className="bg-white border border-[#E8E4DE] rounded-2xl p-5 shadow-sm"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-[#CC0000] flex items-center justify-center text-white text-lg font-bold">M</div>
-            <div className="font-semibold text-base text-[#1A1A1A]">{pc.name} · {pc.age} · {pc.location}</div>
+            <div className="w-12 h-12 rounded-full bg-[#7A1420] flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
+              M
+            </div>
+            <div>
+              <div className="font-semibold text-base text-[#1A1A1A]">{pc.name}</div>
+              <div className="text-sm text-[#6B6B6B]">{pc.age} · {pc.location}</div>
+            </div>
           </div>
           <div className="space-y-3">
             <Section title="Day in the life" items={pc.dayInLife} />
@@ -47,20 +73,20 @@ export default function LauraIntro({ onAdvance }: Props) {
       )}
 
       {showFollowup && (
-        <motion.div {...fadeUp(0)} className="flex justify-end">
-          <button
-            onClick={() => onAdvance(s.cta.advance)}
-            className="bg-[#CC0000] text-white font-semibold py-3 px-6 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
-          >
-            {s.cta.label}
-          </button>
+        <motion.div {...fadeUp(0)}>
+          <InputBar
+            onChat={() => onAdvance(s.cta.advance)}
+            suggestion={s.cta.label}
+          />
         </motion.div>
       )}
     </div>
   )
 }
 
-function Section({ title, items, boldIndex, accent = false }: { title: string; items: string[]; boldIndex?: number; accent?: boolean }) {
+function Section({ title, items, boldIndex, accent = false }: {
+  title: string; items: string[]; boldIndex?: number; accent?: boolean
+}) {
   return (
     <div>
       <div className="text-[11px] font-semibold uppercase tracking-wide text-[#A09A94] mb-1">{title}</div>

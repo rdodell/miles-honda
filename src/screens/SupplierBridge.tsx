@@ -60,7 +60,7 @@ export default function SupplierBridge({ onAdvance }: Props) {
               <button
                 key={opt.label}
                 onClick={() => onAdvance(opt.advance)}
-                className="bg-[#CC0000] text-white font-semibold py-3 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
+                className="bg-[#7A1420] text-white font-semibold py-3 rounded-xl hover:bg-[#5C0F18] transition-colors shadow-sm"
               >
                 {opt.label}
               </button>

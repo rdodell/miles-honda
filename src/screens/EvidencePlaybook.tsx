@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
+import InputBar from '../components/InputBar'
 import scenario from '../scenario.json'
 
 interface Props { onAdvance: (screen: string) => void }
@@ -12,12 +14,14 @@ const fadeUp = (delay: number) => ({
 })
 
 const toneColor = (tone: string) => {
-  if (tone === 'next') return '#CC0000'
+  if (tone === 'next') return '#7A1420'
   if (tone === 'done') return '#7CB342'
   return '#6B6B6B'
 }
 
 export default function EvidencePlaybook({ onAdvance }: Props) {
+  const [showInput, setShowInput] = useState(false)
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
       {/* Stage chip */}
@@ -34,10 +38,8 @@ export default function EvidencePlaybook({ onAdvance }: Props) {
         }}>{s.step}</span>
       </motion.div>
 
-      {/* Miles intro */}
-      <MilesMessage text={s.milesIntro} />
+      <MilesMessage text={s.milesIntro} onDone={() => setShowInput(true)} />
 
-      {/* Step rows */}
       <motion.div {...fadeUp(0.15)} className="flex flex-col gap-3">
         {s.steps.map((step, i) => (
           <div
@@ -51,10 +53,7 @@ export default function EvidencePlaybook({ onAdvance }: Props) {
             </div>
             <span
               className="text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0"
-              style={{
-                color: toneColor(step.tone),
-                background: `${toneColor(step.tone)}18`,
-              }}
+              style={{ color: toneColor(step.tone), background: `${toneColor(step.tone)}18` }}
             >
               {step.status}
             </span>
@@ -62,21 +61,22 @@ export default function EvidencePlaybook({ onAdvance }: Props) {
         ))}
       </motion.div>
 
-      {/* Footer */}
-      <motion.div {...fadeUp(0.25)} className="flex items-center justify-between mt-1">
+      <motion.div {...fadeUp(0.25)} className="flex items-center mt-1">
         <span className="text-sm text-[#A09A94]">
           <span style={{ color: '#7CB342' }}>1 done</span>
           {' · '}
-          <span style={{ color: '#CC0000' }}>1 next</span>
+          <span style={{ color: '#7A1420' }}>1 next</span>
           {' · 2 later · 1 skip'}
         </span>
-        <button
-          onClick={() => onAdvance(s.cta.advance)}
-          className="bg-[#CC0000] text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm text-sm"
-        >
-          {s.cta.label}
-        </button>
       </motion.div>
+
+      {/* InputBar — Ian chooses or chats rather than auto-advancing */}
+      {showInput && (
+        <InputBar
+          onChat={() => onAdvance(s.cta.advance)}
+          suggestion="Let's meet my first interviewee"
+        />
+      )}
     </div>
   )
 }

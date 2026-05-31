@@ -37,7 +37,7 @@ export default function RestartDialog({ visible, onConfirm, onCancel }: RestartD
               </button>
               <button
                 onClick={onConfirm}
-                className="flex-1 py-2 rounded-xl bg-[#CC0000] text-white text-sm font-medium hover:bg-[#AA0000] transition-colors"
+                className="flex-1 py-2 rounded-xl bg-[#7A1420] text-white text-sm font-medium hover:bg-[#5C0F18] transition-colors"
               >
                 Restart
               </button>

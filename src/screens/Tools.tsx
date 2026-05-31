@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import MilesAvatar from '../components/MilesAvatar'
+import InputBar from '../components/InputBar'
 import scenario from '../scenario.json'
 
 interface ToolsProps {
@@ -9,9 +10,9 @@ interface ToolsProps {
 const s = scenario.screens['T.1']
 
 const STAGE_COLORS: Record<string, string> = {
-  spark:     '#7CB342',
-  garage:    '#42A5F5',
-  testTrack: '#9575CD',
+  spark:     '#F4B942',
+  garage:    '#5B5FD9',
+  testTrack: '#7A1420',
 }
 
 export default function Tools({ showTooltip }: ToolsProps) {
@@ -66,6 +67,17 @@ export default function Tools({ showTooltip }: ToolsProps) {
       >
         <MilesAvatar size={32} />
         <span className="text-sm text-[#6B6570] italic">{s.milesCorner}</span>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <InputBar
+          onChat={() => showTooltip(s.toolTooltip)}
+          suggestion="Which tool should I start with?"
+        />
       </motion.div>
     </div>
   )

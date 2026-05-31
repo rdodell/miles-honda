@@ -37,7 +37,7 @@ function RedTeamCard({ q, index, delay }: { q: typeof s.questions[0]; index: num
       {expanded && (
         <div className="mt-3 space-y-3">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#CC0000] mb-1">The challenge</div>
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7A1420] mb-1">The challenge</div>
             <p className="text-xs text-[#6B6570] leading-relaxed">{q.challenge}</p>
           </div>
           <div>
@@ -73,7 +73,8 @@ export default function TestTrackRedTeam({ onAdvance }: TestTrackRedTeamProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: s.questions.length * 0.15 + 0.1 }}
             onClick={() => onAdvance(s.footerCta.advance)}
-            className="w-full bg-[#CC0000] text-white font-semibold py-3.5 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
+            className="w-full text-white font-semibold py-3.5 rounded-xl transition-colors shadow-sm"
+            style={{ background: '#7A1420' }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

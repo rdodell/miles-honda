@@ -32,19 +32,19 @@ function PersonaCard({ persona, onAdvance, showTooltip }: { persona: Persona; on
       className={`
         flex-1 min-w-[130px] text-left rounded-2xl p-3.5 border transition-all
         ${isLaura
-          ? 'border-[#CC0000] bg-white shadow-sm hover:shadow-md ring-1 ring-[#CC0000]/20'
+          ? 'border-[#7A1420] bg-white shadow-sm hover:shadow-md ring-1 ring-[#7A1420]/20'
           : 'border-[#E8E4DE] bg-white hover:bg-[#F2EEE8] opacity-75'
         }
       `}
     >
       {/* Avatar placeholder */}
-      <div className={`w-8 h-8 rounded-full mb-2 flex items-center justify-center text-white text-sm font-bold ${isLaura ? 'bg-[#CC0000]' : 'bg-[#A09A94]'}`}>
+      <div className={`w-8 h-8 rounded-full mb-2 flex items-center justify-center text-white text-sm font-bold ${isLaura ? 'bg-[#7A1420]' : 'bg-[#A09A94]'}`}>
         {persona.name[0]}
       </div>
       <div className="font-semibold text-sm text-[#1A1A1A]">{persona.name}</div>
       <div className="text-xs text-[#A09A94] mt-0.5 leading-tight">{persona.role}</div>
       <div className="text-xs text-[#6B6570] mt-1.5 leading-tight">{persona.pain}</div>
-      <div className={`mt-2 text-[10px] font-semibold rounded-full px-2 py-0.5 inline-block ${isLaura ? 'bg-red-50 text-[#CC0000]' : 'bg-[#F2EEE8] text-[#A09A94]'}`}>
+      <div className={`mt-2 text-[10px] font-semibold rounded-full px-2 py-0.5 inline-block ${isLaura ? 'bg-red-50 text-[#7A1420]' : 'bg-[#F2EEE8] text-[#A09A94]'}`}>
         {persona.tam}
       </div>
     </button>
@@ -57,7 +57,7 @@ export default function SparkChat({ onAdvance, showTooltip }: SparkChatProps) {
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
       {/* Prior Miles message (persisted) */}
-      <MilesMessage text="Hey Ian — here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?" instant />
+      <MilesMessage text="Hey Ian. Here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?" instant />
 
       {/* Ian typing */}
       <IanTyping message={s.ianMessage} onSent={() => setIanSent(true)} />

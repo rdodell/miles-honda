@@ -59,7 +59,7 @@ export default function GarageWrap({ onAdvance }: GarageWrapProps) {
         {...fadeUp(5)}
         onClick={() => onAdvance(s.cta.advance)}
         className="w-full py-3.5 rounded-xl font-semibold transition-opacity hover:opacity-90"
-        style={{ background: '#CC0000', color: '#fff', fontSize: 14, fontFamily: 'Inter, sans-serif', border: 'none', cursor: 'pointer', letterSpacing: '0.01em' }}
+        style={{ background: '#7A1420', color: '#fff', fontSize: 14, fontFamily: 'Inter, sans-serif', border: 'none', cursor: 'pointer', letterSpacing: '0.01em' }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >

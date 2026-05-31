@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
@@ -21,12 +21,6 @@ const fadeUp = (i: number) => ({
 export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
   const [showDetails, setShowDetails] = useState(false)
   const [showActions, setShowActions] = useState(false)
-
-  // Safety fallback: never let the buttons stay stuck hidden if onDone doesn't fire
-  useEffect(() => {
-    const t = setTimeout(() => setShowActions(true), 4000)
-    return () => clearTimeout(t)
-  }, [])
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
@@ -96,7 +90,10 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
               <button
                 key={action.label}
                 onClick={() => onAdvance((action as any).advance)}
-                className="flex-1 bg-[#CC0000] text-white font-semibold py-3 rounded-xl hover:bg-[#AA0000] transition-colors shadow-sm"
+                className="flex-1 text-white font-semibold py-3 rounded-xl transition-colors shadow-sm"
+                style={{ background: '#7A1420' }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#5C0F18')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#7A1420')}
               >
                 {action.label}
               </button>
@@ -104,7 +101,8 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
               <button
                 key={action.label}
                 onClick={() => onAdvance((action as any).advance)}
-                className="flex-1 bg-white text-[#CC0000] font-semibold py-3 rounded-xl border border-[#CC0000] hover:bg-red-50 transition-colors"
+                className="flex-1 bg-white font-semibold py-3 rounded-xl transition-colors"
+                style={{ border: '1.5px solid #7A1420', color: '#7A1420' }}
               >
                 {action.label}
               </button>
