@@ -29,31 +29,26 @@ export default function SparkWelcome({ onAdvance }: SparkWelcomeProps) {
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
       {/* Miles greeting */}
-      <motion.div
-        animate={{ y: [0, -3, 0] }}
-        transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 0.8 }}
-      >
-        <MilesMessage text={s.milesMessages[0].text} onDone={() => setShowRest(true)}>
-          <motion.div
-            className="flex gap-2 mt-3 flex-wrap"
-            variants={cardContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {s.summaryCards.map((card) => (
-              <motion.button
-                key={card.label}
-                variants={cardItem}
-                whileHover={{ y: -2, boxShadow: '0 4px 14px rgba(0,0,0,0.08)' }}
-                className="flex-1 min-w-[110px] bg-white border border-[#E8E4DE] rounded-xl px-3 py-2.5 text-left hover:bg-[#F2EEE8] transition-colors"
-              >
-                <div className="text-sm font-semibold text-[#1A1A1A]">{card.label}</div>
-                <div className="text-xs text-[#A09A94] mt-0.5">{card.sublabel}</div>
-              </motion.button>
-            ))}
-          </motion.div>
-        </MilesMessage>
-      </motion.div>
+      <MilesMessage text={s.milesMessages[0].text} onDone={() => setShowRest(true)}>
+        <motion.div
+          className="flex gap-2 mt-3 flex-wrap"
+          variants={cardContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          {s.summaryCards.map((card) => (
+            <motion.button
+              key={card.label}
+              variants={cardItem}
+              whileHover={{ boxShadow: '0 4px 14px rgba(0,0,0,0.08)' }}
+              className="flex-1 min-w-[110px] bg-white border border-[#E8E4DE] rounded-xl px-3 py-2.5 text-left hover:bg-[#F2EEE8] transition-colors"
+            >
+              <div className="text-sm font-semibold text-[#1A1A1A]">{card.label}</div>
+              <div className="text-xs text-[#A09A94] mt-0.5">{card.sublabel}</div>
+            </motion.button>
+          ))}
+        </motion.div>
+      </MilesMessage>
 
       <AnimatePresence>
         {showRest && (
