@@ -81,7 +81,7 @@ export default function Dashboard({ onAdvance }: DashboardProps) {
         <div className="grid grid-cols-2 gap-2">
           {s.suggestions.map((sug, i) => {
             const color = sug.stage ? STAGE_COLORS[sug.stage] : '#6B6B6B'
-            const Icon = sug.stage ? STAGE_ICONS[sug.stage] : Wrench
+            const imgSrc = sug.stage ? STAGE_IMGS[sug.stage] : null
             return (
               <motion.button
                 key={sug.label}
@@ -89,7 +89,10 @@ export default function Dashboard({ onAdvance }: DashboardProps) {
                 onClick={() => onAdvance(sug.advance)}
                 className="flex items-center gap-2.5 bg-white rounded-xl px-4 py-3 border border-[#E8E4DE] text-left hover:bg-[#F9F9F9] transition-colors shadow-sm"
               >
-                <Icon size={15} color={color} />
+                {imgSrc
+                  ? <img src={imgSrc} alt="" style={{ width: 15, height: 15, objectFit: 'contain', filter: 'brightness(0) saturate(100%) opacity(0.7)' }} />
+                  : <Wrench size={15} color={color} />
+                }
                 <span className="text-sm font-medium text-[#1A1A1A]">{sug.label}</span>
               </motion.button>
             )
