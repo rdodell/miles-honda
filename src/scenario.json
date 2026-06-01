@@ -415,9 +415,9 @@
       "id": "1.3d",
       "stage": "spark",
       "timeIndicator": "Week 2 \u00b7 Tuesday",
-      "milesIntro": "Your evidence plan points to customer interviews first. Mary is a strong place to start, since she already flagged the runtime problem in your prototype test. Here's what you know going in.",
+      "milesIntro": "Your evidence plan points to customer interviews first. Laura is a strong place to start, since she already flagged the runtime problem in your prototype test. Here's what you know going in.",
       "personaCard": {
-        "name": "Mary",
+        "name": "Laura",
         "age": 42,
         "location": "Phoenix, AZ",
         "dayInLife": [
@@ -442,12 +442,12 @@
       },
       "milesFollowup": "Ready to book that first call? Or want to refine the script first?",
       "cta": {
-        "label": "Book the call \u2192",
+        "label": "Book the call",
         "advance": "1.4"
       },
       "ianInput": {
         "driver": "chat",
-        "text": "Mary looks right. Book the call, but let's tighten the script first."
+        "text": "Laura looks right. Book the call, but let's tighten the script first."
       }
     },
     "1.4": {
@@ -949,19 +949,22 @@
       "milesMessage": "Welcome back, Ian. Here's where the lawn mower project stands. What do you want to work on today?",
       "weekActivity": [
         {
-          "label": "Mary call booked",
+          "label": "Laura call booked",
           "detail": "Thursday 10 AM \u00b7 30 min",
-          "stage": "spark"
+          "stage": "spark",
+          "sublabel": ""
         },
         {
           "label": "Priya meeting confirmed",
           "detail": "Thursday 2 PM \u00b7 battery supply chain",
-          "stage": "garage"
+          "stage": "garage",
+          "sublabel": ""
         },
         {
           "label": "Revenue Streams flagged",
           "detail": "Update before seed review",
-          "stage": "testTrack"
+          "stage": "testTrack",
+          "sublabel": ""
         }
       ],
       "suggestions": [

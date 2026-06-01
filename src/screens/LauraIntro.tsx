@@ -11,7 +11,7 @@ const pc = s.personaCard
 
 // REVIEW: Reconsider line — confirm framing works in demo context.
 const RECONSIDER_TEXT =
-  "Before we lock in an interviewee, I want to flag something. The prototype test included several people, but Mary stands out. She already experienced the runtime problem firsthand, and she books work through the same Facebook groups where your target market lives. Does she sound right to you?"
+  "Before we lock in an interviewee, I want to flag something. The prototype test included several people, but Laura stands out. She already experienced the runtime problem firsthand, and she books work through the same Facebook groups where your target market lives. Does she sound right to you?"
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -24,26 +24,26 @@ export default function LauraIntro({ onAdvance }: Props) {
   const [showCard, setShowCard]         = useState(false)
   const [showFollowup, setShowFollowup] = useState(false)
 
-  function confirmMary() {
+  function confirmLaura() {
     setShowInput(false)
     setShowCard(true)
   }
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
-      {/* Miles surfaces Mary — doesn't assume */}
+      {/* Miles surfaces Laura — doesn't assume */}
       <MilesMessage text={RECONSIDER_TEXT} onDone={() => setShowInput(true)} />
 
       {/* Ian weighs in before the card appears */}
       {showInput && !showCard && (
         <IanInputBar
           driver="chat"
-          suggestion="Mary sounds right. Let's go with her."
-          onSubmit={confirmMary}
+          suggestion="Laura sounds right. Let's go with her."
+          onSubmit={confirmLaura}
         />
       )}
 
-      {/* Mary's profile card */}
+      {/* Laura's profile card */}
       {showCard && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
