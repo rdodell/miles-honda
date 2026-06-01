@@ -2,18 +2,20 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, AlertTriangle } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
-import Tooltip from '../components/Tooltip'
+import IanInputBar from '../components/IanInputBar'
+import BranchPicker from '../components/BranchPicker'
 import scenario from '../scenario.json'
 
 interface TestTrackReadinessProps {
   onAdvance: (screen: string) => void
+  showTooltip?: (msg: string) => void
 }
 
 const s = scenario.screens['3.4']
 
-export default function TestTrackReadiness({ onAdvance }: TestTrackReadinessProps) {
+export default function TestTrackReadiness({ onAdvance, showTooltip }: TestTrackReadinessProps) {
   const [showScorecard, setShowScorecard] = useState(false)
-  const [showActions, setShowActions] = useState(false)
+  const [showBranch, setShowBranch] = useState(false)
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
@@ -51,37 +53,30 @@ export default function TestTrackReadiness({ onAdvance }: TestTrackReadinessProp
 
           {/* Miles followup */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
-            <MilesMessage text={s.milesFollowup} instant onDone={() => setShowActions(true)} />
+            <MilesMessage text={s.milesFollowup} instant onDone={() => setShowBranch(true)} />
           </motion.div>
         </>
       )}
 
-      {showActions && (
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex gap-3"
-        >
-          {s.actions.map((action) => {
-            if (action.primary) {
-              return (
-                <button
-                  key={action.label}
-                  onClick={() => onAdvance(action.advance!)}
-                  className="flex-1 bg-[#7A1420] text-white font-semibold py-3 rounded-xl hover:bg-[#5C0F18] transition-colors shadow-sm"
-                >
-                  {action.label}
-                </button>
-              )
-            }
-            return (
-              <Tooltip key={action.label} text={(action as any).tooltip}>
-                <button className="flex-1 border border-[#E8E4DE] text-[#1A1A1A] font-medium py-3 rounded-xl bg-white text-sm">
-                  {action.label}
-                </button>
-              </Tooltip>
-            )
-          })}
+      {/* BranchPicker for prep vs seed-review */}
+      {showBranch && (
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+          <BranchPicker
+            branch={s.branch as any}
+            onAdvance={onAdvance}
+            showTooltip={(msg) => showTooltip?.(msg)}
+          />
+        </motion.div>
+      )}
+
+      {/* IanInputBar */}
+      {showBranch && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+          <IanInputBar
+            driver="chat"
+            suggestion={(s as any).ianInput?.text}
+            onSubmit={() => {}}
+          />
         </motion.div>
       )}
     </div>

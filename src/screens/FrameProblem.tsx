@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Flag, PencilLine } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 import ianSketch from '../assets/ian-sketch-lawnmower.png'
 
@@ -219,12 +220,12 @@ export default function FrameProblem({ onAdvance }: Props) {
         />
       )}
 
-      {/* Footer + CTA */}
+      {/* Footer + IanInputBar */}
       {reached('done') && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mt-1"
+          className="flex flex-col gap-3 mt-1"
         >
           <span className="text-sm">
             {s.counter.includes('flag') ? (
@@ -236,12 +237,11 @@ export default function FrameProblem({ onAdvance }: Props) {
               <span className="text-[#A09A94]">{s.counter}</span>
             )}
           </span>
-          <button
-            onClick={() => onAdvance(s.cta.advance)}
-            className="bg-[#7A1420] text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-[#5C0F18] transition-colors shadow-sm text-sm"
-          >
-            {s.cta.label}
-          </button>
+          <IanInputBar
+            driver="scratchpad"
+            suggestion={ianInput.text}
+            onSubmit={() => onAdvance(s.cta.advance)}
+          />
         </motion.div>
       )}
     </div>

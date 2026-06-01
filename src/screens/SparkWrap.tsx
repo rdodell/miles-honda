@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
 import MilesAvatar from '../components/MilesAvatar'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface SparkWrapProps {
@@ -8,6 +9,7 @@ interface SparkWrapProps {
 }
 
 const s = scenario.screens['1.4']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
 
 const fadeUp = (i: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -38,15 +40,13 @@ export default function SparkWrap({ onAdvance }: SparkWrapProps) {
         </motion.p>
       </motion.div>
 
-      <motion.button
-        {...fadeUp(5)}
-        onClick={() => onAdvance(s.cta.advance)}
-        className="w-full bg-[#7A1420] text-white font-semibold py-3.5 rounded-xl hover:bg-[#5C0F18] transition-colors shadow-sm"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {s.cta.label}
-      </motion.button>
+      <motion.div {...fadeUp(5)}>
+        <IanInputBar
+          driver="chat"
+          suggestion={ianInput.text}
+          onSubmit={() => onAdvance(s.cta.advance)}
+        />
+      </motion.div>
     </div>
   )
 }
