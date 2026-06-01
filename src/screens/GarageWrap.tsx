@@ -30,7 +30,7 @@ export default function GarageWrap({ onAdvance }: GarageWrapProps) {
       >
         <div className="flex items-center gap-3 mb-4">
           <MilesAvatar />
-          <h2 style={{ fontSize: 22, fontWeight: 600, color: '#231F20', fontFamily: 'Fraunces, Georgia, serif', margin: 0, lineHeight: 1.2 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 600, color: '#231F20', fontFamily: 'Zilla Slab, Georgia, serif', margin: 0, lineHeight: 1.2 }}>
             {s.header}
           </h2>
         </div>

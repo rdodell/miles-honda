@@ -33,7 +33,7 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
           background: 'rgba(91,95,217,0.1)',
           border: '1px solid #5B5FD9',
           color: '#5B5FD9',
-          fontFamily: 'Caveat, cursive',
+          fontFamily: 'Zilla Slab, Georgia, serif',
           fontSize: 13,
           padding: '2px 10px',
           borderRadius: 99,
@@ -100,6 +100,7 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
         <InputBar
           onChat={() => onAdvance(s.advance)}
           suggestion="Let's wrap up The Garage"
+          typeSuggestion
         />
       </motion.div>
           </motion.div>

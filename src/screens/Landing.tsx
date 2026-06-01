@@ -36,14 +36,14 @@ export default function Landing({ onAdvance }: LandingProps) {
         <Road completedStages={completed} activeStage={null} hero />
       </motion.div>
 
-      {/* Tagline — Caveat handwritten accent */}
+      {/* Tagline */}
       <motion.p
         style={{
           fontSize: 13,
           letterSpacing: '0.18em',
           textTransform: 'uppercase',
           color: 'rgba(255,255,255,0.75)',
-          fontFamily: 'Caveat, cursive',
+          fontFamily: 'Space Grotesk, ui-sans-serif, sans-serif',
           fontWeight: 600,
           marginBottom: 14,
         }}

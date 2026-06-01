@@ -48,14 +48,19 @@ export default function IanTyping({ message, onSent }: IanTypingProps) {
         {phase === 'typing' && (
           <motion.div
             key="input"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            className="flex items-center gap-2 bg-white border border-[#E8E4DE] rounded-xl px-4 py-3 shadow-sm"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              background: '#fff', border: '1.5px solid var(--border)',
+              borderRadius: 12, padding: '11px 14px',
+              boxShadow: 'var(--shadow-1)',
+            }}
           >
-            <span className="flex-1 text-[15px] text-[#1A1A1A]">
+            <span style={{ flex: 1, fontFamily: 'var(--font-cp-sans)', fontSize: 14, color: 'var(--ink)' }}>
               {inputText}
-              <span className="inline-block w-0.5 h-4 bg-[#1A1A1A] ml-0.5 align-middle animate-pulse" />
+              <span style={{ display: 'inline-block', width: 2, height: 14, background: 'var(--ink)', marginLeft: 2, verticalAlign: 'middle' }} className="animate-pulse" />
             </span>
           </motion.div>
         )}
@@ -70,7 +75,14 @@ export default function IanTyping({ message, onSent }: IanTypingProps) {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-end"
           >
-            <div className="bg-[#1A1A1A] text-white rounded-2xl rounded-tr-sm px-4 py-2.5 text-[15px] max-w-[80%]">
+            <div style={{
+              background: 'var(--ink)', color: '#fff',
+              borderRadius: '14px 14px 4px 14px',
+              padding: '10px 14px', fontSize: 14,
+              fontFamily: 'var(--font-cp-sans)',
+              maxWidth: '80%', lineHeight: 1.5,
+              boxShadow: 'var(--shadow-1)',
+            }}>
               {message}
             </div>
           </motion.div>

@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import Road from './components/Road'
-import MilesLogo from './components/MilesLogo'
-import BottomNav from './components/BottomNav'
+import CPTopbar      from './components/CPTopbar'
+import CPRoadStrip   from './components/CPRoadStrip'
+import CPSubRail     from './components/CPSubRail'
 import PresenterGuide from './components/PresenterGuide'
-import RestartDialog from './components/RestartDialog'
+import RestartDialog  from './components/RestartDialog'
 
 import Landing            from './screens/Landing'
 import Dashboard          from './screens/Dashboard'
@@ -14,7 +14,6 @@ import FrameProblem       from './screens/FrameProblem'
 import BiasCheck          from './screens/BiasCheck'
 import EvidencePlaybook   from './screens/EvidencePlaybook'
 import LauraIntro         from './screens/LauraIntro'
-import EmailConfirm       from './screens/EmailConfirm'
 import SupplierBridge     from './screens/SupplierBridge'
 import SparkWrap          from './screens/SparkWrap'
 import GarageWelcome      from './screens/GarageWelcome'
@@ -33,7 +32,7 @@ type StageId = 'spark' | 'garage' | 'testTrack'
 const SCREEN_TO_STAGE: Record<string, StageId | null> = {
   '0.1': null, 'D.1': null,
   '1.1': 'spark', '1.3': 'spark', '1.3b': 'spark', '1.3c': 'spark',
-  '1.3d': 'spark', '1.3e': 'spark', '1.4': 'spark', '1.5': 'spark',
+  '1.3d': 'spark', '1.4': 'spark', '1.5': 'spark',
   '2.1': 'garage', '2.2': 'garage', '2.3': 'garage', '2.4': 'garage',
   '3.1': 'testTrack', '3.2': 'testTrack', '3.3': 'testTrack',
   '3.4': 'testTrack', '3.5': 'testTrack',
@@ -46,22 +45,32 @@ const STAGE_COMPLETES_AT: Record<string, StageId> = {
   '3.5': 'testTrack',
 }
 
-const TIME_LABELS: Record<string, string> = {
-  '1.1':  'Week 2 · Tuesday',
-  '1.3':  'Week 2 · Tuesday', '1.3b': 'Week 2 · Tuesday',
-  '1.3c': 'Week 2 · Tuesday', '1.3d': 'Week 2 · Tuesday',
-  '1.3e': 'Week 2 · Tuesday', '1.4':  'Week 2 · Friday',
-  '1.5':  'Month 1 · Wednesday',
-  '2.1':  'Month 1 · Wednesday', '2.2': 'Month 1 · Wednesday',
-  '2.3':  'Month 1 · Friday',    '2.4': 'Month 1 · Friday',
-  '3.1':  'Month 3 · Monday',    '3.2': 'Month 3 · Monday',
-  '3.3':  'Month 3 · Monday',    '3.4': 'Month 3 · Monday',
-  '3.5':  'Month 3 · Monday',
+/* Maps StageId → CSS data-stage attribute value */
+const CSS_STAGE: Record<StageId, string> = {
+  spark:     'spark',
+  garage:    'garage',
+  testTrack: 'track',
+}
+
+/* Full-app gradient background (shows through glass columns) */
+const BG_GRADIENT = `
+  radial-gradient(840px 460px at 6% -8%,  var(--c-spark-soft)  0%, transparent 55%),
+  radial-gradient(780px 520px at 104% -2%, var(--c-garage-soft) 0%, transparent 58%),
+  radial-gradient(700px 600px at 58% 126%, var(--accent-soft)   0%, transparent 56%),
+  linear-gradient(165deg, #FFFFFF 0%, var(--bg) 100%)
+`.trim()
+
+const GLASS: React.CSSProperties = {
+  background: 'rgba(255,255,255,0.58)',
+  backdropFilter: 'blur(18px) saturate(1.4)',
+  WebkitBackdropFilter: 'blur(18px) saturate(1.4)',
 }
 
 export default function App() {
   const [screen, setScreen]       = useState('0.1')
-  const [completed, setCompleted] = useState<Record<StageId, boolean>>({ spark: false, garage: false, testTrack: false })
+  const [completed, setCompleted] = useState<Record<StageId, boolean>>({
+    spark: false, garage: false, testTrack: false,
+  })
   const [showGuide, setShowGuide]     = useState(false)
   const [showRestart, setShowRestart] = useState(false)
   const [toast, setToast]             = useState<string | null>(null)
@@ -100,7 +109,7 @@ export default function App() {
   }
 
   const activeStage = (SCREEN_TO_STAGE[screen] ?? null) as StageId | null
-  const timeLabel   = TIME_LABELS[screen]
+  const cssStage    = activeStage ? CSS_STAGE[activeStage] : undefined
   const showChrome  = screen !== '0.1'
 
   const commonProps = { onAdvance: advance, showTooltip }
@@ -114,7 +123,6 @@ export default function App() {
       case '1.3b': return <BiasCheck onAdvance={advance} />
       case '1.3c': return <EvidencePlaybook onAdvance={advance} />
       case '1.3d': return <LauraIntro onAdvance={advance} />
-      case '1.3e': return <EmailConfirm onAdvance={advance} />
       case '1.4':  return <SparkWrap onAdvance={advance} />
       case '1.5':  return <SupplierBridge onAdvance={advance} />
       case '2.1':  return <GarageWelcome onAdvance={advance} />
@@ -132,53 +140,76 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col relative" style={{ background: '#FAFAFA' }}>
+    <div
+      data-stage={cssStage}
+      style={{
+        height: '100vh',
+        width: '100vw',
+        overflow: 'hidden',
+        background: BG_GRADIENT,
+        minWidth: showChrome ? 1280 : undefined,
+      }}
+    >
+      {showChrome ? (
+        /* ── Direction C+ 3-column grid ─────────────────────────── */
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '244px 1fr',
+          gridTemplateRows: '90px 112px 1fr',
+          height: '100vh',
+          overflow: 'hidden',
+        }}>
+          {/* Row 1: Topbar (full width) */}
+          <CPTopbar
+            activeStage={activeStage}
+            completedStages={completed}
+            currentScreen={screen}
+            onNavigate={advance}
+            showTooltip={showTooltip}
+          />
 
-      {showChrome && (
-        <header style={{ background: '#fff', borderBottom: '2px solid #7A1420', position: 'sticky', top: 0, zIndex: 30 }}>
-          <div className="max-w-[1400px] mx-auto">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 20px 0' }}>
-              {/* Logo click → Dashboard */}
-              <button onClick={() => advance('D.1')} className="hover:opacity-80 transition-opacity">
-                <MilesLogo size="sm" />
-              </button>
-              {timeLabel && (
-                <span style={{ fontSize: 13, color: '#999', letterSpacing: '0.15em', fontFamily: 'monospace', textTransform: 'uppercase' }}>
-                  {timeLabel}
-                </span>
-              )}
-            </div>
-            <Road completedStages={completed} activeStage={activeStage} />
-          </div>
-        </header>
-      )}
+          {/* Row 2: Road strip (full width) */}
+          <CPRoadStrip activeStage={activeStage} completedStages={completed} />
 
-      <main className="flex-1">
-        <div className="max-w-4xl mx-auto w-full">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={screen}
-              initial={{ opacity: 0, x: 14 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -14 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-            >
-              {renderScreen()}
-            </motion.div>
-          </AnimatePresence>
+          {/* Row 3 col 1: Contextual sidebar */}
+          <aside style={{
+            ...GLASS,
+            gridRow: 3, gridColumn: 1,
+            borderRight: '1px solid rgba(255,255,255,0.65)',
+            overflow: 'hidden',
+          }}>
+            <CPSubRail activeStage={activeStage} currentScreen={screen} />
+          </aside>
+
+          {/* Row 3 col 2: Main work area */}
+          <main style={{
+            gridRow: 3, gridColumn: 2,
+            overflow: 'hidden auto',
+            background: 'transparent',
+          }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={screen}
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                style={{ minHeight: '100%' }}
+              >
+                {renderScreen()}
+              </motion.div>
+            </AnimatePresence>
+          </main>
+
         </div>
-      </main>
-
-      {showChrome && (
-        <BottomNav
-          currentStage={activeStage}
-          completedStages={completed}
-          currentScreen={screen}
-          onNavigate={(id) => setScreen(id)}
-          showTooltip={showTooltip}
-        />
+      ) : (
+        /* ── Landing: full-bleed ─────────────────────────────────── */
+        <div style={{ height: '100vh', overflow: 'hidden auto' }}>
+          {renderScreen()}
+        </div>
       )}
 
+      {/* ── Toast ──────────────────────────────────────────────────── */}
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -186,7 +217,14 @@ export default function App() {
             initial={{ opacity: 0, y: 8, x: '-50%' }}
             animate={{ opacity: 1, y: 0, x: '-50%' }}
             exit={{ opacity: 0, y: 8, x: '-50%' }}
-            className="fixed bottom-20 left-1/2 z-50 bg-[#1A1A1A] text-white text-sm rounded-xl px-4 py-2.5 shadow-lg max-w-xs text-center pointer-events-none"
+            style={{
+              position: 'fixed', bottom: 32, left: '50%',
+              zIndex: 60, background: 'var(--ink)', color: '#fff',
+              fontSize: 13, borderRadius: 12, padding: '10px 18px',
+              boxShadow: 'var(--shadow-3)', maxWidth: 320,
+              textAlign: 'center', pointerEvents: 'none',
+              fontFamily: 'var(--font-cp-sans)',
+            }}
           >
             {toast}
           </motion.div>

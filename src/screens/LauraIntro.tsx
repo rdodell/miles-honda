@@ -38,6 +38,7 @@ export default function LauraIntro({ onAdvance }: Props) {
         <InputBar
           onChat={confirmMary}
           suggestion="Mary sounds right. Let's go with her"
+          typeSuggestion
         />
       )}
 
@@ -77,6 +78,7 @@ export default function LauraIntro({ onAdvance }: Props) {
           <InputBar
             onChat={() => onAdvance(s.cta.advance)}
             suggestion={s.cta.label}
+            typeSuggestion
           />
         </motion.div>
       )}

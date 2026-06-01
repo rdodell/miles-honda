@@ -40,7 +40,7 @@ export default function JourneyComplete({ onAdvance }: JourneyCompleteProps) {
             >
               <div
                 className="text-sm font-semibold mb-3 pb-2 border-b border-[#E8E4DE]"
-                style={{ color, fontFamily: "'Caveat', cursive", fontSize: 16 }}
+                style={{ color, fontFamily: "Zilla Slab, Georgia, serif", fontSize: 16 }}
               >
                 {col.label}
               </div>

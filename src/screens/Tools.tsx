@@ -39,7 +39,7 @@ export default function Tools({ showTooltip }: ToolsProps) {
           >
             <div
               className="text-sm font-semibold mb-2"
-              style={{ color, fontFamily: "'Caveat', cursive", fontSize: 16 }}
+              style={{ color, fontFamily: "Zilla Slab, Georgia, serif", fontSize: 16 }}
             >
               {shelf.header}
             </div>

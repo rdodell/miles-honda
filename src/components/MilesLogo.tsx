@@ -58,7 +58,7 @@ export default function MilesLogo({ size = 'md', light = false }: MilesLogoProps
           letterSpacing: wordSize * 0.18,
           color: textColor,
           lineHeight: 1,
-          fontFamily: 'Fraunces, Georgia, serif',
+          fontFamily: 'Zilla Slab, Georgia, serif',
         }}>
           MILES
         </div>

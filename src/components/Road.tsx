@@ -129,7 +129,7 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
                 textAnchor="middle"
                 fontSize={labelFs}
                 fill={isActive || isCompleted ? color : '#999'}
-                fontFamily="'Oswald', 'Arial Narrow', sans-serif"
+                fontFamily="Zilla Slab, Georgia, serif"
                 fontWeight="400"
                 letterSpacing="1"
               >

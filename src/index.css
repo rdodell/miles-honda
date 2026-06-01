@@ -1,34 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Caveat:wght@400;600&family=Oswald:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Zilla+Slab:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* Honda brand anchors */
-  --honda-red:   #CC0000;
-  --honda-black: #231F20;
+  /* ── Direction C+ design tokens ─────────────────────────────── */
+  --font-cp-sans:    "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-cp-display: "Zilla Slab", Georgia, serif;
+  --font-cp-mono:    "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
 
-  /* Expressive palette (atmospheric, from Honda's evolved brand) */
+  /* Surfaces — warm parchment */
+  --bg:        #F2EFEB;
+  --bg-2:      #E8E3DC;
+  --surface:   #FFFFFF;
+  --surface-2: #F8F5F1;
+
+  /* Ink */
+  --ink:          #221F1C;
+  --ink-2:        #463F39;
+  --muted:        #766F67;
+  --faint:        #ABA399;
+  --border:       #E7E1DA;
+  --border-strong:#CEC8BF;
+
+  /* Accent — brick burgundy */
+  --accent:      #A8362C;
+  --accent-2:    #87271E;
+  --accent-soft: #F8E8E4;
+
+  /* Stage palette — softer/pastel for Direction C+ */
+  --c-spark:      #E0A93E;
+  --c-spark-soft: #FBF1DC;
+  --c-spark-dark: #8A6310;
+  --c-garage:     #4E86A3;
+  --c-garage-soft:#E7F1F6;
+  --c-garage-mid: #ABCBD9;
+  --c-garage-dark:#2E6280;
+  --c-track:      #CD7A6F;
+  --c-track-soft: #F8E9E6;
+  --c-track-dark: #A23A30;
+
+  /* Functional */
+  --good: #3C8A60;
+  --warn: #C08A2E;
+  --info: #4E86A3;
+
+  /* Radii & shadows */
+  --radius-sm: 4px;
+  --radius-md: 9px;
+  --radius-lg: 14px;
+  --shadow-1: 0 1px 2px rgba(40,30,36,0.05);
+  --shadow-2: 0 2px 6px rgba(40,30,36,0.06), 0 10px 26px rgba(56,40,50,0.08);
+  --shadow-3: 0 6px 16px rgba(40,30,36,0.10), 0 24px 52px rgba(56,40,50,0.14);
+
+  /* Gradients */
+  --grad-brand:   linear-gradient(135deg, #C0463A 0%, #A8362C 45%, #82261C 100%);
+  --grad-primary: linear-gradient(120deg, #B64033 0%, #8E2A20 100%);
+
+  /* Stage tokens — default (no stage) */
+  --stage:        var(--c-spark);
+  --stage-strong: var(--c-spark-dark);
+  --stage-soft:   var(--c-spark-soft);
+
+  /* ── Legacy / screen-level tokens (keep for existing screens) ── */
+  --honda-red:   #CC0000;
+  --honda-black: #221F1C;
   --dream-indigo:     #5B5FD9;
   --periwinkle-mist:  #A8B0F0;
   --sky-wash:         #E8ECFA;
-
-  /* Stage semantic colors */
-  --spark:   #F4B942;   /* warm amber — a literal spark                */
-  --garage:  #5B5FD9;   /* dream indigo — where the dream takes shape  */
-  --track:   #CC0000;   /* honda red — the seed review earns the brand */
-
-  /* Functional neutrals */
-  --canvas:    #FAFAFA;
-  --hairline:  #E5E5E5;
-  --muted:     #6B6B6B;
-  --warn-amber:#F4B942;
-
-  /* Legacy convenience */
-  --text:     #231F20;
-  --red:      #CC0000;
-  --border:   #E5E5E5;
-  --card-bg:  #F5F5F5;
-  --bg:       #FAFAFA;
+  --spark:   #E0A93E;
+  --garage:  #4E86A3;
+  --track:   #A8362C;
+  --canvas:    #F2EFEB;
+  --hairline:  #E7E1DA;
+  --warn-amber:#E0A93E;
+  --text:     #221F1C;
+  --red:      #A8362C;
+  --card-bg:  #F8F5F1;
 }
+
+/* ── Per-stage token overrides ─────────────────────────────────── */
+[data-stage="spark"]  { --stage: var(--c-spark);  --stage-strong: var(--c-spark-dark);  --stage-soft: var(--c-spark-soft);  }
+[data-stage="garage"] { --stage: var(--c-garage); --stage-strong: var(--c-garage-dark); --stage-soft: var(--c-garage-soft); }
+[data-stage="track"]  { --stage: var(--c-track);  --stage-strong: var(--c-track-dark);  --stage-soft: var(--c-track-soft);  }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -47,10 +99,9 @@ body {
 
 #root { height: 100%; }
 
-/* Display / stage headings */
-.font-display { font-family: 'Fraunces', Georgia, serif; }
-/* Caveat accent (road labels, flagged badges) */
-.font-accent  { font-family: 'Caveat', cursive; }
+/* Display / stage headings — Zilla Slab slab serif */
+.font-display { font-family: 'Zilla Slab', Georgia, serif; }
+/* No handwriting or old-style serif in this design system */
 
 /* --- Animations --- */
 

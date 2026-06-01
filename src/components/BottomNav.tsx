@@ -70,7 +70,7 @@ export default function BottomNav({ currentStage, completedStages, currentScreen
             <span style={{
               fontSize: 10,
               fontWeight: isActive ? 600 : 500,
-              fontFamily: item.stageId ? 'Fraunces, Georgia, serif' : 'Inter, sans-serif',
+              fontFamily: item.stageId ? 'Zilla Slab, Georgia, serif' : 'Inter, sans-serif',
             }}>
               {item.label}
             </span>

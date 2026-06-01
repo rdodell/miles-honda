@@ -30,7 +30,7 @@ export default function EvidencePlaybook({ onAdvance }: Props) {
           background: 'rgba(244,185,66,0.15)',
           border: '1px solid #F4B942',
           color: '#B8851E',
-          fontFamily: 'Caveat, cursive',
+          fontFamily: 'Zilla Slab, Georgia, serif',
           fontSize: 13,
           padding: '2px 10px',
           borderRadius: 99,
@@ -83,6 +83,7 @@ export default function EvidencePlaybook({ onAdvance }: Props) {
             <InputBar
               onChat={() => onAdvance(s.cta.advance)}
               suggestion="Let's meet my first interviewee"
+              typeSuggestion
             />
           </motion.div>
         )}

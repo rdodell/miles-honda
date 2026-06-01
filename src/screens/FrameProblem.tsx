@@ -98,7 +98,7 @@ export default function FrameProblem({ onAdvance }: Props) {
           background: 'rgba(244,185,66,0.15)',
           border: '1px solid #F4B942',
           color: '#B8851E',
-          fontFamily: 'Caveat, cursive',
+          fontFamily: 'Zilla Slab, Georgia, serif',
           fontSize: 13,
           padding: '2px 10px',
           borderRadius: 99,
@@ -116,20 +116,34 @@ export default function FrameProblem({ onAdvance }: Props) {
             className="flex flex-col items-end gap-1.5"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.4 }}
           >
             <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#A09A94]">
               <PencilLine size={12} />
-              Ian · Scratch Pad
+              Ian · Sandbox
             </div>
-            <div className="bg-white rounded-2xl p-2 shadow-sm border border-[#E8E4DE] max-w-[78%]">
+            <motion.div
+              className="bg-white rounded-2xl shadow-sm border border-[#E8E4DE] overflow-hidden"
+              style={{ maxWidth: '72%' }}
+              initial={{ clipPath: 'inset(0 0 100% 0)' }}
+              animate={{ clipPath: 'inset(0 0 0% 0)' }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
+            >
               <img
                 src={ianSketch}
                 alt="Ian's hand-drawn sketch: solo landscaper with a loud, fume-spewing gas mower; 40 lawns/week; 2026 regs coming; crossed-out price and battery guesses."
-                className="rounded-xl w-full block"
+                style={{ width: '100%', maxHeight: 260, objectFit: 'cover', objectPosition: 'top', display: 'block' }}
               />
-            </div>
-            <p className="text-sm text-[#1A1A1A] max-w-[78%] text-right">{ianInput.text}</p>
+            </motion.div>
+            <motion.p
+              className="text-sm text-[#1A1A1A] text-right"
+              style={{ maxWidth: '72%' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.25 }}
+            >
+              {ianInput.text}
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
