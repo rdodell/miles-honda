@@ -16,7 +16,7 @@ export default function IanTyping({ message, onSent }: IanTypingProps) {
   const indexRef = useRef(0)
 
   useEffect(() => {
-    // Small delay before typing starts so user can see the input
+    // Pause so user can read Miles' message before Ian responds
     const startDelay = setTimeout(() => {
       intervalRef.current = setInterval(() => {
         indexRef.current += 1
@@ -32,7 +32,7 @@ export default function IanTyping({ message, onSent }: IanTypingProps) {
           }, 400)
         }
       }, MS_PER_CHAR)
-    }, 300)
+    }, 2000)
 
     return () => {
       clearTimeout(startDelay)

@@ -11,11 +11,11 @@ interface MilesMessageProps {
   onDone?: () => void
 }
 
-const CHARS_PER_SEC = 30
+const CHARS_PER_SEC = 22
 const MS_PER_CHAR = 1000 / CHARS_PER_SEC
 
 function randomThinkMs() {
-  return 1200 + Math.random() * 800 // 1200–2000ms
+  return 1400 + Math.random() * 800 // 1400–2200ms thinking pause
 }
 
 type Phase = 'thinking' | 'streaming' | 'done'
@@ -44,11 +44,11 @@ export default function MilesMessage({ text, children, instant = false, onDone }
           clearInterval(intervalRef.current!)
           setPhase('done')
 
-          // Phase 3: reveal children 200ms after text finishes
+          // Phase 3: reveal children after text finishes, then fire onDone
           setTimeout(() => {
             setShowChildren(true)
             onDone?.()
-          }, 200)
+          }, 600)
         }
       }, MS_PER_CHAR)
     }, randomThinkMs())

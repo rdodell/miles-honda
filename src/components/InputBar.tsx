@@ -29,13 +29,14 @@ export default function InputBar({ onChat, suggestion, chatTooltip, typeSuggesti
   useEffect(() => {
     if (!typeSuggestion || !suggestion) return
     let i = 0
+    // Wait for the user to read Miles' message before Ian starts typing
     const start = setTimeout(() => {
       const iv = setInterval(() => {
         i += 1
         setTyped(suggestion.slice(0, i))
         if (i >= suggestion.length) clearInterval(iv)
       }, TYPE_SPEED_MS)
-    }, 350)
+    }, 2200)
     return () => clearTimeout(start)
   }, [typeSuggestion, suggestion])
 

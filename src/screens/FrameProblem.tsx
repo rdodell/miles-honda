@@ -107,7 +107,7 @@ export default function FrameProblem({ onAdvance }: Props) {
       </motion.div>
 
       {/* Miles intro — speaks first */}
-      <MilesMessage text={s.milesIntro} onDone={() => setPhase((p) => (p === 'intro' ? 'sketch' : p))} />
+      <MilesMessage text={s.milesIntro} onDone={() => setTimeout(() => setPhase((p) => (p === 'intro' ? 'sketch' : p)), 2000)} />
 
       {/* Ian's scratch-pad reply: the hand-drawn sketch */}
       <AnimatePresence>
