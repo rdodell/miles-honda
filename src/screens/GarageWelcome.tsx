@@ -8,7 +8,8 @@ import type { BranchOption } from '../components/BranchPicker'
 import Tooltip from '../components/Tooltip'
 import scenario from '../scenario.json'
 import priyaAvatar from '../assets/priya-avatar.png'
-import karenAvatar from '../assets/karen-avatar.svg'
+import karenAvatar  from '../assets/karen-avatar.svg'
+import danielAvatar from '../assets/daniel-avatar.svg'
 
 interface GarageWelcomeProps { onAdvance: (screen: string) => void; showTooltip?: (msg: string) => void }
 
@@ -102,10 +103,12 @@ function ContactCard({ opt, isSelected, isRec }: { opt: BranchOption; isSelected
       >
         <div className="flex items-center gap-3 mb-3">
           {person.id === 'priya'
-            ? <img src={priyaAvatar} alt={person.name} className="w-11 h-11 rounded-full flex-shrink-0 object-cover" />
+            ? <img src={priyaAvatar}  alt={person.name} className="w-11 h-11 rounded-full flex-shrink-0 object-cover" />
             : person.id === 'karen'
-              ? <img src={karenAvatar} alt={person.name} className="w-11 h-11 rounded-full flex-shrink-0 object-cover" />
-              : <div className="w-11 h-11 rounded-full flex items-center justify-center text-white flex-shrink-0" style={{ background: person.color, fontSize: 16, fontWeight: 700 }}>{person.initial}</div>
+              ? <img src={karenAvatar}  alt={person.name} className="w-11 h-11 rounded-full flex-shrink-0 object-cover" />
+              : person.id === 'daniel'
+                ? <img src={danielAvatar} alt={person.name} className="w-11 h-11 rounded-full flex-shrink-0 object-cover" />
+                : <div className="w-11 h-11 rounded-full flex items-center justify-center text-white flex-shrink-0" style={{ background: person.color, fontSize: 16, fontWeight: 700 }}>{person.initial}</div>
           }
           <div>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#231F20' }}>{person.name}</div>
