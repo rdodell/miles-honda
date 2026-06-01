@@ -120,7 +120,7 @@ export default function App() {
       case '1.1':  return <SparkWelcome {...commonProps} />
       case '1.3':  return <FrameProblem onAdvance={advance} />
       case '1.3b': return <BiasCheck onAdvance={advance} />
-      case '1.3c': return <EvidencePlaybook onAdvance={advance} />
+      case '1.3c': return <EvidencePlaybook onAdvance={advance} showTooltip={showTooltip} />
       case '1.3d': return <LauraIntro onAdvance={advance} />
       case '1.4':  return <SparkWrap onAdvance={advance} />
       case '1.5':  return <SupplierBridge onAdvance={advance} />

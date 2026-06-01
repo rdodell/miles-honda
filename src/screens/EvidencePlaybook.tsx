@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
-import BranchPicker, { BranchOption } from '../components/BranchPicker'
+import BranchPicker from '../components/BranchPicker'
+import type { BranchOption } from '../components/BranchPicker'
+import IanTyping from '../components/IanTyping'
 import scenario from '../scenario.json'
 
 interface Props { onAdvance: (screen: string) => void; showTooltip: (msg: string) => void }
