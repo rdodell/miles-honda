@@ -4,6 +4,7 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
 import MilesAvatar from '../components/MilesAvatar'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface GarageWrapProps {
@@ -54,17 +55,14 @@ export default function GarageWrap({ onAdvance }: GarageWrapProps) {
         </motion.p>
       </motion.div>
 
-      {/* CTA — honda-red: advancing to Test Track earns the brand color */}
-      <motion.button
-        {...fadeUp(5)}
-        onClick={() => onAdvance(s.cta.advance)}
-        className="w-full py-3.5 rounded-xl font-semibold transition-opacity hover:opacity-90"
-        style={{ background: '#7A1420', color: '#fff', fontSize: 14, fontFamily: 'Inter, sans-serif', border: 'none', cursor: 'pointer', letterSpacing: '0.01em' }}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {s.cta.label}
-      </motion.button>
+      {/* Ian sends his input line to advance to 3.1 */}
+      <motion.div {...fadeUp(5)}>
+        <IanInputBar
+          driver="chat"
+          suggestion={(s as any).ianInput?.text}
+          onSubmit={() => onAdvance((s as any).cta?.advance ?? '3.1')}
+        />
+      </motion.div>
 
     </div>
   )

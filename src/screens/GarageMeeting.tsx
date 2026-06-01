@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
-import InputBar from '../components/InputBar'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 import priyaAvatar from '../assets/priya-avatar.png'
 
@@ -96,12 +96,12 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
         </div>
       </motion.section>
 
-      {/* InputBar + direct CTA */}
-      <motion.div {...fadeUp(6)} className="flex flex-col gap-2">
-        <InputBar
-          onChat={() => onAdvance(s.advance)}
-          suggestion="Let's wrap up The Garage"
-          typeSuggestion
+      {/* Ian sends his input line to advance */}
+      <motion.div {...fadeUp(6)}>
+        <IanInputBar
+          driver="chat"
+          suggestion={(s as any).ianInput?.text}
+          onSubmit={() => onAdvance(s.advance)}
         />
       </motion.div>
           </motion.div>
