@@ -123,10 +123,9 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
                     cursor: 'pointer',
                   }}
                 >
-                  <ToolIcon
-                    size={15}
-                    style={{ color: isActive ? 'var(--stage-strong)' : 'var(--muted)', flexShrink: 0 }}
-                  />
+                  <span style={{ color: isActive ? 'var(--stage-strong)' : 'var(--muted)', display: 'flex', flexShrink: 0 }}>
+                    <ToolIcon size={15} />
+                  </span>
                   <span style={{ flex: 1 }}>{tool.name}</span>
                   {isActive && (
                     <span style={{
