@@ -1,13 +1,28 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Flag } from 'lucide-react'
+import { Flag, PencilLine } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import scenario from '../scenario.json'
+import ianSketch from '../assets/ian-sketch-lawnmower.png'
 
 interface Props { onAdvance: (screen: string) => void }
 const s = scenario.screens['1.3']
+const sketch = (s as any).sketchToForm as {
+  milesStructuringLine: string
+  fieldSources: { q: string; from: string; note: string }[]
+  milesClosingLine: string
+}
+const ianInput = (s as any).ianInput as { driver: string; text: string; asset: string }
 
 const ANSWER_SPEED_MS = 22 // ms per character — feels like Ian typing
+
+// Phase ordering — content unfolds top to bottom
+const ORDER = ['intro', 'sketch', 'structuring', 'questions', 'typing', 'closing', 'done'] as const
+type Phase = (typeof ORDER)[number]
+
+// Short source label per field, keyed by question text
+const SOURCE_LABEL: Record<string, string | null> = { sketch: 'from your sketch', priorChat: 'from earlier chat', blank: null }
+const fieldSourceFor = (q: string) => sketch?.fieldSources.find((f) => f.q === q)?.from ?? null
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -16,41 +31,43 @@ const fadeUp = (delay: number) => ({
 })
 
 export default function FrameProblem({ onAdvance }: Props) {
-  // Phase: 'waiting' → Miles talks, 'questions' → rows appear, 'typing' → answers fill in, 'done'
-  const [phase, setPhase] = useState<'waiting' | 'questions' | 'typing' | 'done'>('waiting')
+  const [phase, setPhase] = useState<Phase>('intro')
   const [visibleCount, setVisibleCount] = useState(0)
   const [typedAnswers, setTypedAnswers] = useState<string[]>(s.questions.map(() => ''))
   const [activeTypingIdx, setActiveTypingIdx] = useState(0)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const charRef = useRef(0)
 
-  // After Miles finishes, show questions one by one
-  function onMilesDone() {
-    setPhase('questions')
-  }
+  const reached = (p: Phase) => ORDER.indexOf(phase) >= ORDER.indexOf(p)
 
+  // Beat after the sketch lands, then Miles starts structuring it
+  useEffect(() => {
+    if (phase !== 'sketch') return
+    const t = setTimeout(() => setPhase('structuring'), 750)
+    return () => clearTimeout(t)
+  }, [phase])
+
+  // Question rows appear one by one
   useEffect(() => {
     if (phase !== 'questions') return
     if (visibleCount >= s.questions.length) {
-      // All rows visible — start typing
-      setTimeout(() => setPhase('typing'), 400)
-      return
+      const t = setTimeout(() => setPhase('typing'), 400)
+      return () => clearTimeout(t)
     }
     const t = setTimeout(() => setVisibleCount((v) => v + 1), 160)
     return () => clearTimeout(t)
   }, [phase, visibleCount])
 
-  // Animate Ian typing answers sequentially
+  // Animate Ian's answers typing in sequentially
   useEffect(() => {
     if (phase !== 'typing') return
 
     const filledQuestions = s.questions.filter((q) => q.filled && q.a)
     if (activeTypingIdx >= filledQuestions.length) {
-      setPhase('done')
+      setPhase('closing')
       return
     }
 
-    // Find real index of this filled question
     const realIdx = s.questions.findIndex(
       (q, i) => q.filled && q.a && s.questions.slice(0, i + 1).filter((x) => x.filled && x.a).length === activeTypingIdx + 1
     )
@@ -73,8 +90,6 @@ export default function FrameProblem({ onAdvance }: Props) {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current) }
   }, [phase, activeTypingIdx])
 
-  const showCta = phase === 'done'
-
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
       {/* Stage chip */}
@@ -92,16 +107,51 @@ export default function FrameProblem({ onAdvance }: Props) {
       </motion.div>
 
       {/* Miles intro — speaks first */}
-      <MilesMessage text={s.milesIntro} onDone={onMilesDone} />
+      <MilesMessage text={s.milesIntro} onDone={() => setPhase((p) => (p === 'intro' ? 'sketch' : p))} />
 
-      {/* Question rows appear after Miles finishes */}
+      {/* Ian's scratch-pad reply: the hand-drawn sketch */}
       <AnimatePresence>
-        {(phase === 'questions' || phase === 'typing' || phase === 'done') && (
+        {reached('sketch') && (
+          <motion.div
+            className="flex flex-col items-end gap-1.5"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#A09A94]">
+              <PencilLine size={12} />
+              Ian · Scratch Pad
+            </div>
+            <div className="bg-white rounded-2xl p-2 shadow-sm border border-[#E8E4DE] max-w-[78%]">
+              <img
+                src={ianSketch}
+                alt="Ian's hand-drawn sketch: solo landscaper with a loud, fume-spewing gas mower; 40 lawns/week; 2026 regs coming; crossed-out price and battery guesses."
+                className="rounded-xl w-full block"
+              />
+            </div>
+            <p className="text-sm text-[#1A1A1A] max-w-[78%] text-right">{ianInput.text}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Miles lines the sketch up into the form */}
+      {reached('structuring') && (
+        <MilesMessage
+          text={sketch.milesStructuringLine}
+          onDone={() => setPhase((p) => (p === 'structuring' ? 'questions' : p))}
+        />
+      )}
+
+      {/* Question rows appear after Miles structures them */}
+      <AnimatePresence>
+        {reached('questions') && (
           <motion.div className="flex flex-col gap-3">
             {s.questions.map((q, i) => {
               if (i >= visibleCount) return null
               const answer = typedAnswers[i]
               const isCurrent = phase === 'typing' && answer.length < (q.a?.length ?? 0) && answer.length > 0
+              const src = fieldSourceFor(q.q)
+              const srcLabel = src ? SOURCE_LABEL[src] : null
               return (
                 <motion.div
                   key={i}
@@ -112,7 +162,21 @@ export default function FrameProblem({ onAdvance }: Props) {
                     q.filled && answer ? 'border border-[#E8E4DE]' : 'border border-dashed border-[#E8E4DE]'
                   }`}
                 >
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-[#A09A94] mb-0.5">{q.q}</div>
+                  <div className="flex items-center justify-between gap-2 mb-0.5">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-[#A09A94]">{q.q}</div>
+                    {srcLabel && (
+                      <span
+                        className="text-[10px] font-medium px-1.5 py-0.5 rounded-full whitespace-nowrap"
+                        style={
+                          src === 'sketch'
+                            ? { background: 'rgba(244,185,66,0.18)', color: '#B8851E' }
+                            : { background: '#F2EEE8', color: '#A09A94' }
+                        }
+                      >
+                        {srcLabel}
+                      </span>
+                    )}
+                  </div>
                   {answer ? (
                     <div className="text-sm text-[#1A1A1A]">
                       {answer}
@@ -136,8 +200,16 @@ export default function FrameProblem({ onAdvance }: Props) {
         )}
       </AnimatePresence>
 
+      {/* Miles' closing read on the gaps */}
+      {reached('closing') && (
+        <MilesMessage
+          text={sketch.milesClosingLine}
+          onDone={() => setPhase((p) => (p === 'closing' ? 'done' : p))}
+        />
+      )}
+
       {/* Footer + CTA */}
-      {showCta && (
+      {reached('done') && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}

@@ -193,7 +193,23 @@
         { "q": "How do you know?", "a": "", "filled": false, "hint": "Point to evidence, not a feeling…" }
       ],
       "counter": "4 of 5 answered · 1 flag",
-      "cta": { "label": "Continue", "advance": "1.3b" }
+      "cta": { "label": "Continue", "advance": "1.3b" },
+      "ianInput": {
+        "driver": "scratchpad",
+        "text": "Here's roughly who I'm picturing and where it breaks down for her.",
+        "asset": "src/assets/ian-sketch-lawnmower.png"
+      },
+      "sketchToForm": {
+        "milesStructuringLine": "Got it. Three of these came straight off your sketch. Let me line them up so we can pressure-test them.",
+        "fieldSources": [
+          { "q": "Who has this problem?", "from": "sketch", "note": "Solo - 40 lawns/wk + the figure" },
+          { "q": "What's broken today?", "from": "sketch", "note": "LOUD!!, fumes, always breaking" },
+          { "q": "Why now?", "from": "sketch", "note": "2026 -> regs coming" },
+          { "q": "Why you?", "from": "priorChat", "note": "not in the sketch; carried from earlier, stays flagged as a hunch" },
+          { "q": "How do you know?", "from": "blank", "note": "Ian crossed out the price/battery guesses himself; no evidence yet, stays empty" }
+        ],
+        "milesClosingLine": "The 'why you' I pulled from our earlier chat, and it's still a hunch. And you crossed out the price stuff yourself, so 'how do you know' is the real gap. Want to test it?"
+      }
     },
     "1.3b": {
       "id": "1.3b", "stage": "spark", "timeIndicator": "Week 2 · Tuesday",
