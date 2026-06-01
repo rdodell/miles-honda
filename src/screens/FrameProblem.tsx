@@ -16,8 +16,8 @@ const ianInput = (s as any).ianInput as { driver: string; text: string; asset: s
 
 const ANSWER_SPEED_MS = 22 // ms per character — feels like Ian typing
 
-// Phase ordering — content unfolds top to bottom
-const ORDER = ['intro', 'sketch', 'structuring', 'questions', 'typing', 'closing', 'done'] as const
+// Phase ordering — Ian leads with sketch, Miles structures from it
+const ORDER = ['sketch', 'structuring', 'questions', 'typing', 'closing', 'done'] as const
 type Phase = (typeof ORDER)[number]
 
 // Short source label per field, keyed by question text
@@ -31,7 +31,7 @@ const fadeUp = (delay: number) => ({
 })
 
 export default function FrameProblem({ onAdvance }: Props) {
-  const [phase, setPhase] = useState<Phase>('intro')
+  const [phase, setPhase] = useState<Phase>('sketch')
   const [visibleCount, setVisibleCount] = useState(0)
   const [typedAnswers, setTypedAnswers] = useState<string[]>(s.questions.map(() => ''))
   const [activeTypingIdx, setActiveTypingIdx] = useState(0)
@@ -106,10 +106,7 @@ export default function FrameProblem({ onAdvance }: Props) {
         }}>{s.step}</span>
       </motion.div>
 
-      {/* Miles intro — speaks first */}
-      <MilesMessage text={s.milesIntro} onDone={() => setTimeout(() => setPhase((p) => (p === 'intro' ? 'sketch' : p)), 2000)} />
-
-      {/* Ian's scratch-pad reply: the hand-drawn sketch */}
+      {/* Ian's scratch-pad reply: the hand-drawn sketch — appears first */}
       <AnimatePresence>
         {reached('sketch') && (
           <motion.div
@@ -148,10 +145,10 @@ export default function FrameProblem({ onAdvance }: Props) {
         )}
       </AnimatePresence>
 
-      {/* Miles lines the sketch up into the form */}
+      {/* Miles reacts to the sketch — single turn before the form */}
       {reached('structuring') && (
         <MilesMessage
-          text={sketch.milesStructuringLine}
+          text={s.milesIntro}
           onDone={() => setPhase((p) => (p === 'structuring' ? 'questions' : p))}
         />
       )}

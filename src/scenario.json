@@ -197,7 +197,7 @@
       "stage": "spark",
       "timeIndicator": "Week 2 \u00b7 Tuesday",
       "step": "Step 1 of 3 \u00b7 Frame the problem",
-      "milesIntro": "Before we build, let's pin down the real problem. Five questions. Answer what you know, and flag what's still a guess. Which one are you least sure about?",
+      "milesIntro": "Good, this gives us a lot to work with. Let me turn your sketch into five questions we can actually pressure-test, and you flag the ones that are still guesses.",
       "questions": [
         {
           "q": "Who has this problem?",
@@ -234,7 +234,7 @@
       },
       "ianInput": {
         "driver": "scratchpad",
-        "text": "Here's roughly who I'm picturing and where it breaks down for her.",
+        "text": "I've been sketching the problem all week. Here's roughly who I'm picturing and where it breaks down for her.",
         "asset": "src/assets/ian-sketch-lawnmower.png",
         "assetNote": "REPLACE/CONFIRM PATH: Ian's hand-drawn Sharpie sketch (solo landscaper + gas mower, LOUD!!/fumes/always breaking, 2026 regs, crossed-out $?/battery?/too $$$)."
       },
