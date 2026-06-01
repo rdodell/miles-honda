@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Zap, Hammer, TestTube2, Wrench } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import scenario from '../scenario.json'
@@ -28,10 +29,20 @@ const fadeUp = (i: number) => ({
 })
 
 export default function Dashboard({ onAdvance }: DashboardProps) {
+  const [showRest, setShowRest] = useState(false)
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
-      <MilesMessage text={s.milesMessage} instant />
+      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
 
+      <AnimatePresence>
+        {showRest && (
+          <motion.div
+            className="flex flex-col gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* This week */}
       <motion.section {...fadeUp(1)}>
         <h2 className="text-base font-semibold text-[#1A1A1A] mb-2.5">This week</h2>
@@ -79,6 +90,9 @@ export default function Dashboard({ onAdvance }: DashboardProps) {
           })}
         </div>
       </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

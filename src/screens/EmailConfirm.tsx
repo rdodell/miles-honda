@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { CalendarDays, Send } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import scenario from '../scenario.json'
@@ -15,10 +16,20 @@ const fadeUp = (i: number) => ({
 })
 
 export default function EmailConfirm({ onAdvance }: Props) {
+  const [showRest, setShowRest] = useState(false)
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
-      <MilesMessage text={s.milesMessage} />
+      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
 
+      <AnimatePresence>
+        {showRest && (
+          <motion.div
+            className="flex flex-col gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* Confirmation cards */}
       <motion.div {...fadeUp(1)} className="flex flex-col gap-3">
 
@@ -54,6 +65,9 @@ export default function EmailConfirm({ onAdvance }: Props) {
       >
         {s.cta.label}
       </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

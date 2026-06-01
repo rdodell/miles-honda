@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { BookOpen } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import Tooltip from '../components/Tooltip'
 import scenario from '../scenario.json'
@@ -24,11 +25,20 @@ type ExistingConnection = {
 
 export default function GarageWelcome({ onAdvance }: GarageWelcomeProps) {
   const existing = (s as any).existingConnections as ExistingConnection[]
+  const [showRest, setShowRest] = useState(false)
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
-      <MilesMessage text={s.milesMessage} instant />
+      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
 
+      <AnimatePresence>
+        {showRest && (
+          <motion.div
+            className="flex flex-col gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* Existing network — non-empty */}
       <motion.section {...fadeUp(1)}>
         <div className="flex items-center justify-between mb-2.5">
@@ -115,6 +125,9 @@ export default function GarageWelcome({ onAdvance }: GarageWelcomeProps) {
           </button>
         </Tooltip>
       </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, MessageCircle, Wrench } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import Tooltip from '../components/Tooltip'
@@ -27,6 +28,8 @@ const cardItem = {
 }
 
 export default function SparkWelcome({ onAdvance, showTooltip }: SparkWelcomeProps) {
+  const [showRest, setShowRest] = useState(false)
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
       {/* Miles greeting */}
@@ -34,7 +37,7 @@ export default function SparkWelcome({ onAdvance, showTooltip }: SparkWelcomePro
         animate={{ y: [0, -3, 0] }}
         transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 0.8 }}
       >
-        <MilesMessage text={s.milesMessages[0].text} instant>
+        <MilesMessage text={s.milesMessages[0].text} onDone={() => setShowRest(true)}>
           <motion.div
             className="flex gap-2 mt-3 flex-wrap"
             variants={cardContainer}
@@ -57,6 +60,14 @@ export default function SparkWelcome({ onAdvance, showTooltip }: SparkWelcomePro
         </MilesMessage>
       </motion.div>
 
+      <AnimatePresence>
+        {showRest && (
+          <motion.div
+            className="flex flex-col gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* Recommended next step — above input modes */}
       <motion.div
         {...fadeUp(0.1)}
@@ -106,6 +117,9 @@ export default function SparkWelcome({ onAdvance, showTooltip }: SparkWelcomePro
           )
         })}
       </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

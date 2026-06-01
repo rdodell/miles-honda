@@ -24,15 +24,17 @@ const fadeUp = (i: number) => ({
 
 export default function GarageEmail({ onAdvance }: GarageEmailProps) {
   const m = s.meetingCard
+  const [showRest, setShowRest] = useState(false)
   const [suggestingAlt, setSuggestingAlt] = useState(false)
   const [milesReplied, setMilesReplied] = useState(false)
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
 
-      <MilesMessage text={s.milesMessage} instant />
+      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
 
       {/* Meeting card */}
+      {showRest && (
       <motion.div
         {...fadeUp(1)}
         className="bg-white rounded-2xl p-4 shadow-sm"
@@ -120,6 +122,7 @@ export default function GarageEmail({ onAdvance }: GarageEmailProps) {
           )}
         </AnimatePresence>
       </motion.div>
+      )}
 
       {/* Miles back-and-forth when user asks to reschedule */}
       <AnimatePresence>

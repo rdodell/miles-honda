@@ -1,8 +1,9 @@
 // Screen 2.3 — Post-meeting recap: Priya is now in Ian's network
 // This screen appears after Ian and Priya have actually met on Thursday.
 
+import { useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import InputBar from '../components/InputBar'
 import scenario from '../scenario.json'
@@ -22,6 +23,7 @@ const fadeUp = (i: number) => ({
 
 export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
   const c = s.networkContact
+  const [showRest, setShowRest] = useState(false)
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
@@ -39,8 +41,16 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
         }}>Thursday · After the call with Priya</span>
       </motion.div>
 
-      <MilesMessage text={s.milesMessage} instant />
+      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
 
+      <AnimatePresence>
+        {showRest && (
+          <motion.div
+            className="flex flex-col gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* Your network — now has 1 new person */}
       <motion.section {...fadeUp(1)}>
         <div className="flex items-center justify-between mb-2.5">
@@ -92,6 +102,9 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
           suggestion="Let's wrap up The Garage"
         />
       </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
