@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
-import InputBar from '../components/InputBar'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import lauraAvatar from '../assets/laura-avatar.png'
 
 interface Props { onAdvance: (screen: string) => void }
 const s = scenario.screens['1.3d']
@@ -35,10 +36,10 @@ export default function LauraIntro({ onAdvance }: Props) {
 
       {/* Ian weighs in before the card appears */}
       {showInput && !showCard && (
-        <InputBar
-          onChat={confirmMary}
-          suggestion="Mary sounds right. Let's go with her"
-          typeSuggestion
+        <IanInputBar
+          driver="chat"
+          suggestion="Mary sounds right. Let's go with her."
+          onSubmit={confirmMary}
         />
       )}
 
@@ -50,9 +51,7 @@ export default function LauraIntro({ onAdvance }: Props) {
           className="bg-white border border-[#E8E4DE] rounded-2xl p-5 shadow-sm"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-[#7A1420] flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
-              M
-            </div>
+            <img src={lauraAvatar} alt={pc.name} className="w-12 h-12 rounded-full flex-shrink-0 object-cover" />
             <div>
               <div className="font-semibold text-base text-[#1A1A1A]">{pc.name}</div>
               <div className="text-sm text-[#6B6B6B]">{pc.age} · {pc.location}</div>
@@ -75,10 +74,10 @@ export default function LauraIntro({ onAdvance }: Props) {
 
       {showFollowup && (
         <motion.div {...fadeUp(0)}>
-          <InputBar
-            onChat={() => onAdvance(s.cta.advance)}
+          <IanInputBar
+            driver="chat"
             suggestion={s.cta.label}
-            typeSuggestion
+            onSubmit={() => onAdvance(s.cta.advance)}
           />
         </motion.div>
       )}
