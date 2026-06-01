@@ -69,7 +69,7 @@ export default function GarageWelcome({ onAdvance, showTooltip }: GarageWelcomeP
             {/* IanInputBar */}
             <IanInputBar
               driver="chat"
-              suggestion={(s as any).ianInput?.text}
+              placeholder="Ask Miles, or pick an option above"
               onSubmit={() => {}}
             />
           </motion.div>

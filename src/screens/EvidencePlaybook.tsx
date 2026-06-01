@@ -143,9 +143,8 @@ export default function EvidencePlaybook({ onAdvance, showTooltip }: Props) {
             {/* IanInputBar — visual chrome, forward motion from option clicks */}
             <IanInputBar
               driver="chat"
-              suggestion={(s as any).ianInput?.text ?? 'Let\'s start with the interviews.'}
+              placeholder="Ask Miles, or pick an option above"
               onSubmit={() => {}}
-              disabled={false}
             />
           </motion.div>
         )}

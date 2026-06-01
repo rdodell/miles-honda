@@ -74,7 +74,7 @@ export default function TestTrackReadiness({ onAdvance, showTooltip }: TestTrack
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
           <IanInputBar
             driver="chat"
-            suggestion={(s as any).ianInput?.text}
+            placeholder="Ask Miles, or pick an option above"
             onSubmit={() => {}}
           />
         </motion.div>

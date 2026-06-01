@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 export interface IanInputBarProps {
   driver: 'chat' | 'voice' | 'scratchpad'
   suggestion?: string
+  placeholder?: string
   onSubmit: () => void
   disabled?: boolean
 }
@@ -17,7 +18,7 @@ const TABS = [
 
 const UNAVAILABLE_TOOLTIP = 'Not available in this preview'
 
-export default function IanInputBar({ driver, suggestion, onSubmit, disabled = false }: IanInputBarProps) {
+export default function IanInputBar({ driver, suggestion, placeholder, onSubmit, disabled = false }: IanInputBarProps) {
   const [activeTab, setActiveTab] = useState<IanInputBarProps['driver']>(driver)
   const [tooltip, setTooltip] = useState<string | null>(null)
 
@@ -126,7 +127,7 @@ export default function IanInputBar({ driver, suggestion, onSubmit, disabled = f
           color: suggestion ? 'var(--muted)' : 'var(--muted)',
           fontStyle: 'italic',
         }}>
-          {suggestion ?? (driver === 'voice' ? 'Tap to speak…' : driver === 'scratchpad' ? 'Add to scratch pad…' : 'Ask Miles something…')}
+          {suggestion ?? placeholder ?? (driver === 'voice' ? 'Tap to speak…' : driver === 'scratchpad' ? 'Add to scratch pad…' : 'Ask Miles something…')}
         </span>
         <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--accent)', flexShrink: 0, fontFamily: 'var(--font-cp-sans)' }}>
           {driver === 'voice' ? '●' : 'Send →'}
