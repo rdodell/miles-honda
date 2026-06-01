@@ -26,7 +26,7 @@ export default function BiasCheck({ onAdvance }: Props) {
   }, [showRest])
 
   return (
-    <div className="flex flex-col gap-5 px-5 py-5 pb-20">
+    <div className="flex flex-col gap-5 px-5 pt-8 pb-20">
       {/* Stage chip */}
       <motion.div {...fadeUp(0)}>
         <span style={{

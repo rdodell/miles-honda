@@ -1,5 +1,8 @@
-import { Zap, Hammer, Flag, LayoutGrid } from 'lucide-react'
-import ianAvatar from '../assets/ian-avatar.svg'
+import { LayoutGrid } from 'lucide-react'
+import ianAvatar      from '../assets/ian-avatar.png'
+import iconSparkStage from '../assets/icon-spark-stage.png'
+import iconHandshake  from '../assets/icon-handshake.png'
+import iconGauge      from '../assets/icon-gauge.png'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
 
@@ -11,10 +14,17 @@ interface CPTopbarProps {
   showTooltip: (msg: string) => void
 }
 
+// CSS filters to colorize black PNGs to each stage's --stage-strong color
+const STAGE_ICON_FILTER: Record<string, string> = {
+  spark:     'brightness(0) saturate(100%) invert(37%) sepia(85%) saturate(600%) hue-rotate(20deg) brightness(92%)',
+  garage:    'brightness(0) saturate(100%) invert(31%) sepia(40%) saturate(800%) hue-rotate(185deg) brightness(88%)',
+  testTrack: 'brightness(0) saturate(100%) invert(20%) sepia(90%) saturate(1000%) hue-rotate(340deg) brightness(78%)',
+}
+
 const TABS = [
-  { id: 'spark',  label: 'Spark',      Icon: Zap,    entry: '1.1', stageKey: 'spark'     as StageId },
-  { id: 'garage', label: 'Garage',     Icon: Hammer, entry: '2.1', stageKey: 'garage'    as StageId },
-  { id: 'track',  label: 'Test Track', Icon: Flag,   entry: '3.1', stageKey: 'testTrack' as StageId },
+  { id: 'spark',  label: 'Spark',      icon: iconSparkStage, entry: '1.1', stageKey: 'spark'     as StageId },
+  { id: 'garage', label: 'Garage',     icon: iconHandshake, entry: '2.1', stageKey: 'garage'    as StageId },
+  { id: 'track',  label: 'Test Track', icon: iconGauge,     entry: '3.1', stageKey: 'testTrack' as StageId },
 ] as const
 
 const STAGE_ORDER: StageId[] = ['spark', 'garage', 'testTrack']
@@ -96,7 +106,6 @@ export default function CPTopbar({
       {/* Stage tabs */}
       <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
         {TABS.map((tab) => {
-          const { Icon } = tab
           const isActive = tab.id === cpActive
           return (
             <button
@@ -116,9 +125,15 @@ export default function CPTopbar({
                 transition: 'all 0.15s ease',
               }}
             >
-              <Icon
-                size={16}
-                style={{ color: isActive ? 'var(--stage-strong)' : 'var(--muted)' }}
+              <img
+                src={tab.icon}
+                alt=""
+                style={{
+                  width: 16, height: 16, objectFit: 'contain',
+                  filter: isActive
+                    ? STAGE_ICON_FILTER[tab.stageKey]
+                    : 'brightness(0) opacity(0.35)',
+                }}
               />
               {tab.label}
             </button>

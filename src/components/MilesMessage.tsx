@@ -80,8 +80,8 @@ export default function MilesMessage({ text, children, instant = false, onDone }
                 <motion.span
                   key={i}
                   className="w-2 h-2 rounded-full bg-[#A09A94] inline-block"
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
+                  animate={{ opacity: [1, 0.3, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
                 />
               ))}
             </motion.div>
@@ -90,10 +90,10 @@ export default function MilesMessage({ text, children, instant = false, onDone }
 
         {/* Message text */}
         {(phase === 'streaming' || phase === 'done') && (
-          <p className="text-[15px] leading-relaxed text-[#1A1A1A] mt-0.5">
+          <p className="text-[15px] leading-relaxed text-[#1A1A1A] mt-0.5" style={{ fontFamily: 'var(--font-cp-sans)' }}>
             {displayed}
             {phase === 'streaming' && (
-              <span className="inline-block w-0.5 h-4 bg-[#1A1A1A] ml-0.5 align-middle animate-pulse" />
+              <span className="inline-block w-0.5 h-4 bg-[#1A1A1A] ml-0.5 align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
             )}
           </p>
         )}
@@ -103,9 +103,9 @@ export default function MilesMessage({ text, children, instant = false, onDone }
           {showChildren && children && (
             <motion.div
               key="children"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
               className="mt-3"
             >
               {children}

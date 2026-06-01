@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Zap, Hammer, TestTube2, Wrench } from 'lucide-react'
+import { Wrench } from 'lucide-react'
+import iconSparkStage from '../assets/icon-spark-stage.png'
+import iconHandshake  from '../assets/icon-handshake.png'
+import iconGauge      from '../assets/icon-gauge.png'
 import MilesMessage from '../components/MilesMessage'
 import scenario from '../scenario.json'
 
@@ -16,10 +19,10 @@ const STAGE_COLORS: Record<string, string> = {
   testTrack: '#7A1420',
 }
 
-const STAGE_ICONS: Record<string, React.FC<{ size?: number; color?: string }>> = {
-  spark:     Zap,
-  garage:    Hammer,
-  testTrack: TestTube2,
+const STAGE_IMGS: Record<string, string> = {
+  spark:     iconSparkStage,
+  garage:    iconHandshake,
+  testTrack: iconGauge,
 }
 
 const fadeUp = (i: number) => ({
@@ -49,7 +52,7 @@ export default function Dashboard({ onAdvance }: DashboardProps) {
         <div className="flex flex-col gap-2">
           {s.weekActivity.map((item, i) => {
             const color = item.stage ? STAGE_COLORS[item.stage] : '#6B6B6B'
-            const Icon = item.stage ? STAGE_ICONS[item.stage] : Wrench
+            const imgSrc = item.stage ? STAGE_IMGS[item.stage] : null
             return (
               <motion.div
                 key={i}
@@ -57,7 +60,10 @@ export default function Dashboard({ onAdvance }: DashboardProps) {
                 className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-[#E8E4DE] shadow-sm"
               >
                 <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `${color}18` }}>
-                  <Icon size={13} color={color} />
+                  {imgSrc
+                    ? <img src={imgSrc} alt="" style={{ width: 13, height: 13, objectFit: 'contain', filter: 'brightness(0) saturate(100%) opacity(0.85)' }} />
+                    : <Wrench size={13} color={color} />
+                  }
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-[#1A1A1A]">{item.label}</div>

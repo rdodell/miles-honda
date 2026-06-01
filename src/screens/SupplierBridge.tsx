@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import scenario from '../scenario.json'
+import priyaAvatar from '../assets/priya-avatar.png'
 
 interface Props { onAdvance: (screen: string) => void }
 
@@ -38,10 +39,9 @@ export default function SupplierBridge({ onAdvance }: Props) {
         <motion.div {...fadeUp(0.1)} className="bg-white border border-[#E8E4DE] rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-3 mb-2">
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-              style={{ background: (s as any).bridgeCard?.color ?? '#5B5FD9' }}
+              className="w-10 h-10 rounded-full flex-shrink-0 overflow-hidden"
             >
-              {(s as any).bridgeCard?.initial ?? 'P'}
+              <img src={priyaAvatar} alt="Priya" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="font-semibold text-sm text-[#1A1A1A]">{(s as any).bridgeCard?.name ?? 'Priya Okafor'}</div>

@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import Road from '../components/Road'
-import MilesLogo from '../components/MilesLogo'
 import scenario from '../scenario.json'
+import iconSparkStage from '../assets/icon-spark-stage.png'
+import iconHandshake  from '../assets/icon-handshake.png'
+import iconGauge      from '../assets/icon-gauge.png'
 
 interface LandingProps {
   onAdvance: (screen: string) => void
@@ -9,109 +10,154 @@ interface LandingProps {
 
 const s = scenario.screens['0.1']
 
+const BG = `
+  radial-gradient(840px 460px at 6% -8%,  var(--c-spark-soft)  0%, transparent 55%),
+  radial-gradient(780px 520px at 104% -2%, var(--c-garage-soft) 0%, transparent 58%),
+  radial-gradient(700px 600px at 58% 126%, var(--accent-soft)   0%, transparent 56%),
+  linear-gradient(165deg, #FFFFFF 0%, var(--bg) 100%)
+`.trim()
+
+const STAGES = [
+  { id: 'spark',  label: 'Spark',      imgSrc: iconSparkStage, color: 'var(--c-spark)',  soft: 'var(--c-spark-soft)' },
+  { id: 'garage', label: 'Garage',     imgSrc: iconHandshake,  color: 'var(--c-garage)', soft: 'var(--c-garage-soft)' },
+  { id: 'track',  label: 'Test Track', imgSrc: iconGauge,      color: 'var(--c-track)',  soft: 'var(--c-track-soft)' },
+]
+
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.45, ease: [0.2, 0.9, 0.3, 1] as const },
+})
+
 export default function Landing({ onAdvance }: LandingProps) {
-  const completed = { spark: false, garage: false, testTrack: false }
-
   return (
-    <div
-      className="gradient-ignition flex flex-col min-h-full items-center justify-center px-6 py-10 text-center"
-    >
-      {/* Logo — light mode (on gradient) */}
+    <div style={{
+      background: BG,
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '48px 24px',
+      textAlign: 'center',
+    }}>
+
+      {/* Brand mark */}
       <motion.div
-        className="mb-8 flex justify-center"
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        {...fadeUp(0)}
+        style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 52 }}
       >
-        <MilesLogo size="lg" light />
+        <div style={{
+          width: 44, height: 44, borderRadius: 11,
+          background: 'var(--grad-brand)',
+          display: 'grid', placeItems: 'center',
+          color: '#fff', fontFamily: 'Zilla Slab, Georgia, serif',
+          fontWeight: 700, fontSize: 22,
+          boxShadow: 'var(--shadow-2)',
+        }}>H</div>
+        <span style={{
+          fontFamily: 'Zilla Slab, Georgia, serif', fontWeight: 600,
+          fontSize: 20, color: 'var(--ink)', letterSpacing: '-0.01em',
+        }}>
+          Ignition at Honda
+        </span>
       </motion.div>
 
-      {/* Road — hero size */}
-      <motion.div
-        className="w-full max-w-2xl mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
+      {/* Headline */}
+      <motion.h1
+        {...fadeUp(0.08)}
+        style={{
+          fontFamily: 'Zilla Slab, Georgia, serif', fontWeight: 700,
+          fontSize: 'clamp(52px, 6vw, 80px)',
+          color: 'var(--ink)', letterSpacing: '-0.02em',
+          lineHeight: 1.05, margin: '0 0 14px',
+        }}
       >
-        <Road completedStages={completed} activeStage={null} hero />
-      </motion.div>
+        {s.headline}
+      </motion.h1>
 
       {/* Tagline */}
-      <motion.p
+      {/* 3-stage road visual */}
+      <motion.div
+        {...fadeUp(0.24)}
         style={{
-          fontSize: 13,
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.75)',
-          fontFamily: 'Space Grotesk, ui-sans-serif, sans-serif',
-          fontWeight: 600,
-          marginBottom: 14,
+          display: 'flex', alignItems: 'center',
+          gap: 0, marginBottom: 48,
+          maxWidth: 520, width: '100%',
         }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.35 }}
       >
-        {s.tagline}
-      </motion.p>
+        {STAGES.map((stage, i) => {
+          return (
+            <div key={stage.id} style={{ display: 'contents' }}>
+              {i > 0 && (
+                <div style={{
+                  flex: 1, height: 2,
+                  background: `repeating-linear-gradient(90deg, var(--border-strong) 0 5px, transparent 5px 10px)`,
+                }} />
+              )}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, flex: '0 0 auto' }}>
+                <div style={{
+                  width: 52, height: 52, borderRadius: '50%',
+                  background: stage.soft,
+                  border: `2px solid ${stage.color}`,
+                  display: 'grid', placeItems: 'center',
+                  color: stage.color,
+                  boxShadow: `0 0 0 5px ${stage.soft}, var(--shadow-1)`,
+                }}>
+                  <img src={stage.imgSrc} alt="" style={{ width: 22, height: 22, objectFit: 'contain', filter: 'brightness(0) saturate(100%) opacity(0.85)' }} />
+                </div>
+                <span style={{
+                  fontFamily: 'Zilla Slab, Georgia, serif', fontWeight: 600,
+                  fontSize: 13, color: 'var(--ink-2)',
+                }}>
+                  {stage.label}
+                </span>
+              </div>
+            </div>
+          )
+        })}
+      </motion.div>
 
-      {/* Subhead — Inter body */}
+      {/* Subhead */}
       <motion.p
+        {...fadeUp(0.32)}
         style={{
-          fontSize: 18,
-          color: 'rgba(255,255,255,0.92)',
-          marginBottom: 40,
-          fontFamily: 'Inter, sans-serif',
-          fontWeight: 400,
-          lineHeight: 1.5,
-          maxWidth: 380,
+          fontFamily: 'Space Grotesk, ui-sans-serif, sans-serif',
+          fontSize: 17, color: 'var(--ink-2)',
+          lineHeight: 1.6, maxWidth: 360, margin: '0 0 40px',
         }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.45 }}
       >
         {s.subhead}
       </motion.p>
 
-      {/* CTA — honda-black on white so it pops against the indigo gradient */}
+      {/* CTA */}
       <motion.button
+        {...fadeUp(0.4)}
         onClick={() => onAdvance(s.cta.advance)}
-        style={{
-          background: '#fff',
-          color: '#231F20',
-          border: 'none',
-          borderRadius: 12,
-          padding: '14px 40px',
-          fontWeight: 700,
-          fontSize: 14,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          cursor: 'pointer',
-          fontFamily: 'Inter, sans-serif',
-          boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
-        }}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6 }}
-        whileHover={{ scale: 1.03, background: '#f5f5f5' }}
+        whileHover={{ scale: 1.03, boxShadow: '0 8px 32px rgba(168,54,44,0.28)' }}
         whileTap={{ scale: 0.97 }}
+        style={{
+          background: 'var(--grad-primary)', color: '#fff',
+          border: 'none', borderRadius: 12,
+          padding: '15px 48px',
+          fontFamily: 'Space Grotesk, ui-sans-serif, sans-serif',
+          fontWeight: 700, fontSize: 14,
+          letterSpacing: '0.07em', textTransform: 'uppercase',
+          cursor: 'pointer', boxShadow: '0 4px 18px rgba(168,54,44,0.22)',
+        }}
       >
         {s.cta.label} →
       </motion.button>
 
-      {/* Honda footer */}
+      {/* Footer */}
       <motion.p
+        {...fadeUp(0.55)}
         style={{
-          marginTop: 44,
-          fontSize: 10,
-          color: 'rgba(255,255,255,0.45)',
-          letterSpacing: '0.2em',
-          fontFamily: 'Inter, sans-serif',
-          fontWeight: 500,
-          textTransform: 'uppercase',
+          marginTop: 48, fontSize: 10,
+          color: 'var(--faint)', letterSpacing: '0.2em',
+          fontFamily: 'Space Grotesk, ui-sans-serif, sans-serif',
+          fontWeight: 500, textTransform: 'uppercase',
         }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
       >
         Honda Motor Co. · Internal Use Only
       </motion.p>

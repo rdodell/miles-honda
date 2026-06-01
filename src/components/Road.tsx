@@ -1,4 +1,7 @@
 import scenario from '../scenario.json'
+import iconSpark     from '../assets/icon-spark.png'
+import iconHandshake from '../assets/icon-handshake.png'
+import iconGauge     from '../assets/icon-gauge.png'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
 
@@ -8,6 +11,12 @@ interface RoadProps {
   hero?: boolean
 }
 
+const STAGE_ICONS: Record<StageId, string> = {
+  spark:     iconSpark,
+  garage:    iconHandshake,
+  testTrack: iconGauge,
+}
+
 const STAGE_COLORS: Record<StageId, string> = {
   spark:     '#F4B942',
   garage:    '#5B5FD9',
@@ -15,7 +24,7 @@ const STAGE_COLORS: Record<StageId, string> = {
 }
 
 const W = 1600
-const H = 220
+const H = 260
 
 const ROAD_PATH =
   'M 120,88 C 180,88 250,60 320,64 C 420,69 620,104 800,100 C 960,96 1100,60 1280,64 C 1360,68 1440,88 1480,88'
@@ -59,8 +68,9 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
   const dashKey = activeStage ?? (lastCompleted === 'spark' ? 'spark' : lastCompleted === 'garage' ? 'garage' : lastCompleted === 'testTrack' ? 'testTrack' : null)
   const dash = dashKey ? STAGE_DASH[dashKey] : null
 
-  const dotR    = hero ? 26 : 24
-  const labelFs = hero ? 38 : 35
+  const dotR      = hero ? 26 : 24
+  const labelFs   = hero ? 28 : 26
+  const subtitleFs = hero ? 20 : 18
 
   return (
     <div style={{ width: '100%', height: '25vh', minHeight: '120px' }}>
@@ -97,10 +107,17 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
           const isActive    = activeStage === id
           const isCompleted = completedStages[id]
           const color = STAGE_COLORS[id]
+          const icon  = STAGE_ICONS[id]
           const labelY = cy + dotR + 44
+          const iconSize = dotR * 1.3
 
           return (
             <g key={id}>
+              <defs>
+                <clipPath id={`clip-${id}`}>
+                  <circle cx={cx} cy={cy} r={dotR} />
+                </clipPath>
+              </defs>
               {isActive && (
                 <circle cx={cx} cy={cy} r={dotR + 14}
                   fill={color} opacity={0.18} className="pulse-dot" />
@@ -119,10 +136,15 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
                 <text x={cx} y={cy + 4} textAnchor="middle"
                   fontSize={20} fill="white" fontWeight="900">&#10003;</text>
               ) : (
-                <text x={cx} y={cy + 4} textAnchor="middle"
-                  fontSize={20} fill="white" fontWeight="800" fontFamily="monospace">
-                  {id === 'spark' ? '01' : id === 'garage' ? '02' : '03'}
-                </text>
+                <image
+                  href={icon}
+                  x={cx - iconSize / 2}
+                  y={cy - iconSize / 2}
+                  width={iconSize}
+                  height={iconSize}
+                  clipPath={`url(#clip-${id})`}
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
               )}
               <text
                 x={cx} y={labelY}
@@ -135,6 +157,19 @@ export default function Road({ completedStages, activeStage, hero = false }: Roa
               >
                 {stage.label}
               </text>
+              {stage.subtitle && (
+                <text
+                  x={cx} y={labelY + labelFs + 6}
+                  textAnchor="middle"
+                  fontSize={subtitleFs}
+                  fill={isActive || isCompleted ? color : '#777'}
+                  fontFamily="Zilla Slab, Georgia, serif"
+                  fontWeight="400"
+                  opacity={0.75}
+                >
+                  {stage.subtitle}
+                </text>
+              )}
             </g>
           )
         })}

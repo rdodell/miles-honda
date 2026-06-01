@@ -81,7 +81,7 @@ export default function SparkWelcome({ onAdvance }: SparkWelcomeProps) {
             </motion.div>
 
             {/* Prompt */}
-            <motion.p {...fadeUp(0.12)} className="text-base font-medium text-[#1A1A1A] px-1">
+            <motion.p {...fadeUp(0.12)} className="text-sm font-medium text-[#1A1A1A] px-1">
               {s.promptMessage}
             </motion.p>
 

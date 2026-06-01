@@ -6,9 +6,9 @@ interface CPRoadStripProps {
 }
 
 const NODES = [
-  { id: 'spark',  label: 'Spark',     stageKey: 'spark'     as StageId, x: 140 },
-  { id: 'garage', label: 'Garage',    stageKey: 'garage'    as StageId, x: 500 },
-  { id: 'track',  label: 'Test Track',stageKey: 'testTrack' as StageId, x: 860 },
+  { id: 'spark',  label: 'Idea Validation', subtitle: 'in 2 weeks', stageKey: 'spark'     as StageId, x: 140 },
+  { id: 'garage', label: 'Business Case Due',             subtitle: 'in 5 weeks', stageKey: 'garage'    as StageId, x: 500 },
+  { id: 'track',  label: 'Venture Board Review',          subtitle: 'in 8 weeks', stageKey: 'testTrack' as StageId, x: 860 },
 ]
 
 const W = 1000, ROAD_H = 64, MIDY = 32, AMP = 7, CYCLES = 1.6
@@ -45,7 +45,7 @@ export default function CPRoadStrip({ activeStage, completedStages }: CPRoadStri
     <div style={{
       gridColumn: '1 / -1',
       gridRow: 2,
-      height: 112,
+      height: 132,
       padding: '0 40px',
       background: 'rgba(255,255,255,0.52)',
       backdropFilter: 'blur(16px) saturate(1.35)',
@@ -106,7 +106,8 @@ export default function CPRoadStrip({ activeStage, completedStages }: CPRoadStri
           const isCurrent = activeStage === node.stageKey
           const isFuture  = !isDone && !isCurrent
           const leftPct   = (node.x / W) * 100
-          const topPx     = (yAt(node.x) / ROAD_H) * ROAD_H - (isCurrent ? 18 : 14)
+          const nodeSize  = isCurrent ? 36 : 22
+          const topPx     = (yAt(node.x) / ROAD_H) * ROAD_H - (nodeSize / 2)
 
           return (
             <div key={node.id} style={{ position: 'absolute', left: `${leftPct}%`, top: 0, transform: 'translateX(-50%)' }}>
@@ -116,8 +117,8 @@ export default function CPRoadStrip({ activeStage, completedStages }: CPRoadStri
                 top: topPx,
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width:  isCurrent ? 36 : 28,
-                height: isCurrent ? 36 : 28,
+                width:  nodeSize,
+                height: nodeSize,
                 borderRadius: '50%',
                 background: isDone
                   ? 'var(--c-garage-dark)'
@@ -151,18 +152,32 @@ export default function CPRoadStrip({ activeStage, completedStages }: CPRoadStri
                 }
               </div>
 
-              {/* Label below */}
+              {/* Label + subtitle below */}
               <div style={{
                 position: 'absolute',
                 top: ROAD_H + 4,
                 left: '50%',
                 transform: 'translateX(-50%)',
-                fontFamily: 'var(--font-cp-display)', fontWeight: 600, fontSize: 11,
-                color: isCurrent ? 'var(--stage-strong)' : isDone ? 'var(--ink-2)' : 'var(--muted)',
-                whiteSpace: 'nowrap',
-                transition: 'color 0.35s ease',
+                textAlign: 'center',
+                width: 140,
               }}>
-                {node.label}
+                <div style={{
+                  fontFamily: 'var(--font-cp-display)', fontWeight: 600, fontSize: 12,
+                  color: isCurrent ? 'var(--stage-strong)' : isDone ? 'var(--ink-2)' : 'var(--muted)',
+                  lineHeight: 1.3,
+                  transition: 'color 0.35s ease',
+                }}>
+                  {node.label}
+                </div>
+                <div style={{
+                  fontFamily: 'var(--font-cp-mono)', fontSize: 11,
+                  color: isCurrent ? 'var(--stage)' : 'var(--muted)',
+                  opacity: 0.75,
+                  marginTop: 2,
+                  transition: 'color 0.35s ease',
+                }}>
+                  {node.subtitle}
+                </div>
               </div>
             </div>
           )

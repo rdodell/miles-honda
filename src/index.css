@@ -117,6 +117,11 @@ body {
 }
 .fade-up { animation: fade-up 0.35s ease both; }
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 /* --- Atmospheric gradient (Landing · Stage wraps · Journey complete only) --- */
 .gradient-ignition {
   background: linear-gradient(145deg, #5B5FD9 0%, #A8B0F0 55%, #E8ECFA 100%);

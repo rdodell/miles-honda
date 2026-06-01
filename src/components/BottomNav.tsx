@@ -1,4 +1,7 @@
-import { Zap, Wrench, TestTube2, Hammer, Home } from 'lucide-react'
+import { Wrench, Home } from 'lucide-react'
+import iconSparkStage from '../assets/icon-spark-stage.png'
+import iconHandshake  from '../assets/icon-handshake.png'
+import iconGauge      from '../assets/icon-gauge.png'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
 
@@ -11,12 +14,18 @@ interface BottomNavProps {
 }
 
 const NAV_ITEMS = [
-  { id: 'home',      label: 'Home',          icon: Home,      entryScreen: 'D.1',  stageId: null },
-  { id: 'spark',     label: 'The Spark',     icon: Zap,       entryScreen: '1.1',  stageId: 'spark' as StageId },
-  { id: 'garage',    label: 'The Garage',    icon: Hammer,    entryScreen: '2.1',  stageId: 'garage' as StageId },
-  { id: 'testTrack', label: 'Test Track',    icon: TestTube2, entryScreen: '3.1',  stageId: 'testTrack' as StageId },
-  { id: 'tools',     label: 'Tools',         icon: Wrench,    entryScreen: 'T.1',  stageId: null },
+  { id: 'home',      label: 'Home',       icon: Home,  imgSrc: null,            entryScreen: 'D.1', stageId: null },
+  { id: 'spark',     label: 'Spark',      icon: null,  imgSrc: iconSparkStage,  entryScreen: '1.1', stageId: 'spark' as StageId },
+  { id: 'garage',    label: 'Garage',     icon: null,  imgSrc: iconHandshake,   entryScreen: '2.1', stageId: 'garage' as StageId },
+  { id: 'testTrack', label: 'Test Track', icon: null,  imgSrc: iconGauge,       entryScreen: '3.1', stageId: 'testTrack' as StageId },
+  { id: 'tools',     label: 'Tools',      icon: Wrench, imgSrc: null,           entryScreen: 'T.1', stageId: null },
 ]
+
+const STAGE_FILTER: Record<string, string> = {
+  spark:     'brightness(0) saturate(100%) invert(72%) sepia(60%) saturate(700%) hue-rotate(355deg) brightness(105%)',
+  garage:    'brightness(0) saturate(100%) invert(31%) sepia(40%) saturate(800%) hue-rotate(185deg) brightness(88%)',
+  testTrack: 'brightness(0) saturate(100%) invert(20%) sepia(90%) saturate(1000%) hue-rotate(340deg) brightness(78%)',
+}
 
 const ACTIVE_COLORS: Record<string, string> = {
   home:      'text-[#1A1A1A]',
@@ -66,7 +75,15 @@ export default function BottomNav({ currentStage, completedStages, currentScreen
             onClick={() => handleClick(item)}
             className={`flex flex-col items-center gap-0.5 transition-colors hover:opacity-80 px-2 py-1 ${color}`}
           >
-            <Icon size={17} />
+            {item.imgSrc
+              ? <img src={item.imgSrc} alt="" style={{
+                  width: 17, height: 17, objectFit: 'contain',
+                  filter: isActive && item.stageId
+                    ? STAGE_FILTER[item.stageId]
+                    : 'brightness(0) opacity(0.4)',
+                }} />
+              : Icon && <Icon size={17} />
+            }
             <span style={{
               fontSize: 10,
               fontWeight: isActive ? 600 : 500,

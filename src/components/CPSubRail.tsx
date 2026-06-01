@@ -1,5 +1,17 @@
-import { Zap, Hammer, Flag, Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare } from 'lucide-react'
-import ianAvatar from '../assets/ian-avatar.svg'
+import { Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare } from 'lucide-react'
+import ianAvatar      from '../assets/ian-avatar.png'
+import iconSparkStage from '../assets/icon-spark-stage.png'
+import iconSpark      from '../assets/icon-spark.png'
+import iconHandshake  from '../assets/icon-handshake.png'
+import iconGauge      from '../assets/icon-gauge.png'
+import iconNetwork    from '../assets/icon-network.png'
+import iconChat       from '../assets/icon-chat.png'
+import iconPuzzle     from '../assets/icon-puzzle.png'
+import iconDirectory   from '../assets/icon-directory.png'
+import iconSavedPeople from '../assets/icon-saved-people.png'
+import iconScorecard   from '../assets/icon-scorecard.png'
+import iconDeck        from '../assets/icon-deck.png'
+import iconReadiness   from '../assets/icon-readiness.png'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
 
@@ -8,36 +20,44 @@ interface CPSubRailProps {
   currentScreen: string
 }
 
+const STAGE_ICONS: Record<string, string> = {
+  spark: iconSparkStage,
+  garage: iconHandshake,
+  track: iconGauge,
+}
+
+const STAGE_ICON_FILTER: Record<string, string> = {
+  spark:  'brightness(0) saturate(100%) invert(37%) sepia(85%) saturate(600%) hue-rotate(20deg) brightness(92%)',
+  garage: 'brightness(0) saturate(100%) invert(31%) sepia(40%) saturate(800%) hue-rotate(185deg) brightness(88%)',
+  track:  'brightness(0) saturate(100%) invert(20%) sepia(90%) saturate(1000%) hue-rotate(340deg) brightness(78%)',
+}
+
 const STAGE_TOOLS: Record<string, {
   label: string
-  Icon: React.FC<{ size?: number; style?: React.CSSProperties }>
-  tools: { id: string; name: string; Icon: React.FC<{ size?: number }>; screens: string[] }[]
+  tools: { id: string; name: string; Icon: React.FC<{ size?: number }>; imgSrc?: string; screens: string[] }[]
 }> = {
   spark: {
     label: 'Spark',
-    Icon: Zap,
     tools: [
-      { id: 'idea',       name: 'Idea & evidence',     Icon: BookOpen,    screens: ['1.1', '1.3', '1.3b', '1.3c'] },
-      { id: 'interviews', name: 'Customer interviews',  Icon: Calendar,    screens: ['1.3d', '1.3e']              },
-      { id: 'verdict',    name: 'PMF verdict',          Icon: MessageSquare, screens: ['1.4', '1.5']              },
+      { id: 'idea',       name: 'Idea & evidence',     Icon: BookOpen,      imgSrc: iconSpark, screens: ['1.1', '1.3', '1.3b', '1.3c'] },
+      { id: 'interviews', name: 'Customer interviews',  Icon: Calendar,      imgSrc: iconChat,   screens: ['1.3d', '1.3e']              },
+      { id: 'verdict',    name: 'PMF verdict',          Icon: MessageSquare, imgSrc: iconPuzzle, screens: ['1.4', '1.5']              },
     ],
   },
   garage: {
     label: 'Garage',
-    Icon: Hammer,
     tools: [
-      { id: 'network',   name: 'Your network',   Icon: Users,    screens: ['2.1', '2.2', '2.3', '2.4'] },
-      { id: 'directory', name: 'The directory',  Icon: FileText, screens: []                           },
-      { id: 'saved',     name: 'Saved people',   Icon: Zap,      screens: []                           },
+      { id: 'network',   name: 'Your network',   Icon: Users,    imgSrc: iconNetwork, screens: ['2.1', '2.2', '2.3', '2.4'] },
+      { id: 'directory', name: 'The directory',  Icon: FileText, imgSrc: iconDirectory, screens: []                           },
+      { id: 'saved',     name: 'Saved people',   Icon: Users, imgSrc: iconSavedPeople, screens: []                           },
     ],
   },
   track: {
-    label: 'The Test Track',
-    Icon: Flag,
+    label: 'Test Track',
     tools: [
-      { id: 'readiness', name: 'Readiness check',  Icon: CheckSquare, screens: ['3.1', '3.2', '3.3'] },
-      { id: 'prep',      name: 'Seed-review prep', Icon: Flag,        screens: ['3.4']                },
-      { id: 'deck',      name: 'Deck & evidence',  Icon: FileText,    screens: ['3.5']                },
+      { id: 'readiness', name: 'Readiness check',  Icon: CheckSquare, imgSrc: iconReadiness, screens: ['3.1', '3.2', '3.3'] },
+      { id: 'scorecard', name: 'Readiness scorecard', Icon: CheckSquare, imgSrc: iconScorecard, screens: ['3.4'] },
+      { id: 'deck',      name: 'Deck & evidence',  Icon: FileText, imgSrc: iconDeck, screens: ['3.5'] },
     ],
   },
 }
@@ -50,7 +70,7 @@ function cpStageKey(s: StageId | null): string | null {
 export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps) {
   const cpKey = cpStageKey(activeStage)
   const stageDef = cpKey ? STAGE_TOOLS[cpKey] : null
-  const StageIcon = stageDef?.Icon
+  const stageIcon = cpKey ? STAGE_ICONS[cpKey] : null
 
   function getActiveTool(): string | null {
     if (!stageDef) return null
@@ -63,7 +83,7 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
   return (
     <div style={{
       display: 'flex', flexDirection: 'column', gap: 0,
-      padding: '20px 14px', height: '100%', overflow: 'hidden auto',
+      padding: '28px 14px 20px', height: '100%', overflow: 'hidden auto',
     }}>
       {stageDef ? (
         <>
@@ -80,7 +100,7 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
           <div style={{
             display: 'flex', alignItems: 'center', gap: 9,
             fontFamily: 'var(--font-cp-display)', fontWeight: 600,
-            fontSize: 15, color: 'var(--ink)', padding: '2px 8px 12px',
+            fontSize: 15, color: 'var(--ink)', padding: '2px 8px 18px',
           }}>
             <span style={{
               width: 26, height: 26, borderRadius: 7,
@@ -88,7 +108,7 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
               display: 'grid', placeItems: 'center',
               color: '#fff', flexShrink: 0,
             }}>
-              {StageIcon && <StageIcon size={14} />}
+              {stageIcon && <img src={stageIcon} alt="" style={{ width: 14, height: 14, objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />}
             </span>
             {activeToolDef?.name ?? stageDef.label}
           </div>
@@ -97,7 +117,7 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
           <div style={{
             fontFamily: 'var(--font-cp-mono)', fontSize: 10,
             textTransform: 'uppercase', letterSpacing: '0.14em',
-            color: 'var(--muted)', padding: '6px 10px 4px',
+            color: 'var(--muted)', padding: '2px 10px 10px',
           }}>
             This stage
           </div>
@@ -112,7 +132,7 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
                   key={tool.id}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 10,
-                    padding: '9px 12px', marginBottom: 2,
+                    padding: '10px 12px', marginBottom: 16,
                     borderRadius: 'var(--radius-sm)',
                     color: isActive ? 'var(--ink)' : 'var(--ink-2)',
                     fontSize: 13,
@@ -124,7 +144,9 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
                   }}
                 >
                   <span style={{ color: isActive ? 'var(--stage-strong)' : 'var(--muted)', display: 'flex', flexShrink: 0 }}>
-                    <ToolIcon size={15} />
+                    {tool.imgSrc
+                      ? <img src={tool.imgSrc} alt="" style={{ width: 15, height: 15, objectFit: 'contain', filter: isActive ? (cpKey ? STAGE_ICON_FILTER[cpKey] : 'none') : 'brightness(0) opacity(0.35)' }} />
+                      : <ToolIcon size={15} />}
                   </span>
                   <span style={{ flex: 1 }}>{tool.name}</span>
                   {isActive && (

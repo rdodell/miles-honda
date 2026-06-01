@@ -52,11 +52,10 @@ const CSS_STAGE: Record<StageId, string> = {
   testTrack: 'track',
 }
 
-/* Full-app gradient background (shows through glass columns) */
+/* Full-app gradient background — uses --stage-soft so it shifts with the active stage */
 const BG_GRADIENT = `
-  radial-gradient(840px 460px at 6% -8%,  var(--c-spark-soft)  0%, transparent 55%),
-  radial-gradient(780px 520px at 104% -2%, var(--c-garage-soft) 0%, transparent 58%),
-  radial-gradient(700px 600px at 58% 126%, var(--accent-soft)   0%, transparent 56%),
+  radial-gradient(900px 520px at 5% -10%,  var(--stage-soft) 0%, transparent 60%),
+  radial-gradient(600px 500px at 100% 110%, var(--stage-soft) 0%, transparent 60%),
   linear-gradient(165deg, #FFFFFF 0%, var(--bg) 100%)
 `.trim()
 
@@ -155,7 +154,7 @@ export default function App() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: '244px 1fr',
-          gridTemplateRows: '90px 112px 1fr',
+          gridTemplateRows: '90px 132px 1fr',
           height: '100vh',
           overflow: 'hidden',
         }}>
@@ -186,6 +185,7 @@ export default function App() {
             gridRow: 3, gridColumn: 2,
             overflow: 'hidden auto',
             background: 'transparent',
+            paddingTop: 16,
           }}>
             <AnimatePresence mode="wait">
               <motion.div

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanTyping from '../components/IanTyping'
 import Tooltip from '../components/Tooltip'
+import lauraAvatar from '../assets/laura-avatar.png'
 import scenario from '../scenario.json'
 
 interface SparkChatProps {
@@ -37,10 +38,11 @@ function PersonaCard({ persona, onAdvance, showTooltip }: { persona: Persona; on
         }
       `}
     >
-      {/* Avatar placeholder */}
-      <div className={`w-8 h-8 rounded-full mb-2 flex items-center justify-center text-white text-sm font-bold ${isLaura ? 'bg-[#7A1420]' : 'bg-[#A09A94]'}`}>
-        {persona.name[0]}
-      </div>
+      {/* Avatar */}
+      {isLaura
+        ? <img src={lauraAvatar} alt="Laura" className="w-8 h-8 rounded-full mb-2 object-cover" />
+        : <div className="w-8 h-8 rounded-full mb-2 flex items-center justify-center text-white text-sm font-bold bg-[#A09A94]">{persona.name[0]}</div>
+      }
       <div className="font-semibold text-sm text-[#1A1A1A]">{persona.name}</div>
       <div className="text-xs text-[#A09A94] mt-0.5 leading-tight">{persona.role}</div>
       <div className="text-xs text-[#6B6570] mt-1.5 leading-tight">{persona.pain}</div>

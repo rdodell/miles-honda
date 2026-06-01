@@ -1,7 +1,7 @@
 import MilesAvatar from './MilesAvatar'
 import scenario from '../scenario.json'
 import { Mic, MessageCircle, Wrench } from 'lucide-react'
-import ianAvatar from '../assets/ian-avatar.svg'
+import ianAvatar from '../assets/ian-avatar.png'
 
 interface CPMilesAsideProps {
   currentScreen: string

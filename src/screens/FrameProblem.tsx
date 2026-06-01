@@ -91,7 +91,7 @@ export default function FrameProblem({ onAdvance }: Props) {
   }, [phase, activeTypingIdx])
 
   return (
-    <div className="flex flex-col gap-5 px-5 py-5 pb-20">
+    <div className="flex flex-col gap-5 px-5 pt-8 pb-20 px-5">
       {/* Stage chip */}
       <motion.div {...fadeUp(0)}>
         <span style={{
