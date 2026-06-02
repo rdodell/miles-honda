@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MessageCircle, Mic, PencilLine } from 'lucide-react'
 import { motion } from 'framer-motion'
+
+const TYPE_MS_PER_CHAR = 28 // prepopulated Ian text types in like a sent message
 
 export interface IanInputBarProps {
   driver: 'chat' | 'voice' | 'scratchpad'
@@ -21,6 +23,22 @@ const UNAVAILABLE_TOOLTIP = 'Not available in this preview'
 export default function IanInputBar({ driver, suggestion, placeholder, onSubmit, disabled = false }: IanInputBarProps) {
   const [activeTab, setActiveTab] = useState<IanInputBarProps['driver']>(driver)
   const [tooltip, setTooltip] = useState<string | null>(null)
+
+  // Prepopulated Ian text animates in, character by character, like it's being typed
+  const [typed, setTyped] = useState('')
+  const [doneTyping, setDoneTyping] = useState(false)
+  useEffect(() => {
+    if (!suggestion) { setTyped(''); setDoneTyping(false); return }
+    setTyped('')
+    setDoneTyping(false)
+    let i = 0
+    const id = setInterval(() => {
+      i += 1
+      setTyped(suggestion.slice(0, i))
+      if (i >= suggestion.length) { clearInterval(id); setDoneTyping(true) }
+    }, TYPE_MS_PER_CHAR)
+    return () => clearInterval(id)
+  }, [suggestion])
 
   function handleTabClick(id: IanInputBarProps['driver']) {
     if (id === 'voice' || id === 'scratchpad') {
@@ -124,10 +142,19 @@ export default function IanInputBar({ driver, suggestion, placeholder, onSubmit,
         )}
         <span style={{
           flex: 1, fontFamily: 'var(--font-cp-sans)', fontSize: 14,
-          color: suggestion ? 'var(--muted)' : 'var(--muted)',
-          fontStyle: 'italic',
+          color: suggestion ? 'var(--ink)' : 'var(--muted)',
+          fontStyle: suggestion ? 'normal' : 'italic',
         }}>
-          {suggestion ?? placeholder ?? (driver === 'voice' ? 'Tap to speak…' : driver === 'scratchpad' ? 'Add to scratch pad…' : 'Ask Miles something…')}
+          {suggestion ? (
+            <>
+              {typed}
+              {!doneTyping && (
+                <span style={{ display: 'inline-block', width: 2, height: 14, background: 'var(--ink)', marginLeft: 2, verticalAlign: 'middle', animation: 'blink 1s step-end infinite' }} />
+              )}
+            </>
+          ) : (
+            placeholder ?? (driver === 'voice' ? 'Tap to speak…' : driver === 'scratchpad' ? 'Add to scratch pad…' : 'Ask Miles something…')
+          )}
         </span>
         <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--accent)', flexShrink: 0, fontFamily: 'var(--font-cp-sans)' }}>
           {driver === 'voice' ? '●' : 'Send →'}

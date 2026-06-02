@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Lock, Check } from 'lucide-react'
+import { X, Check, ChevronDown } from 'lucide-react'
 import scenario from '../scenario.json'
 
 type StageId = 'spark' | 'garage' | 'testTrack'
@@ -35,26 +35,26 @@ const STAGE_SOFT: Record<StageId, string> = {
   testTrack: 'rgba(122,20,32,0.08)',
 }
 
-export default function ChecklistPanel({ open, onClose, activeStage, completedStages }: ChecklistPanelProps) {
+export default function ChecklistPanel({ open, onClose, activeStage }: ChecklistPanelProps) {
   const order = checklists.stageOrder
 
-  // How far Ian has progressed: max of active-stage index and highest completed index
-  const activeIdx = activeStage ? order.indexOf(activeStage) : -1
-  const completedIdx = order.reduce((acc, s, i) => (completedStages[s] ? i : acc), -1)
-  const reachedIdx = Math.max(activeIdx, completedIdx)
+  // The whole journey is unlocked: Ian can see every stage and everything still
+  // due, end to end. All stages start expanded; each can be collapsed individually.
+  const [expanded, setExpanded] = useState<Set<StageId>>(new Set(order))
 
-  const isLocked = (i: number) => i > reachedIdx
+  const toggle = (id: StageId) =>
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
 
-  // Which stage is expanded — default to the active stage (or the furthest reached, else first)
-  const defaultExpanded: StageId =
-    activeStage ?? (reachedIdx >= 0 ? order[reachedIdx] : order[0])
-  const [expanded, setExpanded] = useState<StageId>(defaultExpanded)
-
-  // Re-sync the expanded stage whenever the panel is (re)opened or the active stage changes
+  // Re-expand everything whenever the panel is (re)opened
   useEffect(() => {
-    if (open) setExpanded(defaultExpanded)
+    if (open) setExpanded(new Set(order))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, activeStage])
+  }, [open])
 
   // Esc closes the panel
   useEffect(() => {
@@ -144,8 +144,8 @@ export default function ChecklistPanel({ open, onClose, activeStage, completedSt
             <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
               {order.map((stageId, i) => {
                 const stage = checklists.stages[stageId]
-                const locked = isLocked(i)
-                const isOpen = expanded === stageId && !locked
+                const isOpen = expanded.has(stageId)
+                const isCurrent = activeStage === stageId
                 const accent = STAGE_ACCENT[stageId]
                 const done = stage.items.filter((it) => it.done).length
                 const total = stage.items.length
@@ -155,33 +155,29 @@ export default function ChecklistPanel({ open, onClose, activeStage, completedSt
                     key={stageId}
                     style={{
                       borderRadius: 16,
-                      border: `1px solid ${isOpen ? accent : 'var(--border)'}`,
-                      background: isOpen ? STAGE_SOFT[stageId] : '#fff',
+                      border: `1px solid ${isCurrent ? accent : 'var(--border)'}`,
+                      background: isCurrent ? STAGE_SOFT[stageId] : '#fff',
                       overflow: 'hidden',
-                      opacity: locked ? 0.6 : 1,
                       transition: 'border-color 0.2s, background 0.2s',
                     }}
                   >
-                    {/* Stage header row */}
+                    {/* Stage header row — click to collapse/expand */}
                     <button
-                      onClick={() => { if (!locked) setExpanded(stageId) }}
-                      disabled={locked}
+                      onClick={() => toggle(stageId)}
+                      aria-expanded={isOpen}
                       style={{
                         width: '100%', display: 'flex', alignItems: 'center', gap: 12,
                         padding: '14px 16px', background: 'transparent', border: 'none',
-                        textAlign: 'left', cursor: locked ? 'default' : 'pointer',
+                        textAlign: 'left', cursor: 'pointer',
                       }}
                     >
                       {/* Stage marker */}
                       <span style={{
                         width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
                         display: 'grid', placeItems: 'center',
-                        background: locked ? 'var(--bg-2)' : accent,
-                        color: locked ? 'var(--muted)' : '#fff',
+                        background: accent, color: '#fff',
                       }}>
-                        {locked
-                          ? <Lock size={13} />
-                          : <span style={{ fontFamily: 'var(--font-cp-mono)', fontSize: 11, fontWeight: 700 }}>{String(i + 1).padStart(2, '0')}</span>}
+                        <span style={{ fontFamily: 'var(--font-cp-mono)', fontSize: 11, fontWeight: 700 }}>{String(i + 1).padStart(2, '0')}</span>
                       </span>
 
                       <div style={{ flex: 1, minWidth: 0 }}>
@@ -193,17 +189,22 @@ export default function ChecklistPanel({ open, onClose, activeStage, completedSt
                         </div>
                       </div>
 
-                      {/* Progress / lock badge */}
-                      {locked ? (
-                        <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', flexShrink: 0 }}>Locked</span>
-                      ) : (
-                        <span style={{
-                          fontFamily: 'var(--font-cp-mono)', fontSize: 11, fontWeight: 600,
-                          color: accent, flexShrink: 0,
-                        }}>
+                      {/* "Now" tag for the current stage + progress count + collapse chevron */}
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+                        {isCurrent && (
+                          <span style={{
+                            fontFamily: 'var(--font-cp-mono)', fontSize: 9, fontWeight: 700,
+                            textTransform: 'uppercase', letterSpacing: '0.1em',
+                            color: '#fff', background: accent, borderRadius: 99, padding: '2px 7px',
+                          }}>
+                            Now
+                          </span>
+                        )}
+                        <span style={{ fontFamily: 'var(--font-cp-mono)', fontSize: 11, fontWeight: 600, color: accent }}>
                           {done}/{total}
                         </span>
-                      )}
+                        <ChevronDown size={15} style={{ color: 'var(--muted)', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+                      </span>
                     </button>
 
                     {/* Items (expanded, unlocked stages only) */}

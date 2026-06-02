@@ -14,11 +14,12 @@ const sketch = (s as any).sketchToForm as {
   milesClosingLine: string
 }
 const ianInput = (s as any).ianInput as { driver: string; text: string; asset: string }
+const milesOpeningPrompt = (s as any).milesOpeningPrompt as string
 
 const ANSWER_SPEED_MS = 22 // ms per character — feels like Ian typing
 
-// Phase ordering — Ian leads with sketch, Miles structures from it
-const ORDER = ['sketch', 'structuring', 'questions', 'typing', 'closing', 'done'] as const
+// Phase ordering — Miles asks, Ian answers with his sketch, Miles structures from it
+const ORDER = ['prompt', 'sketch', 'structuring', 'questions', 'typing', 'closing', 'done'] as const
 type Phase = (typeof ORDER)[number]
 
 // Short source label per field, keyed by question text
@@ -32,7 +33,7 @@ const fadeUp = (delay: number) => ({
 })
 
 export default function FrameProblem({ onAdvance }: Props) {
-  const [phase, setPhase] = useState<Phase>('sketch')
+  const [phase, setPhase] = useState<Phase>('prompt')
   const [visibleCount, setVisibleCount] = useState(0)
   const [typedAnswers, setTypedAnswers] = useState<string[]>(s.questions.map(() => ''))
   const [activeTypingIdx, setActiveTypingIdx] = useState(0)
@@ -107,7 +108,15 @@ export default function FrameProblem({ onAdvance }: Props) {
         }}>{s.step}</span>
       </motion.div>
 
-      {/* Ian's scratch-pad reply: the hand-drawn sketch — appears first */}
+      {/* Miles opens by asking Ian what he's envisioning */}
+      {reached('prompt') && milesOpeningPrompt && (
+        <MilesMessage
+          text={milesOpeningPrompt}
+          onDone={() => setPhase((p) => (p === 'prompt' ? 'sketch' : p))}
+        />
+      )}
+
+      {/* Ian's scratch-pad reply: the hand-drawn sketch */}
       <AnimatePresence>
         {reached('sketch') && (
           <motion.div
@@ -238,8 +247,8 @@ export default function FrameProblem({ onAdvance }: Props) {
             )}
           </span>
           <IanInputBar
-            driver="scratchpad"
-            suggestion={ianInput.text}
+            driver="chat"
+            suggestion={(s as any).ianTestReply}
             onSubmit={() => onAdvance(s.cta.advance)}
           />
         </motion.div>

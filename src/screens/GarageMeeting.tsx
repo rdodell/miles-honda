@@ -62,11 +62,8 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
         </div>
 
         <div className="flex items-center gap-3 bg-white rounded-2xl p-3.5 shadow-sm" style={{ border: '1.5px solid #E5E5E5' }}>
-          <div className="w-11 h-11 rounded-full flex-shrink-0 relative overflow-hidden">
+          <div className="w-11 h-11 rounded-full flex-shrink-0 overflow-hidden">
             <img src={priyaAvatar} alt={c.name} className="w-full h-full object-cover" />
-            <div className="absolute -bottom-0.5 -right-0.5 w-4.5 h-4.5 rounded-full flex items-center justify-center" style={{ background: '#fff', padding: 1 }}>
-              <CheckCircle2 size={14} color="#5B5FD9" />
-            </div>
           </div>
           <div className="flex-1 min-w-0">
             <div style={{ fontSize: 15, fontWeight: 600, color: '#231F20', fontFamily: 'Inter, sans-serif' }}>{c.name}</div>

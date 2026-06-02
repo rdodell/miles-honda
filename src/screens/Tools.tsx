@@ -43,7 +43,7 @@ export default function Tools({ showTooltip }: ToolsProps) {
             >
               {shelf.header}
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="flex flex-wrap gap-2 pb-1">
               {shelf.tools.map((tool) => (
                 <button
                   key={tool}

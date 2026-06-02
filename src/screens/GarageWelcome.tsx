@@ -137,9 +137,14 @@ function ContactCard({ opt, isSelected, isRec }: { opt: BranchOption; isSelected
       style={{ border: '1.5px solid #E5E5E5', cursor: 'pointer', transition: 'opacity 0.15s' }}
     >
       <div className="flex items-center gap-3 mb-2">
-        <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0" style={{ background: person.color }}>
-          {person.initial}
-        </div>
+        {person.id === 'daniel'
+          ? <img src={danielAvatar} alt={person.name} className="w-9 h-9 rounded-full flex-shrink-0 object-cover" />
+          : person.id === 'karen'
+            ? <img src={karenAvatar} alt={person.name} className="w-9 h-9 rounded-full flex-shrink-0 object-cover" />
+            : person.id === 'priya'
+              ? <img src={priyaAvatar} alt={person.name} className="w-9 h-9 rounded-full flex-shrink-0 object-cover" />
+              : <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0" style={{ background: person.color }}>{person.initial}</div>
+        }
         <div>
           <div style={{ fontSize: 14, fontWeight: 600, color: '#231F20' }}>{person.name}</div>
           <div style={{ fontSize: 12, color: '#6B6B6B' }}>{person.title}</div>

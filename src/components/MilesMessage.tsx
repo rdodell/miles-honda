@@ -27,6 +27,12 @@ export default function MilesMessage({ text, children, instant = false, onDone }
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const indexRef = useRef(0)
 
+  // Instant messages still need to signal completion so dependent UI advances
+  useEffect(() => {
+    if (instant) onDone?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
     if (instant) return
 

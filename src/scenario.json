@@ -144,7 +144,7 @@
       "footerReason": "Segment choice is your highest-leverage move right now. It shapes your pricing, channels, and proof points for the next 90 days.",
       "ianInput": {
         "driver": "chat",
-        "text": "Honestly, I need to nail down who actually buys this before I build anything else."
+        "text": "Honestly, I need to nail down who actually buys this before I work on any more product design."
       }
     },
     "1.2": {
@@ -194,6 +194,8 @@
       "stage": "spark",
       "timeIndicator": "Week 2 · Tuesday",
       "step": "Step 1 of 3 · Frame the problem",
+      "milesOpeningPrompt": "Can you tell me a little bit more about what you're envisioning for the electric lawn mower?",
+      "ianTestReply": "Yes, I'd like to test",
       "milesIntro": "Good, this gives us a lot to work with. Let me turn your sketch into five questions we can actually pressure-test, and you flag the ones that are still guesses.",
       "questions": [
         {
@@ -380,7 +382,7 @@
             "id": "observation",
             "label": "Direct observation",
             "ianReply": "I was going to ride along on a route first.",
-            "milesReply": "Good instinct, and we'll do it, but a ride-along is richest once you know what to watch for. Right now you've got three open hunches about what Laura values and will pay. Five interviews answer those head-on. Do those first, ride along second.",
+            "milesReply": "Good instinct, and we'll do it, but a ride-along is richest once you know what to watch for. Right now you've got three open hunches about what your customer values and will pay. Five interviews answer those head-on. Do those first, ride along second.",
             "resort": "After 3 interviews",
             "advance": null
           },
@@ -395,7 +397,7 @@
             "id": "competitor",
             "label": "Competitor teardown",
             "ianReply": "Should I tear down Greenworks and EGO first?",
-            "milesReply": "That tells you what already exists, not what Laura actually values. Useful later for positioning, not for the question you're stuck on now.",
+            "milesReply": "That tells you what already exists, not what your customer actually values. Useful later for positioning, not for the question you're stuck on now.",
             "advance": null
           },
           {
@@ -454,7 +456,7 @@
       "timeIndicator": "Week 2 · Friday",
       "header": "Nice work this week, Ian.",
       "bullets": [
-        "Drafted Laura persona",
+        "Picked Laura as the first interviewee",
         "Booked 3 customer conversations for next week",
         "Logged hypothesis: Sole-entrepreneur landscapers will pay a premium for quiet, electric equipment."
       ],
@@ -849,7 +851,7 @@
           "stage": "spark",
           "label": "Spark · Week 2",
           "bullets": [
-            "Drafted Laura persona",
+            "Picked Laura as the first interviewee",
             "Booked 3 customer conversations",
             "Logged the central hypothesis"
           ]
@@ -910,18 +912,25 @@
           "stage": "spark",
           "header": "Spark · Ideate, test, and validate with customers",
           "tools": [
+            "Idea Capture & Refinement",
+            "Social Listening",
             "SWOT",
-            "5 Es Journey Map",
+            "5 E's Journey Map",
             "Ecosystem Map",
             "Customer Persona Builder",
-            "Interview Question Generator"
+            "Interview Question Generator",
+            "Problem Validation"
           ]
         },
         {
           "stage": "garage",
           "header": "The Garage · Connect with colleagues",
           "tools": [
-            "Intrapreneur Network Search",
+            "Network Connector",
+            "Talent Sourcer",
+            "Proxies Management",
+            "Procurement Assistant",
+            "Legal Liaison",
             "Email Drafter",
             "Meeting Brief Generator"
           ]
@@ -934,7 +943,9 @@
             "Financial Sensitivity Model",
             "Devil's Advocate",
             "Readiness Scorecard",
-            "Venture Board Review Prep"
+            "Venture Board Review Prep",
+            "Prototyper",
+            "GTM Plan Generator"
           ]
         }
       ],
