@@ -1,24 +1,4 @@
 {
-  "roadStages": [
-    {
-      "id": "spark",
-      "label": "Idea Validation",
-      "position": 0.25,
-      "subtitle": "in 4 weeks"
-    },
-    {
-      "id": "garage",
-      "label": "Business Case Due",
-      "position": 0.55,
-      "subtitle": "in 9 weeks"
-    },
-    {
-      "id": "testTrack",
-      "label": "Venture Board Review",
-      "position": 0.85,
-      "subtitle": "in 12 weeks"
-    }
-  ],
   "tooltips": {
     "disabledFeature": "Demo flow continues elsewhere. Try the highlighted button.",
     "voiceSandbox": "Voice and Sandbox modes aren't in this preview.",
@@ -103,7 +83,7 @@
         {
           "label": "3 emails",
           "sublabel": "customer feedback on the prototype",
-          "tooltip": "Prototype feedback: runtime · swap-battery logistics · cut quality on tall/wet grass · weight & maneuverability · deck width vs. productivity · noise (positive). Follow-up, Laura (sole-op landscaper): Ran the demo on 3 lawns Tuesday. Got through ~2.5 properties before charge dropped, so she needs a full morning on one charge or a battery she can swap mid-route. So quiet her 7am client didn't complain for the first time. Fix the runtime and she's in."
+          "tooltip": "Prototype feedback: runtime · swap-battery logistics · cut quality on tall/wet grass · weight & maneuverability · deck width vs. productivity · noise (positive). One tester got through about 2.5 properties before the charge dropped, so runtime is the recurring theme: a solo landscaper needs a full morning on one charge or a battery they can swap mid-route. The quiet was a clear win. Fix the runtime and the interest is there."
         },
         {
           "label": "2 Slack threads",
@@ -152,41 +132,10 @@
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 1",
       "ianMessage": "I need to validate who my customer will be.",
-      "milesResponse": "From our last session I pulled three landscaper profiles. Each one points the lawnmower in a different direction. Who's jumping out at you?",
-      "personas": [
-        {
-          "id": "laura",
-          "name": "Laura",
-          "role": "Sole-entrepreneur landscaper",
-          "bio": "Services 40 lawns/week, mostly residential",
-          "pain": "Gas mowers are loud, clients complain",
-          "tam": "38% of TAM",
-          "advance": "1.3",
-          "primary": true
-        },
-        {
-          "id": "matt",
-          "name": "Matt",
-          "role": "Commercial property manager",
-          "bio": "12 sites, contracts out maintenance",
-          "pain": "Rising fuel costs, sustainability mandates",
-          "tam": "27% of TAM",
-          "tooltip": "Demo flow continues with Laura. Try the highlighted card."
-        },
-        {
-          "id": "diana",
-          "name": "Diana",
-          "role": "DIY suburban homeowner",
-          "bio": "Half-acre lot, mows weekly in season",
-          "pain": "Storing gas, weekend noise complaints",
-          "tam": "35% of TAM",
-          "tooltip": "Demo flow continues with Laura. Try the highlighted card."
-        }
-      ],
-      "inputBarTooltip": "Demo flow continues with Laura.",
+      "milesResponse": "Smart place to start. Before we name a single customer, let's get sharp on the problem and who actually has it. Want to frame that out?",
       "ianInput": {
         "driver": "chat",
-        "text": "Laura's the one I keep picturing. Let's start with her."
+        "text": "Yeah. Let's start with solo landscapers and pin down the problem before I name anyone specific."
       }
     },
     "1.3": {
@@ -194,8 +143,6 @@
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 1",
       "step": "Step 1 of 3 · Frame the problem",
-      "milesOpeningPrompt": "Can you tell me a little bit more about what you're envisioning for the electric lawn mower?",
-      "ianTestReply": "Yes, I'd like to test",
       "milesIntro": "Good, this gives us a lot to work with. Let me turn your sketch into five questions we can actually pressure-test, and you flag the ones that are still guesses.",
       "questions": [
         {
@@ -233,7 +180,7 @@
       },
       "ianInput": {
         "driver": "scratchpad",
-        "text": "Here's roughly who I'm picturing and where it breaks down for her.",
+        "text": "I've been sketching the problem all week. Here's roughly who I'm picturing and where it breaks down for a solo landscaper.",
         "asset": "src/assets/ian-sketch-lawnmower.png",
         "assetNote": "REPLACE/CONFIRM PATH: Ian's hand-drawn Sharpie sketch (solo landscaper + gas mower, LOUD!!/fumes/always breaking, 2026 regs, crossed-out $?/battery?/too $$$)."
       },
@@ -267,7 +214,9 @@
           }
         ],
         "milesClosingLine": "The 'why you' I pulled from our earlier chat, and it's still a hunch. And you crossed out the price stuff yourself, so 'how do you know' is the real gap. Want to test it?"
-      }
+      },
+      "milesOpeningPrompt": "Can you tell me a little bit more about what you're envisioning for the electric lawn mower?",
+      "ianTestReply": "Yes, I'd like to test"
     },
     "1.3b": {
       "id": "1.3b",
@@ -324,7 +273,7 @@
         {
           "n": "01",
           "title": "Customer interviews",
-          "sub": "5 calls with solo landscapers",
+          "sub": "10 calls with solo landscapers",
           "status": "Recommended next",
           "tone": "next"
         },
@@ -358,64 +307,31 @@
         }
       ],
       "counter": "1 done · 1 next · 2 later · 1 skip",
-      "cta": {
-        "label": "Meet your first interviewee →",
-        "advance": "1.3d"
-      },
-      "branch": {
-        "type": "pick-and-respond",
-        "recommended": "interviews",
-        "presenterPath": [
-          "observation",
-          "interviews"
-        ],
-        "options": [
+      "typedExchange": {
+        "turns": [
           {
-            "id": "interviews",
-            "label": "Customer interviews",
-            "recommended": true,
-            "ianReply": "That makes sense, I'll start with the interviews instead.",
-            "milesReply": "That's the one. Five calls, all three hunches tested directly, fastest signal you'll get this week.",
-            "advance": "1.3d",
-            "viaInput": true
+            "speaker": "ian",
+            "text": "I was going to ride along on a route first."
           },
           {
-            "id": "observation",
-            "label": "Direct observation",
-            "ianReply": "I was going to ride along on a route first.",
-            "milesReply": "Good instinct, and we'll do it, but a ride-along is richest once you know what to watch for. Right now you've got three open hunches about what your customer values and will pay. Five interviews answer those head-on. Do those first, ride along second.",
-            "resort": "After 3 interviews",
-            "advance": null
+            "speaker": "miles",
+            "text": "Good instinct, and we'll do it, but a ride-along is richest once you know what to watch for. Right now you've got three open hunches about what solo landscapers value and will pay. Ten interviews answer those head-on. Do those first, ride along second."
           },
           {
-            "id": "research",
-            "label": "Existing research scan",
-            "ianReply": "Didn't we already do the research scan?",
-            "milesReply": "We did, that's the 3 papers and 2 surveys from last week. It didn't answer willingness-to-pay, which is exactly why we're here.",
-            "advance": null
-          },
-          {
-            "id": "competitor",
-            "label": "Competitor teardown",
-            "ianReply": "Should I tear down Greenworks and EGO first?",
-            "milesReply": "That tells you what already exists, not what your customer actually values. Useful later for positioning, not for the question you're stuck on now.",
-            "advance": null
-          },
-          {
-            "id": "smoke",
-            "label": "Smoke test",
-            "ianReply": "What about a landing page to test demand?",
-            "milesReply": "Tempting, but a landing page before you know the value prop just gives you a noisy number. You'd be testing a guess with a guess. Come back to this after the interviews.",
-            "advance": null
+            "speaker": "ian",
+            "text": "That makes sense, I'll start with the interviews instead.",
+            "advance": "1.3d"
           }
-        ]
+        ],
+        "sendMode": "manual",
+        "note": "Screen 1.3c is a SCRIPTED TYPED EXCHANGE, not a tap-the-card branch. The five method cards (steps) are DISPLAY-ONLY context. Ian responds by TYPING in the chat input: turn 1 (Ian) types his instinct and sends; turn 2 (Miles) replies with the pushback toward interviews; turn 3 (Ian) types his acceptance and a Send click advances to 1.3d. sendMode 'manual' = Ian's line types in (IanTyping) then the presenter clicks Send to commit each Ian turn; the final send navigates to advance."
       }
     },
     "1.3d": {
       "id": "1.3d",
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 3",
-      "milesIntro": "Your evidence plan points to customer interviews first. Laura is a strong place to start, since she already flagged the runtime problem in your prototype test. Here's what you know going in.",
+      "milesIntro": "I checked our internal customer discovery tools, and Laura is the best fit to talk to first. She's a solo landscaper in Phoenix whose pain points line up with the problem you framed, and three of her clients have already asked her to switch to electric. Here's what you know going in.",
       "personaCard": {
         "name": "Laura",
         "age": 42,
@@ -442,7 +358,7 @@
       },
       "milesFollowup": "Ready to book that first call? Or want to refine the script first?",
       "cta": {
-        "label": "Book the call",
+        "label": "Book the call →",
         "advance": "1.4"
       },
       "ianInput": {
@@ -458,7 +374,7 @@
       "header": "Nice work this week, Ian.",
       "bullets": [
         "Picked Laura as the first interviewee",
-        "Booked 3 customer conversations for next week",
+        "Built an evidence plan, starting with customer interviews",
         "Logged hypothesis: Sole-entrepreneur landscapers will pay a premium for quiet, electric equipment."
       ],
       "milesFooter": "Curious what you'll hear. When you're back from those interviews, we'll line up the colleagues who've built this kind of thing before.",
@@ -668,7 +584,66 @@
         "driver": "chat",
         "text": "Feels good to not be guessing on cost anymore. What's left before the model's solid?"
       },
-      "advance": "3.1"
+      "advance": "3.0"
+    },
+    "3.0": {
+      "id": "3.0",
+      "stage": "testTrack",
+      "timeIndicator": "Month 3 · Week 1",
+      "milesMessage": "Your cost numbers are solid now, that's the biggest unknown closed. I'd take you straight into building the model. Sound good?",
+      "ianInput": {
+        "driver": "chat",
+        "text": "Before we dive in, what tools do I have for this stage?"
+      },
+      "milesToolsIntro": "Fair. Here's your Test Track toolkit, the ones built for modeling and pressure-testing. Where do you want to start?",
+      "branch": {
+        "type": "pick-and-respond",
+        "recommended": "bmc",
+        "presenterPath": [
+          "bmc"
+        ],
+        "options": [
+          {
+            "id": "bmc",
+            "label": "Business Model Canvas",
+            "recommended": true,
+            "ianReply": "Let's start with the Business Model Canvas.",
+            "milesReply": "Good call. The canvas is where the whole model hangs together. Let's lay it out.",
+            "advance": "3.1"
+          },
+          {
+            "id": "financial",
+            "label": "Financial Sensitivity Model",
+            "ianReply": "What about the financial model?",
+            "milesReply": "We'll get there, but the canvas comes first. Once the pieces are laid out, the sensitivity model has something to flex.",
+            "advance": null
+          },
+          {
+            "id": "devil",
+            "label": "Devil's Advocate",
+            "ianReply": "Can I jump to the pressure-test?",
+            "milesReply": "Save that for once you have a model to attack. Lay out the canvas first.",
+            "advance": null
+          },
+          {
+            "id": "readiness",
+            "label": "Readiness Scorecard",
+            "ianReply": "Show me the readiness scorecard.",
+            "milesReply": "That's the last step before the board review. You'll get there, but start with the canvas.",
+            "advance": null
+          },
+          {
+            "id": "prep",
+            "label": "Venture Board Review Prep",
+            "ianReply": "Should I prep for the board now?",
+            "milesReply": "Prep comes after the model holds up. Start with the canvas.",
+            "advance": null
+          }
+        ]
+      },
+      "toolsGate": {
+        "note": "Test Track ENTRY / tool-selection beat (in-flow). Sequence: milesMessage (Miles proposes going straight to the model) -> Ian auto-sends ianInput (asks what tools are available) -> beat -> milesToolsIntro (Miles surfaces the Test Track toolkit) -> THEN render the Test Track tools as the pick-and-respond options, styled like the Tools page shelf if possible. BMC is the recommended/scripted pick (presenterPath ['bmc']) and advances to 3.1; the others redirect (advance null) so Ian lands on BMC. This is the in-flow tools moment; the full Tools page (T.1) stays separately accessible from the dashboard."
+      }
     },
     "3.1": {
       "id": "3.1",
@@ -745,7 +720,7 @@
         {
           "id": "q1",
           "header": "What if Laura's willingness-to-pay is wrong?",
-          "challenge": "Your 12 interviews skewed toward Lauras who already complained about gas. The broader landscaper market hasn't signaled the same urgency, and your price point sits 22% above the closest competitor.",
+          "challenge": "Your 10 interviews skewed toward Lauras who already complained about gas. The broader landscaper market hasn't signaled the same urgency, and your price point sits 22% above the closest competitor.",
           "response": "Lead with the three paid pilots. That's revealed preference, not stated. Then acknowledge the sampling skew and show the plan to validate with a colder segment.",
           "buttonTooltip": "Demo: would open coaching."
         },
@@ -784,7 +759,7 @@
         {
           "status": "pass",
           "label": "Customer validated",
-          "detail": "12 interviews, 3 paid pilots"
+          "detail": "10 interviews, 3 paid pilots"
         },
         {
           "status": "pass",
@@ -856,7 +831,7 @@
           "label": "Spark · Week 2",
           "bullets": [
             "Picked Laura as the first interviewee",
-            "Booked 3 customer conversations",
+            "Built an evidence plan, interviews first",
             "Logged the central hypothesis"
           ]
         },
@@ -881,11 +856,11 @@
       ],
       "stats": [
         {
-          "value": "12",
+          "value": "10",
           "label": "customer interviews"
         },
         {
-          "value": "4",
+          "value": "2",
           "label": "Honda intrapreneurs connected"
         },
         {
@@ -999,10 +974,12 @@
       "scratchpad"
     ],
     "branchScreens": [
-      "1.3c",
       "2.1",
+      "3.0",
       "3.4"
-    ]
+    ],
+    "autoSend": false,
+    "autoSendNote": "Ian's scripted line auto-TYPES in the input bar, but the user must CLICK the input bar (Send) to commit and advance to the next slide. The viaInput acceptance on 1.3c also types in and waits for a click on the input bar (still no second card tap). Set autoSend:true to make the typed lines commit on their own."
   },
   "checklists": {
     "description": "Per-stage progress checklists in a slide-over panel opened from a checklist control in the top bar. ALL stages are UNLOCKED and viewable so the intrapreneur can see upcoming tasks in every stage; the ACTIVE stage is expanded by default, the others are collapsed but expandable (NOT locked or greyed out). Scripted done/false state. Introduced as a checkpoint after the Spark wrap (1.4).",
@@ -1091,5 +1068,25 @@
         ]
       }
     }
-  }
+  },
+  "roadStages": [
+    {
+      "id": "spark",
+      "label": "Idea Validation",
+      "position": 0.25,
+      "subtitle": "in 4 weeks"
+    },
+    {
+      "id": "garage",
+      "label": "Business Case Due",
+      "position": 0.55,
+      "subtitle": "in 9 weeks"
+    },
+    {
+      "id": "testTrack",
+      "label": "Venture Board Review",
+      "position": 0.85,
+      "subtitle": "in 12 weeks"
+    }
+  ]
 }

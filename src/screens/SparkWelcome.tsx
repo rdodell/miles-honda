@@ -86,6 +86,7 @@ export default function SparkWelcome({ onAdvance }: SparkWelcomeProps) {
                 onChat={() => onAdvance((s.inputModes.find((m) => m.id === 'chat') as any)?.advance ?? '1.3')}
                 suggestion={(s as any).ianInput?.text}
                 typeSuggestion
+                autoSend={(scenario.inputModel as { autoSend?: boolean }).autoSend === true}
               />
             </motion.div>
           </motion.div>

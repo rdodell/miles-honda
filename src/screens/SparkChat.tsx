@@ -1,89 +1,67 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
-import IanTyping from '../components/IanTyping'
-import Tooltip from '../components/Tooltip'
-import lauraAvatar from '../assets/laura-avatar.png'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 
 interface SparkChatProps {
   onAdvance: (screen: string) => void
-  showTooltip: (msg: string) => void
+  showTooltip?: (msg: string) => void
 }
 
 const s = scenario.screens['1.2']
+const ianInput = (s as any).ianInput as { text: string }
 
-interface Persona {
-  id: string
-  name: string
-  role: string
-  bio: string
-  pain: string
-  tam: string
-  advance?: string
-  primary?: boolean
-  tooltip?: string
-}
+// Plain chat beat: Ian opens -> Miles responds -> Ian's reply auto-sends -> advance
+const PHASES = ['open', 'opened', 'miles', 'reply'] as const
+type Phase = (typeof PHASES)[number]
 
-function PersonaCard({ persona, onAdvance, showTooltip }: { persona: Persona; onAdvance: (s: string) => void; showTooltip: (m: string) => void }) {
-  const isLaura = persona.id === 'laura'
+function IanBubble({ text }: { text: string }) {
   return (
-    <button
-      onClick={() => isLaura ? onAdvance(persona.advance!) : showTooltip(persona.tooltip!)}
-      className={`
-        flex-1 min-w-[130px] text-left rounded-2xl p-3.5 border transition-all
-        ${isLaura
-          ? 'border-[#7A1420] bg-white shadow-sm hover:shadow-md ring-1 ring-[#7A1420]/20'
-          : 'border-[#E8E4DE] bg-white hover:bg-[#F2EEE8] opacity-75'
-        }
-      `}
-    >
-      {/* Avatar */}
-      {isLaura
-        ? <img src={lauraAvatar} alt="Laura" className="w-8 h-8 rounded-full mb-2 object-cover" />
-        : <div className="w-8 h-8 rounded-full mb-2 flex items-center justify-center text-white text-sm font-bold bg-[#A09A94]">{persona.name[0]}</div>
-      }
-      <div className="font-semibold text-sm text-[#1A1A1A]">{persona.name}</div>
-      <div className="text-xs text-[#A09A94] mt-0.5 leading-tight">{persona.role}</div>
-      <div className="text-xs text-[#6B6570] mt-1.5 leading-tight">{persona.pain}</div>
-      <div className={`mt-2 text-[10px] font-semibold rounded-full px-2 py-0.5 inline-block ${isLaura ? 'bg-red-50 text-[#7A1420]' : 'bg-[#F2EEE8] text-[#A09A94]'}`}>
-        {persona.tam}
+    <motion.div className="flex justify-end" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}>
+      <div style={{
+        background: 'var(--ink)', color: '#fff',
+        borderRadius: '14px 14px 4px 14px', padding: '10px 14px',
+        fontSize: 14, fontFamily: 'var(--font-cp-sans)', maxWidth: '80%',
+        lineHeight: 1.5, boxShadow: 'var(--shadow-1)',
+      }}>
+        {text}
       </div>
-    </button>
+    </motion.div>
   )
 }
 
-export default function SparkChat({ onAdvance, showTooltip }: SparkChatProps) {
-  const [ianSent, setIanSent] = useState(false)
+export default function SparkChat({ onAdvance }: SparkChatProps) {
+  const [phase, setPhase] = useState<Phase>('open')
+  const reached = (p: Phase) => PHASES.indexOf(phase) >= PHASES.indexOf(p)
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
-      {/* Prior Miles message (persisted) */}
-      <MilesMessage text="Hey Ian. Here's where your electric lawnmower project stands today. I pulled together everything that landed across your inbox, Slack, and project log this week. Before we pick a thread: what's the one thing you most want to move forward?" instant />
+      {/* Ian opens (sent after it auto-types in the input bar) */}
+      {reached('opened') && <IanBubble text={s.ianMessage} />}
 
-      {/* Ian typing */}
-      <IanTyping message={s.ianMessage} onSent={() => setIanSent(true)} />
-
-      {/* Miles response — waits for Ian to send */}
-      {ianSent && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <MilesMessage text={s.milesResponse}>
-            {/* Persona cards */}
-            <div className="flex gap-2 mt-2 flex-wrap">
-              {(s.personas as Persona[]).map((p) => (
-                <PersonaCard key={p.id} persona={p} onAdvance={onAdvance} showTooltip={showTooltip} />
-              ))}
-            </div>
-          </MilesMessage>
-        </motion.div>
+      {/* Miles responds */}
+      {reached('miles') && (
+        <MilesMessage
+          text={s.milesResponse}
+          onDone={() => setTimeout(() => setPhase('reply'), BEAT_AFTER_MILES)}
+        />
       )}
 
-      {/* Input bar (disabled) */}
-      <Tooltip text={s.inputBarTooltip}>
-        <div className="mt-2 flex items-center gap-2 bg-white border border-[#E8E4DE] rounded-xl px-4 py-3">
-          <span className="flex-1 text-sm text-[#C4BFB8]">Ask Miles something...</span>
-        </div>
-      </Tooltip>
+      {/* Persistent input bar — Ian's lines auto-type and auto-send here */}
+      <IanInputBar
+        driver="chat"
+        placeholder="Ask Miles something…"
+        suggestion={phase === 'open' ? s.ianMessage : phase === 'reply' ? ianInput.text : undefined}
+        onSubmit={
+          phase === 'open'
+            ? () => { setPhase('opened'); setTimeout(() => setPhase('miles'), BEAT_AFTER_MILES) }
+            : phase === 'reply'
+              ? () => onAdvance('1.3')
+              : () => {}
+        }
+      />
     </div>
   )
 }

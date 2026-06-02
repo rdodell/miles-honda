@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
-import BranchPicker from '../components/BranchPicker'
-import type { BranchOption } from '../components/BranchPicker'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES, BEAT_BEFORE_ADVANCE } from '../timing'
 
-interface Props { onAdvance: (screen: string) => void; showTooltip: (msg: string) => void }
+interface Props { onAdvance: (screen: string) => void; showTooltip?: (msg: string) => void }
 const s = scenario.screens['1.3c']
+const ex = (s as any).typedExchange as {
+  turns: { speaker: 'ian' | 'miles'; text: string; advance?: string }[]
+  sendMode: string
+}
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -20,50 +24,55 @@ const toneColor = (tone: string) => {
   return '#6B6B6B'
 }
 
-// Map each branch option id to its static step card data
-const OPTION_TO_STEP: Record<string, string> = {
-  interviews: 'Customer interviews',
-  observation: 'Direct observation',
-  smoke: 'Smoke test',
-  competitor: 'Competitor teardown',
-  research: 'Existing research scan',
-}
-const getStep = (optId: string) => s.steps.find((st) => st.title === OPTION_TO_STEP[optId])
-
-export default function EvidencePlaybook({ onAdvance, showTooltip }: Props) {
-  const [showContent, setShowContent] = useState(false)
-
-  // Step-card renderer for the branch picker. resortLabel re-tags a pushed-back option
-  // (e.g. Direct observation -> "After 3 interviews").
-  function renderOption(opt: BranchOption, isSelected: boolean, isRec: boolean, resortLabel?: string) {
-    const step = getStep(opt.id)
-    if (!step) return null
-    const statusLabel = resortLabel ?? step.status
-    const statusColor = resortLabel ? '#B8851E' : toneColor(step.tone)
-    const statusBg = resortLabel ? 'rgba(244,185,66,0.18)' : `${toneColor(step.tone)}18`
-    return (
-      <div
-        className={`bg-white border rounded-xl px-4 py-3 shadow-sm flex items-center gap-3 ${step.tone === 'skip' ? 'opacity-60' : ''}`}
-        style={{
-          transition: 'border-color 0.15s, background 0.15s',
-          background: isSelected ? 'rgba(122,20,32,0.04)' : '#fff',
-          borderColor: isSelected || isRec ? '#7A1420' : '#E8E4DE',
-          cursor: isSelected ? 'default' : 'pointer',
-        }}
-      >
-        <span className="text-xs font-mono text-[#A09A94] flex-shrink-0 w-6">{step.n}</span>
-        <div className="flex-1 min-w-0">
-          <div className={`text-sm font-semibold text-[#1A1A1A] ${step.tone === 'skip' ? 'line-through text-[#A09A94]' : ''}`}>{step.title}</div>
-          <div className="text-xs text-[#6B6B6B] mt-0.5">{step.sub}</div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4, flexShrink: 0 }}>
-          {/* Single status badge only (the recommended step already reads "Recommended next") */}
-          <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ color: statusColor, background: statusBg }}>
-            {statusLabel}
-          </span>
-        </div>
+// Display-only playbook card (no tapping)
+function MethodCard({ step }: { step: (typeof s.steps)[number] }) {
+  const isRec = step.tone === 'next'
+  const c = toneColor(step.tone)
+  return (
+    <div
+      className={`bg-white border rounded-xl px-4 py-3 shadow-sm flex items-center gap-3 ${step.tone === 'skip' ? 'opacity-60' : ''}`}
+      style={{ borderColor: isRec ? '#7A1420' : '#E8E4DE' }}
+    >
+      <span className="text-xs font-mono text-[#A09A94] flex-shrink-0 w-6">{step.n}</span>
+      <div className="flex-1 min-w-0">
+        <div className={`text-sm font-semibold text-[#1A1A1A] ${step.tone === 'skip' ? 'line-through text-[#A09A94]' : ''}`}>{step.title}</div>
+        <div className="text-xs text-[#6B6B6B] mt-0.5">{step.sub}</div>
       </div>
-    )
+      <span className="text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0" style={{ color: c, background: `${c}18` }}>
+        {step.status}
+      </span>
+    </div>
+  )
+}
+
+function IanBubble({ text }: { text: string }) {
+  return (
+    <motion.div className="flex justify-end" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}>
+      <div style={{
+        background: 'var(--ink)', color: '#fff',
+        borderRadius: '14px 14px 4px 14px', padding: '10px 14px',
+        fontSize: 14, fontFamily: 'var(--font-cp-sans)', maxWidth: '80%',
+        lineHeight: 1.5, boxShadow: 'var(--shadow-1)',
+      }}>
+        {text}
+      </div>
+    </motion.div>
+  )
+}
+
+export default function EvidencePlaybook({ onAdvance }: Props) {
+  const [introDone, setIntroDone] = useState(false)
+  // turnIdx = the turn currently in progress (Ian primed in the bar, or Miles streaming)
+  const [turnIdx, setTurnIdx] = useState(0)
+  const turns = ex.turns
+  const active = introDone && turnIdx < turns.length ? turns[turnIdx] : null
+
+  // Manual send: presenter clicks Send to commit the active Ian line
+  function sendIan() {
+    const t = turns[turnIdx]
+    if (!t || t.speaker !== 'ian') return
+    setTurnIdx(turnIdx + 1) // commit -> it renders as a sent bubble
+    if (t.advance) setTimeout(() => onAdvance(t.advance!), BEAT_BEFORE_ADVANCE)
   }
 
   return (
@@ -82,33 +91,50 @@ export default function EvidencePlaybook({ onAdvance, showTooltip }: Props) {
         }}>{s.step}</span>
       </motion.div>
 
-      {/* Miles speaks first */}
-      <MilesMessage text={s.milesIntro} onDone={() => setShowContent(true)} />
+      {/* Miles intro */}
+      <MilesMessage text={s.milesIntro} onDone={() => setTimeout(() => setIntroDone(true), BEAT_AFTER_MILES)} />
 
       <AnimatePresence>
-        {showContent && (
-          <motion.div
-            className="flex flex-col gap-5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
+        {introDone && (
+          <motion.div className="flex flex-col gap-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
             {/* Counter */}
-            <motion.div {...fadeUp(0.1)} className="flex items-center mt-0">
-              <span className="text-sm text-[#A09A94]">
-                <span style={{ color: '#7CB342' }}>1 done</span>
-                {' · '}
-                <span style={{ color: '#7A1420' }}>1 next</span>
-                {' · 2 later · 1 skip'}
-              </span>
-            </motion.div>
+            <span className="text-sm text-[#A09A94]">
+              <span style={{ color: '#7CB342' }}>1 done</span>
+              {' · '}
+              <span style={{ color: '#7A1420' }}>1 next</span>
+              {' · 2 later · 1 skip'}
+            </span>
 
-            {/* Branch picker — Ian's reply types in the input line, then Miles responds */}
-            <BranchPicker
-              branch={s.branch as any}
-              onAdvance={onAdvance}
-              showTooltip={showTooltip}
-              renderOption={renderOption}
+            {/* The playbook — display-only context, not tappable */}
+            <div className="flex flex-col gap-2">
+              {s.steps.map((step) => <MethodCard key={step.n} step={step} />)}
+            </div>
+
+            {/* Scripted typed exchange */}
+            <div className="flex flex-col gap-3 mt-1">
+              {turns.slice(0, turnIdx + 1).map((turn, i) => {
+                if (turn.speaker === 'ian') {
+                  // active Ian line lives in the input bar, not a bubble, until sent
+                  return i < turnIdx ? <IanBubble key={i} text={turn.text} /> : null
+                }
+                return (
+                  <MilesMessage
+                    key={i}
+                    text={turn.text}
+                    instant={i < turnIdx}
+                    onDone={i === turnIdx ? () => setTimeout(() => setTurnIdx(i + 1), BEAT_AFTER_MILES) : undefined}
+                  />
+                )
+              })}
+            </div>
+
+            {/* Input bar — Ian types his line here; the presenter clicks Send to commit */}
+            <IanInputBar
+              driver="chat"
+              autoSend={false}
+              placeholder="Type your reply to Miles…"
+              suggestion={active && active.speaker === 'ian' ? active.text : undefined}
+              onSubmit={sendIan}
             />
           </motion.div>
         )}

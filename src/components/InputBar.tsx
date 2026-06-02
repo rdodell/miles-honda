@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { Mic, MessageCircle, Box, Upload, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { BEAT_BEFORE_ADVANCE } from '../timing'
 
 interface InputBarProps {
   onChat: () => void
   suggestion?: string
   chatTooltip?: string
   typeSuggestion?: boolean
+  /** Auto-send the typed suggestion (commit on its own, no manual tap) */
+  autoSend?: boolean
 }
 
 const MODES = [
@@ -19,26 +22,32 @@ type Mode = typeof MODES[number]['id']
 
 const TYPE_SPEED_MS = 28
 
-export default function InputBar({ onChat, suggestion, chatTooltip, typeSuggestion }: InputBarProps) {
+export default function InputBar({ onChat, suggestion, chatTooltip, typeSuggestion, autoSend }: InputBarProps) {
   const [activeMode, setActiveMode] = useState<Mode>('chat')
   const [typed, setTyped]           = useState(typeSuggestion ? '' : (suggestion ?? ''))
   const [sandboxImage, setSandboxImage] = useState<string | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
   const isTyping = typeSuggestion && !!suggestion && typed.length < suggestion.length
+  const onChatRef = useRef(onChat)
+  onChatRef.current = onChat
 
   useEffect(() => {
     if (!typeSuggestion || !suggestion) return
     let i = 0
+    let sendTimer: ReturnType<typeof setTimeout> | undefined
     // Wait for the user to read Miles' message before Ian starts typing
     const start = setTimeout(() => {
       const iv = setInterval(() => {
         i += 1
         setTyped(suggestion.slice(0, i))
-        if (i >= suggestion.length) clearInterval(iv)
+        if (i >= suggestion.length) {
+          clearInterval(iv)
+          if (autoSend) sendTimer = setTimeout(() => onChatRef.current?.(), BEAT_BEFORE_ADVANCE)
+        }
       }, TYPE_SPEED_MS)
     }, 2200)
-    return () => clearTimeout(start)
-  }, [typeSuggestion, suggestion])
+    return () => { clearTimeout(start); if (sendTimer) clearTimeout(sendTimer) }
+  }, [typeSuggestion, suggestion, autoSend])
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]

@@ -85,6 +85,7 @@ export default function JourneyComplete({ onAdvance }: JourneyCompleteProps) {
         <IanInputBar
           driver="chat"
           suggestion={ianInput.text}
+          autoSend={false}
           onSubmit={() => onAdvance(s.cta.advance)}
         />
       </motion.div>

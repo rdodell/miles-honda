@@ -1,8 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { MessageCircle, Mic, PencilLine } from 'lucide-react'
 import { motion } from 'framer-motion'
+import scenario from '../scenario.json'
+import { BEAT_BEFORE_ADVANCE } from '../timing'
 
 const TYPE_MS_PER_CHAR = 28 // prepopulated Ian text types in like a sent message
+// When on, Ian's scripted chat lines auto-type AND send on their own (no manual Send tap)
+const AUTO_SEND = (scenario.inputModel as { autoSend?: boolean }).autoSend === true
 
 export interface IanInputBarProps {
   driver: 'chat' | 'voice' | 'scratchpad'
@@ -12,6 +16,8 @@ export interface IanInputBarProps {
   disabled?: boolean
   /** Fired once the prepopulated suggestion has finished typing in */
   onSuggestionTyped?: () => void
+  /** Override the global auto-send behavior (e.g. false on the restart screen) */
+  autoSend?: boolean
 }
 
 const TABS = [
@@ -22,15 +28,19 @@ const TABS = [
 
 const UNAVAILABLE_TOOLTIP = 'Not available in this preview'
 
-export default function IanInputBar({ driver, suggestion, placeholder, onSubmit, disabled = false, onSuggestionTyped }: IanInputBarProps) {
+export default function IanInputBar({ driver, suggestion, placeholder, onSubmit, disabled = false, onSuggestionTyped, autoSend }: IanInputBarProps) {
+  const shouldAutoSend = (autoSend ?? AUTO_SEND) && driver === 'chat'
   const [activeTab, setActiveTab] = useState<IanInputBarProps['driver']>(driver)
   const [tooltip, setTooltip] = useState<string | null>(null)
 
-  // Always call the latest onSuggestionTyped, even though the typing effect only runs on [suggestion]
+  // Always call the latest callbacks, even though the typing effect only runs on [suggestion]
   const onTypedRef = useRef(onSuggestionTyped)
   onTypedRef.current = onSuggestionTyped
+  const onSubmitRef = useRef(onSubmit)
+  onSubmitRef.current = onSubmit
 
-  // Prepopulated Ian text animates in, character by character, like it's being typed
+  // Prepopulated Ian text animates in, character by character, like it's being typed.
+  // With auto-send on, the line commits on its own after a beat — no manual Send tap.
   const [typed, setTyped] = useState('')
   const [doneTyping, setDoneTyping] = useState(false)
   useEffect(() => {
@@ -38,13 +48,22 @@ export default function IanInputBar({ driver, suggestion, placeholder, onSubmit,
     setTyped('')
     setDoneTyping(false)
     let i = 0
+    let sendTimer: ReturnType<typeof setTimeout> | undefined
     const id = setInterval(() => {
       i += 1
       setTyped(suggestion.slice(0, i))
-      if (i >= suggestion.length) { clearInterval(id); setDoneTyping(true); onTypedRef.current?.() }
+      if (i >= suggestion.length) {
+        clearInterval(id)
+        setDoneTyping(true)
+        onTypedRef.current?.()
+        // Auto-send scripted chat lines: short beat after typing, then commit
+        if (shouldAutoSend) {
+          sendTimer = setTimeout(() => onSubmitRef.current?.(), BEAT_BEFORE_ADVANCE)
+        }
+      }
     }, TYPE_MS_PER_CHAR)
-    return () => clearInterval(id)
-  }, [suggestion])
+    return () => { clearInterval(id); if (sendTimer) clearTimeout(sendTimer) }
+  }, [suggestion, driver])
 
   function handleTabClick(id: IanInputBarProps['driver']) {
     if (id === 'voice' || id === 'scratchpad') {

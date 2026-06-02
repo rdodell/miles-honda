@@ -22,6 +22,7 @@ import GarageWelcome      from './screens/GarageWelcome'
 import GarageEmail        from './screens/GarageEmail'
 import GarageMeeting      from './screens/GarageMeeting'
 import GarageWrap         from './screens/GarageWrap'
+import TestTrackEntry     from './screens/TestTrackEntry'
 import TestTrackWelcome   from './screens/TestTrackWelcome'
 import TestTrackFinance   from './screens/TestTrackFinance'
 import TestTrackRedTeam   from './screens/TestTrackRedTeam'
@@ -36,6 +37,7 @@ const SCREEN_TO_STAGE: Record<string, StageId | null> = {
   '1.1': 'spark', '1.3': 'spark', '1.3b': 'spark', '1.3c': 'spark',
   '1.3d': 'spark', '1.4': 'spark', '1.5': 'spark',
   '2.1': 'garage', '2.2': 'garage', '2.3': 'garage', '2.4': 'garage',
+  '3.0': 'testTrack',
   '3.1': 'testTrack', '3.2': 'testTrack', '3.3': 'testTrack',
   '3.4': 'testTrack', '3.5': 'testTrack',
   'T.1': null,
@@ -132,6 +134,7 @@ export default function App() {
       case '2.2':  return <GarageEmail onAdvance={advance} />
       case '2.3':  return <GarageMeeting {...commonProps} />
       case '2.4':  return <GarageWrap onAdvance={advance} />
+      case '3.0':  return <TestTrackEntry onAdvance={advance} showTooltip={showTooltip} />
       case '3.1':  return <TestTrackWelcome {...commonProps} />
       case '3.2':  return <TestTrackFinance onAdvance={advance} />
       case '3.3':  return <TestTrackRedTeam onAdvance={advance} />
