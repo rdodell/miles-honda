@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Zilla+Slab:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+/* Explicitly scan the app source so utility classes are generated reliably
+   in the dev server (Tailwind v4 auto-detection can miss .tsx candidates on
+   incremental dev builds). Paths are relative to this file (src/). */
+@source "./**/*.{ts,tsx,js,jsx}";
+
 :root {
   /* ── Direction C+ design tokens ─────────────────────────────── */
   --font-cp-sans:    "Space Grotesk", ui-sans-serif, system-ui, sans-serif;

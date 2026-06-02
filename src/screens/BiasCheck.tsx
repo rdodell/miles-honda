@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Flag } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
-import InputBar from '../components/InputBar'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface Props { onAdvance: (screen: string) => void }
 const s = scenario.screens['1.3b']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -123,10 +124,10 @@ export default function BiasCheck({ onAdvance }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <InputBar
-              onChat={() => onAdvance(s.cta.advance)}
-              suggestion="Fair. Let's go test them."
-              typeSuggestion
+            <IanInputBar
+              driver="chat"
+              suggestion={ianInput.text}
+              onSubmit={() => onAdvance(s.cta.advance)}
             />
           </motion.div>
         )}

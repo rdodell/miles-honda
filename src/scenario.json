@@ -14,7 +14,7 @@
     },
     {
       "id": "testTrack",
-      "label": "Venture Board Review",
+      "label": "Seed Funding Decision",
       "position": 0.85,
       "subtitle": "in 8 weeks"
     }
@@ -92,7 +92,7 @@
     "1.1": {
       "id": "1.1",
       "stage": "spark",
-      "timeIndicator": "Week 2 \u00b7 Tuesday",
+      "timeIndicator": "Week 2 · Tuesday",
       "milesMessages": [
         {
           "id": "greeting",
@@ -103,7 +103,7 @@
         {
           "label": "3 emails",
           "sublabel": "customer feedback on the prototype",
-          "tooltip": "Prototype feedback: runtime \u00b7 swap-battery logistics \u00b7 cut quality on tall/wet grass \u00b7 weight & maneuverability \u00b7 deck width vs. productivity \u00b7 noise (positive). Follow-up, Laura (sole-op landscaper): Ran the demo on 3 lawns Tuesday. Got through ~2.5 properties before charge dropped, so she needs a full morning on one charge or a battery she can swap mid-route. So quiet her 7am client didn't complain for the first time. Fix the runtime and she's in."
+          "tooltip": "Prototype feedback: runtime · swap-battery logistics · cut quality on tall/wet grass · weight & maneuverability · deck width vs. productivity · noise (positive). Follow-up, Laura (sole-op landscaper): Ran the demo on 3 lawns Tuesday. Got through ~2.5 properties before charge dropped, so she needs a full morning on one charge or a battery she can swap mid-route. So quiet her 7am client didn't complain for the first time. Fix the runtime and she's in."
         },
         {
           "label": "2 Slack threads",
@@ -150,7 +150,7 @@
     "1.2": {
       "id": "1.2",
       "stage": "spark",
-      "timeIndicator": "Week 2 \u00b7 Tuesday",
+      "timeIndicator": "Week 2 · Tuesday",
       "ianMessage": "I need to validate who my customer will be.",
       "milesResponse": "From our last session I pulled three landscaper profiles. Each one points the lawnmower in a different direction. Who's jumping out at you?",
       "personas": [
@@ -192,8 +192,8 @@
     "1.3": {
       "id": "1.3",
       "stage": "spark",
-      "timeIndicator": "Week 2 \u00b7 Tuesday",
-      "step": "Step 1 of 3 \u00b7 Frame the problem",
+      "timeIndicator": "Week 2 · Tuesday",
+      "step": "Step 1 of 3 · Frame the problem",
       "milesIntro": "Good, this gives us a lot to work with. Let me turn your sketch into five questions we can actually pressure-test, and you flag the ones that are still guesses.",
       "questions": [
         {
@@ -221,10 +221,10 @@
           "q": "How do you know?",
           "a": "",
           "filled": false,
-          "hint": "Point to evidence, not a feeling\u2026"
+          "hint": "Point to evidence, not a feeling…"
         }
       ],
-      "counter": "3 of 5 answered \u00b7 1 flag",
+      "counter": "3 of 5 answered · 1 flag",
       "cta": {
         "label": "Continue",
         "advance": "1.3b"
@@ -270,8 +270,8 @@
     "1.3b": {
       "id": "1.3b",
       "stage": "spark",
-      "timeIndicator": "Week 2 \u00b7 Tuesday",
-      "step": "Step 2 of 3 \u00b7 Bias check",
+      "timeIndicator": "Week 2 · Tuesday",
+      "step": "Step 2 of 3 · Bias check",
       "milesIntro": "Now the honest part. Which of these are hunches? I sorted your claims left to right. Anything on the left is still opinion. Want to defend one, or go test it?",
       "items": [
         {
@@ -304,7 +304,7 @@
       ],
       "log": "3 hunches caught. Go talk to people before building.",
       "cta": {
-        "label": "Show me how \u2192",
+        "label": "Show me how →",
         "advance": "1.3c"
       },
       "ianInput": {
@@ -315,8 +315,8 @@
     "1.3c": {
       "id": "1.3c",
       "stage": "spark",
-      "timeIndicator": "Week 2 \u00b7 Tuesday",
-      "step": "Step 3 of 3 \u00b7 Evidence playbook",
+      "timeIndicator": "Week 2 · Tuesday",
+      "step": "Step 3 of 3 · Evidence playbook",
       "milesIntro": "You caught three hunches back there, all about what landscapers actually want and will pay. Before you build, you need evidence on those. Here are five ways to get it. Where do you want to start?",
       "steps": [
         {
@@ -337,7 +337,7 @@
           "n": "03",
           "title": "Existing research scan",
           "sub": "Emissions + noise-regulation lit",
-          "status": "Done \u00b7 3 papers, 2 surveys",
+          "status": "Done · 3 papers, 2 surveys",
           "tone": "done"
         },
         {
@@ -355,9 +355,9 @@
           "tone": "muted"
         }
       ],
-      "counter": "1 done \u00b7 1 next \u00b7 2 later \u00b7 1 skip",
+      "counter": "1 done · 1 next · 2 later · 1 skip",
       "cta": {
-        "label": "Meet your first interviewee \u2192",
+        "label": "Meet your first interviewee →",
         "advance": "1.3d"
       },
       "branch": {
@@ -411,7 +411,7 @@
     "1.3d": {
       "id": "1.3d",
       "stage": "spark",
-      "timeIndicator": "Week 2 \u00b7 Tuesday",
+      "timeIndicator": "Week 2 · Tuesday",
       "milesIntro": "Your evidence plan points to customer interviews first. Laura is a strong place to start, since she already flagged the runtime problem in your prototype test. Here's what you know going in.",
       "personaCard": {
         "name": "Laura",
@@ -451,7 +451,7 @@
       "id": "1.4",
       "stage": "spark",
       "stageComplete": "spark",
-      "timeIndicator": "Week 2 \u00b7 Friday",
+      "timeIndicator": "Week 2 · Friday",
       "header": "Nice work this week, Ian.",
       "bullets": [
         "Drafted Laura persona",
@@ -460,30 +460,35 @@
       ],
       "milesFooter": "Curious what you'll hear. When you're back from those interviews, we'll line up the colleagues who've built this kind of thing before.",
       "cta": {
-        "label": "Continue \u2192",
+        "label": "Continue →",
         "advance": "1.5"
       },
       "ianInput": {
         "driver": "chat",
         "text": "Good week. What's next?"
+      },
+      "checklistCheckpoint": {
+        "stage": "spark",
+        "trigger": "after-wrap",
+        "note": "After the 1.4 wrap, Miles introduces the checklist (use checklists.stages.spark.milesIntro) and the slide-over panel opens to the Idea Validation checklist. Also teaches Ian the checklist control exists in the top bar."
       }
     },
     "1.5": {
       "id": "1.5",
       "stage": "spark",
-      "timeIndicator": "Month 1 \u00b7 Wednesday",
+      "timeIndicator": "Month 1 · Wednesday",
       "milesIntro": "Hello again, Ian. From your last conversation, it sounds like supply chain is where you're stuck. How do you want to keep going? You could meet someone who's solved this, or keep working through your customer personas.",
       "bridgeCard": {
         "name": "Priya Okafor",
         "title": "Project Manager, Honda R&D",
         "initial": "P",
         "color": "#5B5FD9",
-        "note": "Built e-bike battery supply chain \u00b7 saves 6 weeks on internal safety review"
+        "note": "Built e-bike battery supply chain · saves 6 weeks on internal safety review"
       },
       "choice": {
         "options": [
           {
-            "label": "Connect with Priya \u2192",
+            "label": "Connect with Priya →",
             "advance": "2.1",
             "primary": true
           },
@@ -504,7 +509,7 @@
     "2.1": {
       "id": "2.1",
       "stage": "garage",
-      "timeIndicator": "Month 1 \u00b7 Wednesday",
+      "timeIndicator": "Month 1 · Wednesday",
       "milesMessage": "Ian, I found three people who've been through the supplier gauntlet. Here's how they stack up, but Priya's the closest fit for what you're stuck on.",
       "recommended": [
         {
@@ -538,11 +543,11 @@
           "inventedNote": "INVENTED placeholder name, swap in a real contact."
         }
       ],
-      "directoryStats": "127 intrapreneurs \u00b7 43 mentors \u00b7 18 alumni",
+      "directoryStats": "127 intrapreneurs · 43 mentors · 18 alumni",
       "emptyNetworkMsg": "You haven't connected with anyone yet.",
       "actions": [
         {
-          "label": "Connect with Priya \u2192",
+          "label": "Connect with Priya →",
           "advance": "2.2",
           "primary": true
         },
@@ -590,7 +595,7 @@
     "2.2": {
       "id": "2.2",
       "stage": "garage",
-      "timeIndicator": "Month 1 \u00b7 Wednesday",
+      "timeIndicator": "Month 1 · Wednesday",
       "milesMessage": "Good news. While you were at lunch, Priya got back to me, and I put a hold on your calendar for Thursday at 2 PM. Does that work, or should I find another time?",
       "meetingCard": {
         "day": "Thursday",
@@ -608,7 +613,7 @@
           "tooltip": "Demo flow continues with Thursday 2 PM."
         },
         {
-          "label": "Book it \u2192",
+          "label": "Book it →",
           "advance": "2.3",
           "primary": true
         }
@@ -621,14 +626,14 @@
     "2.3": {
       "id": "2.3",
       "stage": "garage",
-      "timeIndicator": "Month 1 \u00b7 Friday",
+      "timeIndicator": "Month 1 · Friday",
       "milesMessage": "Good meeting with Priya. I've logged the key takeaways and added her to your network. Anything she said that you want to dig into before we move on?",
       "networkContact": {
         "name": "Priya Okafor",
         "title": "Project Manager, Honda R&D",
         "initial": "P",
         "color": "#5B5FD9",
-        "metLabel": "Met Thursday \u00b7 32 min"
+        "metLabel": "Met Thursday · 32 min"
       },
       "takeaways": [
         "Priya's supplier contacts added to your Key Partners",
@@ -645,7 +650,7 @@
       "id": "2.4",
       "stage": "garage",
       "stageComplete": "garage",
-      "timeIndicator": "Month 1 \u00b7 Friday",
+      "timeIndicator": "Month 1 · Friday",
       "header": "You're not building alone anymore.",
       "bullets": [
         "Connected with Priya, Honda's e-bike battery lead",
@@ -662,8 +667,8 @@
     "3.1": {
       "id": "3.1",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 \u00b7 Monday",
-      "milesMessage": "Welcome back. One thing caught my eye in the Business Model Canvas before the seed review next week. Want to take a look?",
+      "timeIndicator": "Month 3 · Monday",
+      "milesMessage": "Welcome back. One thing caught my eye in the Business Model Canvas before the venture board review next week. Want to take a look?",
       "flaggedSection": "Revenue Streams",
       "flaggedTooltip": "Miles flagged this",
       "bmcAdvance": "3.2",
@@ -676,8 +681,8 @@
     "3.2": {
       "id": "3.2",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 \u00b7 Monday",
-      "milesMessage": "Lithium pricing has moved since your February draft. Did you catch it? Worth updating your cost of materials before the seed review.",
+      "timeIndicator": "Month 3 · Monday",
+      "milesMessage": "Lithium pricing has moved since your February draft. Did you catch it? Worth updating your cost of materials before the venture board review.",
       "milesQuestion": "Want me to plug in Priya's real numbers and update the model?",
       "comparison": {
         "original": {
@@ -728,8 +733,8 @@
     "3.3": {
       "id": "3.3",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 \u00b7 Monday",
-      "milesIntro": "Before the seed review, want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
+      "timeIndicator": "Month 3 · Monday",
+      "milesIntro": "Before the venture board review, want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
       "questions": [
         {
           "id": "q1",
@@ -754,7 +759,7 @@
         }
       ],
       "footerCta": {
-        "label": "Continue to readiness check \u2192",
+        "label": "Continue to readiness check →",
         "advance": "3.4",
         "primary": true
       },
@@ -766,8 +771,8 @@
     "3.4": {
       "id": "3.4",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 \u00b7 Monday",
-      "milesMessage": "Seed review is next week. Want to see exactly where you stand?",
+      "timeIndicator": "Month 3 · Monday",
+      "milesMessage": "The venture board review is next week. Want to see exactly where you stand?",
       "milesFollowup": "3 of 5 are solid. The two flags are normal at this stage, and there's a plan for each.",
       "scorecard": [
         {
@@ -798,11 +803,11 @@
       ],
       "actions": [
         {
-          "label": "Go to seed review",
+          "label": "Go to the venture board review",
           "tooltip": "Demo: would launch review flow."
         },
         {
-          "label": "See my prep plan \u2192",
+          "label": "See my prep plan →",
           "advance": "3.5",
           "primary": true
         }
@@ -825,7 +830,7 @@
           },
           {
             "id": "seedreview",
-            "label": "Go to the seed review",
+            "label": "Go to the venture board review",
             "ianReply": "I think I'm ready, let's just go to the review.",
             "milesReply": "You're close, but the two flags are exactly what a CFO opens with. Twenty minutes on the prep plan and you walk in covered. Worth it.",
             "advance": null
@@ -837,12 +842,12 @@
       "id": "3.5",
       "stage": "testTrack",
       "stageComplete": "testTrack",
-      "timeIndicator": "Month 3 \u00b7 Monday",
+      "timeIndicator": "Month 3 · Monday",
       "headline": "Ian's three months with Miles.",
       "columns": [
         {
           "stage": "spark",
-          "label": "Spark \u00b7 Week 2",
+          "label": "Spark · Week 2",
           "bullets": [
             "Drafted Laura persona",
             "Booked 3 customer conversations",
@@ -851,7 +856,7 @@
         },
         {
           "stage": "garage",
-          "label": "The Garage \u00b7 Month 1",
+          "label": "The Garage · Month 1",
           "bullets": [
             "Met with Priya (e-bike battery lead)",
             "Updated Business Model Canvas",
@@ -860,11 +865,11 @@
         },
         {
           "stage": "testTrack",
-          "label": "The Test Track \u00b7 Month 3",
+          "label": "The Test Track · Month 3",
           "bullets": [
             "Financial model updated with current data",
             "Three CFO-level objections answered",
-            "Seed review \u00b7 ready"
+            "Venture board review · ready"
           ]
         }
       ],
@@ -883,7 +888,7 @@
         },
         {
           "value": "1",
-          "label": "seed review \u00b7 ready"
+          "label": "venture board review · ready"
         }
       ],
       "cta": {
@@ -903,7 +908,7 @@
       "shelves": [
         {
           "stage": "spark",
-          "header": "Spark \u00b7 Ideate, test, and validate with customers",
+          "header": "Spark · Ideate, test, and validate with customers",
           "tools": [
             "SWOT",
             "5 Es Journey Map",
@@ -914,7 +919,7 @@
         },
         {
           "stage": "garage",
-          "header": "The Garage \u00b7 Connect with colleagues",
+          "header": "The Garage · Connect with colleagues",
           "tools": [
             "Intrapreneur Network Search",
             "Email Drafter",
@@ -923,13 +928,13 @@
         },
         {
           "stage": "testTrack",
-          "header": "The Test Track \u00b7 Model and pressure-test your work",
+          "header": "The Test Track · Model and pressure-test your work",
           "tools": [
             "Business Model Canvas",
             "Financial Sensitivity Model",
             "Devil's Advocate",
             "Readiness Scorecard",
-            "Seed Review Prep"
+            "Venture Board Review Prep"
           ]
         }
       ],
@@ -944,17 +949,17 @@
         {
           "label": "Laura call booked",
           "stage": "spark",
-          "detail": "Thursday 10 AM \u00b7 30 min"
+          "detail": "Thursday 10 AM · 30 min"
         },
         {
           "label": "Priya meeting confirmed",
           "stage": "garage",
-          "detail": "Thursday 2 PM \u00b7 battery supply chain"
+          "detail": "Thursday 2 PM · battery supply chain"
         },
         {
           "label": "Revenue Streams flagged",
           "stage": "testTrack",
-          "detail": "Update before seed review"
+          "detail": "Update before venture board review"
         }
       ],
       "suggestions": [
@@ -983,5 +988,91 @@
       "2.1",
       "3.4"
     ]
+  },
+  "checklists": {
+    "description": "Per-stage progress checklists surfaced in a slide-over panel opened from a checklist control in the top bar (next to the Spark/Garage/Test Track stage area). Scripted, not wired to real completion. The panel shows the ACTIVE stage's checklist expanded; the other two stages appear locked/greyed until reached. Introduced as a checkpoint after the Spark wrap (1.4): Miles says intro, then the panel opens showing what's done and what's left for that stage.",
+    "stageOrder": [
+      "spark",
+      "garage",
+      "testTrack"
+    ],
+    "stages": {
+      "spark": {
+        "title": "Idea Validation",
+        "stageLabel": "The Spark",
+        "milesIntro": "Here's where Idea Validation stands. You've framed the problem and built the plan. What's left is the part that actually proves it, talking to customers.",
+        "items": [
+          {
+            "text": "Framed the problem from field sketch",
+            "done": true
+          },
+          {
+            "text": "Flagged assumptions vs. evidence (bias check)",
+            "done": true
+          },
+          {
+            "text": "Built the evidence plan",
+            "done": true
+          },
+          {
+            "text": "Conducted 10 customer interviews",
+            "done": false
+          },
+          {
+            "text": "Validate willingness-to-pay with customers",
+            "done": false,
+            "note": "the blank 'how do you know'"
+          }
+        ]
+      },
+      "garage": {
+        "title": "Build Your Network",
+        "stageLabel": "The Garage",
+        "locked": true,
+        "milesIntro": "Here's where your network stands.",
+        "items": [
+          {
+            "text": "Connected with Priya (e-bike battery lead)",
+            "done": true
+          },
+          {
+            "text": "Corrected the battery cost assumption with real supplier numbers",
+            "done": true
+          },
+          {
+            "text": "Follow up with the 2 other supplier contacts",
+            "done": false
+          },
+          {
+            "text": "Lock supplier quotes before the business case is due",
+            "done": false
+          }
+        ]
+      },
+      "testTrack": {
+        "title": "Pressure-Test the Model",
+        "stageLabel": "The Test Track",
+        "locked": true,
+        "milesIntro": "Here's where the model stands.",
+        "items": [
+          {
+            "text": "Updated the financial model with real costs",
+            "done": true
+          },
+          {
+            "text": "Ran the CFO pressure-test (red team)",
+            "done": true
+          },
+          {
+            "text": "Close the two readiness flags",
+            "done": false
+          },
+          {
+            "text": "Finalize the prep plan for the venture board review",
+            "done": false
+          }
+        ]
+      }
+    }
   }
 }

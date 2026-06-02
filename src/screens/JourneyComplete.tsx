@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface JourneyCompleteProps {
@@ -7,6 +8,7 @@ interface JourneyCompleteProps {
 }
 
 const s = scenario.screens['3.5']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
 
 const STAGE_COLORS: Record<string, string> = {
   spark:     '#7CB342',
@@ -77,6 +79,15 @@ export default function JourneyComplete({ onAdvance }: JourneyCompleteProps) {
       >
         {s.cta.label}
       </motion.button>
+
+      {/* Persistent input bar */}
+      <motion.div {...fadeUp(6)}>
+        <IanInputBar
+          driver="chat"
+          suggestion={ianInput.text}
+          onSubmit={() => onAdvance(s.cta.advance)}
+        />
+      </motion.div>
     </div>
   )
 }

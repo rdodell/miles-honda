@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { CalendarDays, Clock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface GarageEmailProps {
@@ -12,6 +13,7 @@ interface GarageEmailProps {
 }
 
 const s = scenario.screens['2.2']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
 
 const RESCHEDULE_REPLY =
   "No problem. Priya said she can also do Friday at 11 AM or Monday at 3 PM. Both still work on her end. Which one do you want me to lock in?"
@@ -161,6 +163,17 @@ export default function GarageEmail({ onAdvance }: GarageEmailProps) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Persistent input bar — Ian can also reply to advance */}
+      {showRest && !suggestingAlt && (
+        <motion.div {...fadeUp(2)}>
+          <IanInputBar
+            driver="chat"
+            suggestion={ianInput.text}
+            onSubmit={() => onAdvance('2.3')}
+          />
+        </motion.div>
+      )}
 
     </div>
   )

@@ -60,7 +60,7 @@ export default function GarageWrap({ onAdvance }: GarageWrapProps) {
         <IanInputBar
           driver="chat"
           suggestion={(s as any).ianInput?.text}
-          onSubmit={() => onAdvance((s as any).cta?.advance ?? '3.1')}
+          onSubmit={() => onAdvance((s as any).advance ?? '3.1')}
         />
       </motion.div>
 

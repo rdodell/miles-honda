@@ -1,4 +1,4 @@
-import { LayoutGrid } from 'lucide-react'
+import { LayoutGrid, ListChecks } from 'lucide-react'
 import ianAvatar      from '../assets/ian-avatar.png'
 import iconSparkStage from '../assets/icon-spark-stage.png'
 import iconHandshake  from '../assets/icon-handshake.png'
@@ -12,6 +12,7 @@ interface CPTopbarProps {
   currentScreen: string
   onNavigate: (screen: string) => void
   showTooltip: (msg: string) => void
+  onOpenChecklist: () => void
 }
 
 // CSS filters to colorize black PNGs to each stage's --stage-strong color
@@ -35,7 +36,7 @@ function cpStageId(s: StageId | null): string | null {
 }
 
 export default function CPTopbar({
-  activeStage, completedStages, onNavigate, showTooltip,
+  activeStage, completedStages, onNavigate, showTooltip, onOpenChecklist,
 }: CPTopbarProps) {
   const cpActive = cpStageId(activeStage)
 
@@ -143,6 +144,25 @@ export default function CPTopbar({
 
       {/* Right cluster */}
       <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 16 }}>
+        {/* Checklist control — opens the slide-over journey checklist */}
+        <button
+          onClick={onOpenChecklist}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '8px 13px', borderRadius: 'var(--radius-sm)',
+            background: 'rgba(255,255,255,0.72)',
+            border: '1px solid var(--border-strong)',
+            color: 'var(--ink)', fontFamily: 'var(--font-cp-sans)',
+            fontSize: 14, fontWeight: 600, cursor: 'pointer',
+            boxShadow: 'var(--shadow-1)',
+            backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+            flexShrink: 0,
+          }}
+        >
+          <ListChecks size={15} style={{ color: 'var(--accent)' }} />
+          Checklist
+        </button>
+
         {/* All tools */}
         <button
           onClick={() => onNavigate('T.1')}

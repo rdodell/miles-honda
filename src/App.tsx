@@ -6,6 +6,7 @@ import CPRoadStrip   from './components/CPRoadStrip'
 import CPSubRail     from './components/CPSubRail'
 import PresenterGuide from './components/PresenterGuide'
 import RestartDialog  from './components/RestartDialog'
+import ChecklistPanel from './components/ChecklistPanel'
 
 import Landing            from './screens/Landing'
 import Dashboard          from './screens/Dashboard'
@@ -73,6 +74,7 @@ export default function App() {
   const [showGuide, setShowGuide]     = useState(false)
   const [showRestart, setShowRestart] = useState(false)
   const [toast, setToast]             = useState<string | null>(null)
+  const [checklistOpen, setChecklistOpen] = useState(false)
 
   useEffect(() => {
     if (!toast) return
@@ -85,12 +87,13 @@ export default function App() {
       if (e.key === '?') { setShowGuide((v) => !v); return }
       if (e.key === 'Escape') {
         setShowGuide(false)
+        if (checklistOpen) { setChecklistOpen(false); return }
         if (screen !== '0.1') setShowRestart(true)
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [screen])
+  }, [screen, checklistOpen])
 
   const advance = useCallback((next: string) => {
     const completing = STAGE_COMPLETES_AT[screen]
@@ -122,7 +125,7 @@ export default function App() {
       case '1.3b': return <BiasCheck onAdvance={advance} />
       case '1.3c': return <EvidencePlaybook onAdvance={advance} showTooltip={showTooltip} />
       case '1.3d': return <LauraIntro onAdvance={advance} />
-      case '1.4':  return <SparkWrap onAdvance={advance} />
+      case '1.4':  return <SparkWrap onAdvance={advance} onOpenChecklist={() => setChecklistOpen(true)} />
       case '1.5':  return <SupplierBridge onAdvance={advance} />
       case '2.1':  return <GarageWelcome onAdvance={advance} />
       case '2.2':  return <GarageEmail onAdvance={advance} />
@@ -165,6 +168,7 @@ export default function App() {
             currentScreen={screen}
             onNavigate={advance}
             showTooltip={showTooltip}
+            onOpenChecklist={() => setChecklistOpen(true)}
           />
 
           {/* Row 2: Road strip (full width) */}
@@ -230,6 +234,13 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ChecklistPanel
+        open={checklistOpen}
+        onClose={() => setChecklistOpen(false)}
+        activeStage={activeStage}
+        completedStages={completed}
+      />
 
       <PresenterGuide visible={showGuide} onClose={() => setShowGuide(false)} />
       <RestartDialog

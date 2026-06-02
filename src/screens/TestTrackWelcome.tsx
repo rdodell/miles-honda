@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
+import IanInputBar from '../components/IanInputBar'
 import BMCGrid from '../components/BMCGrid'
 import scenario from '../scenario.json'
 
@@ -10,6 +11,7 @@ interface TestTrackWelcomeProps {
 }
 
 const s = scenario.screens['3.1']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
 
 export default function TestTrackWelcome({ onAdvance }: TestTrackWelcomeProps) {
   const [showBMC, setShowBMC] = useState(false)
@@ -25,6 +27,16 @@ export default function TestTrackWelcome({ onAdvance }: TestTrackWelcomeProps) {
             flaggedLabel={s.flaggedTooltip}
             onSectionClick={() => onAdvance(s.bmcAdvance)}
             sectionTooltip={s.bmcSectionTooltip}
+          />
+        </motion.div>
+      )}
+
+      {showBMC && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+          <IanInputBar
+            driver="chat"
+            suggestion={ianInput.text}
+            onSubmit={() => onAdvance(s.bmcAdvance)}
           />
         </motion.div>
       )}

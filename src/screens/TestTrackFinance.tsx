@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
+import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface TestTrackFinanceProps {
@@ -9,6 +10,8 @@ interface TestTrackFinanceProps {
 }
 
 const s = scenario.screens['3.2']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
+const primaryAdvance = (s.actions.find((a) => (a as any).primary) as any)?.advance ?? '3.3'
 const cmp = s.comparison
 const tbl = s.updatedTable
 
@@ -108,6 +111,16 @@ export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
               </button>
             )
           ))}
+        </motion.div>
+      )}
+
+      {showActions && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+          <IanInputBar
+            driver="chat"
+            suggestion={ianInput.text}
+            onSubmit={() => onAdvance(primaryAdvance)}
+          />
         </motion.div>
       )}
     </div>

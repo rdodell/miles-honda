@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
+import IanInputBar from '../components/IanInputBar'
 import Tooltip from '../components/Tooltip'
 import scenario from '../scenario.json'
 
@@ -10,6 +11,7 @@ interface TestTrackRedTeamProps {
 }
 
 const s = scenario.screens['3.3']
+const ianInput = (s as any).ianInput as { driver: string; text: string }
 
 function RedTeamCard({ q, index, delay }: { q: typeof s.questions[0]; index: number; delay: number }) {
   const [expanded, setExpanded] = useState(true)
@@ -80,6 +82,18 @@ export default function TestTrackRedTeam({ onAdvance }: TestTrackRedTeamProps) {
           >
             {s.footerCta.label}
           </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: s.questions.length * 0.15 + 0.25 }}
+          >
+            <IanInputBar
+              driver="chat"
+              suggestion={ianInput.text}
+              onSubmit={() => onAdvance(s.footerCta.advance)}
+            />
+          </motion.div>
         </>
       )}
     </div>

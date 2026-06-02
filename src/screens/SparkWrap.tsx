@@ -1,15 +1,19 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
 import MilesAvatar from '../components/MilesAvatar'
+import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
 
 interface SparkWrapProps {
   onAdvance: (screen: string) => void
+  onOpenChecklist?: () => void
 }
 
 const s = scenario.screens['1.4']
 const ianInput = (s as any).ianInput as { driver: string; text: string }
+const checklistIntro = scenario.checklists.stages.spark.milesIntro
 
 const fadeUp = (i: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -17,7 +21,10 @@ const fadeUp = (i: number) => ({
   transition: { delay: i * 0.12, duration: 0.3 },
 })
 
-export default function SparkWrap({ onAdvance }: SparkWrapProps) {
+export default function SparkWrap({ onAdvance, onOpenChecklist }: SparkWrapProps) {
+  // Checkpoint: after the wrap, Miles introduces the checklist and the panel auto-opens
+  const [checkpointDone, setCheckpointDone] = useState(false)
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
       <motion.div {...fadeUp(0)} className="bg-white border border-[#E8E4DE] rounded-2xl p-5 shadow-sm">
@@ -40,13 +47,24 @@ export default function SparkWrap({ onAdvance }: SparkWrapProps) {
         </motion.p>
       </motion.div>
 
-      <motion.div {...fadeUp(5)}>
-        <IanInputBar
-          driver="chat"
-          suggestion={ianInput.text}
-          onSubmit={() => onAdvance(s.cta.advance)}
-        />
-      </motion.div>
+      {/* Checklist checkpoint — Miles surfaces the checklist, then the panel auto-opens */}
+      <MilesMessage
+        text={checklistIntro}
+        onDone={() => {
+          onOpenChecklist?.()
+          setCheckpointDone(true)
+        }}
+      />
+
+      {checkpointDone && (
+        <motion.div {...fadeUp(0)}>
+          <IanInputBar
+            driver="chat"
+            suggestion={ianInput.text}
+            onSubmit={() => onAdvance(s.cta.advance)}
+          />
+        </motion.div>
+      )}
     </div>
   )
 }
