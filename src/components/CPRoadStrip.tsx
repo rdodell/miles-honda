@@ -6,7 +6,7 @@ interface CPRoadStripProps {
 }
 
 const NODES = [
-  { id: 'spark',  label: 'Customer Interviews Complete', subtitle: 'in 4 weeks',  stageKey: 'spark'     as StageId, x: 140 },
+  { id: 'spark',  label: 'Idea Validation',             subtitle: 'in 4 weeks',  stageKey: 'spark'     as StageId, x: 140 },
   { id: 'garage', label: 'Business Case Due',            subtitle: 'in 9 weeks',  stageKey: 'garage'    as StageId, x: 500 },
   { id: 'track',  label: 'Venture Board Review',         subtitle: 'in 12 weeks', stageKey: 'testTrack' as StageId, x: 860 },
 ]

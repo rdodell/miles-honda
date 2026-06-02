@@ -2,7 +2,7 @@
   "roadStages": [
     {
       "id": "spark",
-      "label": "Customer Interviews Complete",
+      "label": "Idea Validation",
       "position": 0.25,
       "subtitle": "in 4 weeks"
     },
