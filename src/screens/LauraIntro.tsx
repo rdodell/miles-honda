@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 import lauraAvatar from '../assets/laura-avatar.png'
 
 interface Props { onAdvance: (screen: string) => void }
 const s = scenario.screens['1.3d']
 const pc = s.personaCard
+const ianInput = (s as any).ianInput as { text: string }
 
-// REVIEW: Reconsider line — confirm framing works in demo context.
-const RECONSIDER_TEXT =
-  "Before we lock in an interviewee, I want to flag something. The prototype test included several people, but Laura stands out. She already experienced the runtime problem firsthand, and she books work through the same Facebook groups where your target market lives. Does she sound right to you?"
+// milesIntro -> card (readable) -> beat -> milesFollowup -> input
+const PHASES = ['intro', 'card', 'followup', 'input'] as const
+type Phase = (typeof PHASES)[number]
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 8 },
@@ -20,31 +22,23 @@ const fadeUp = (delay: number) => ({
 })
 
 export default function LauraIntro({ onAdvance }: Props) {
-  const [showInput, setShowInput]       = useState(false)
-  const [showCard, setShowCard]         = useState(false)
-  const [showFollowup, setShowFollowup] = useState(false)
+  const [phase, setPhase] = useState<Phase>('intro')
+  const reached = (p: Phase) => PHASES.indexOf(phase) >= PHASES.indexOf(p)
 
-  function confirmLaura() {
-    setShowInput(false)
-    setShowCard(true)
-  }
+  // After the card appears, hold a beat so it's readable before Miles follows up
+  useEffect(() => {
+    if (phase !== 'card') return
+    const t = setTimeout(() => setPhase('followup'), BEAT_AFTER_MILES)
+    return () => clearTimeout(t)
+  }, [phase])
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
-      {/* Miles surfaces Laura — doesn't assume */}
-      <MilesMessage text={RECONSIDER_TEXT} onDone={() => setShowInput(true)} />
-
-      {/* Ian weighs in before the card appears */}
-      {showInput && !showCard && (
-        <IanInputBar
-          driver="chat"
-          suggestion="Laura sounds right. Let's go with her."
-          onSubmit={confirmLaura}
-        />
-      )}
+      {/* Miles surfaces Laura, then the card appears (no prompt before it) */}
+      <MilesMessage text={s.milesIntro} onDone={() => setTimeout(() => setPhase('card'), BEAT_AFTER_MILES)} />
 
       {/* Laura's profile card */}
-      {showCard && (
+      {reached('card') && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,17 +60,17 @@ export default function LauraIntro({ onAdvance }: Props) {
         </motion.div>
       )}
 
-      {showCard && (
+      {reached('followup') && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-          <MilesMessage text={s.milesFollowup} onDone={() => setShowFollowup(true)} />
+          <MilesMessage text={s.milesFollowup} onDone={() => setTimeout(() => setPhase('input'), BEAT_AFTER_MILES)} />
         </motion.div>
       )}
 
-      {showFollowup && (
+      {reached('input') && (
         <motion.div {...fadeUp(0)}>
           <IanInputBar
             driver="chat"
-            suggestion={s.cta.label}
+            suggestion={ianInput.text}
             onSubmit={() => onAdvance(s.cta.advance)}
           />
         </motion.div>

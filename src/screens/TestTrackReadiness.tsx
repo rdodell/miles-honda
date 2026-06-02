@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, AlertTriangle } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
-import IanInputBar from '../components/IanInputBar'
 import BranchPicker from '../components/BranchPicker'
 import scenario from '../scenario.json'
 
@@ -58,24 +57,13 @@ export default function TestTrackReadiness({ onAdvance, showTooltip }: TestTrack
         </>
       )}
 
-      {/* BranchPicker for prep vs seed-review */}
+      {/* Branch picker — Ian's reply types in the input line, then Miles responds */}
       {showBranch && (
         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
           <BranchPicker
             branch={s.branch as any}
             onAdvance={onAdvance}
             showTooltip={(msg) => showTooltip?.(msg)}
-          />
-        </motion.div>
-      )}
-
-      {/* IanInputBar */}
-      {showBranch && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
-          <IanInputBar
-            driver="chat"
-            placeholder="Ask Miles, or pick an option above"
-            onSubmit={() => {}}
           />
         </motion.div>
       )}

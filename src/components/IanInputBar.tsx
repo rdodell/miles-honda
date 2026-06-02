@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { MessageCircle, Mic, PencilLine } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -10,6 +10,8 @@ export interface IanInputBarProps {
   placeholder?: string
   onSubmit: () => void
   disabled?: boolean
+  /** Fired once the prepopulated suggestion has finished typing in */
+  onSuggestionTyped?: () => void
 }
 
 const TABS = [
@@ -20,9 +22,13 @@ const TABS = [
 
 const UNAVAILABLE_TOOLTIP = 'Not available in this preview'
 
-export default function IanInputBar({ driver, suggestion, placeholder, onSubmit, disabled = false }: IanInputBarProps) {
+export default function IanInputBar({ driver, suggestion, placeholder, onSubmit, disabled = false, onSuggestionTyped }: IanInputBarProps) {
   const [activeTab, setActiveTab] = useState<IanInputBarProps['driver']>(driver)
   const [tooltip, setTooltip] = useState<string | null>(null)
+
+  // Always call the latest onSuggestionTyped, even though the typing effect only runs on [suggestion]
+  const onTypedRef = useRef(onSuggestionTyped)
+  onTypedRef.current = onSuggestionTyped
 
   // Prepopulated Ian text animates in, character by character, like it's being typed
   const [typed, setTyped] = useState('')
@@ -35,7 +41,7 @@ export default function IanInputBar({ driver, suggestion, placeholder, onSubmit,
     const id = setInterval(() => {
       i += 1
       setTyped(suggestion.slice(0, i))
-      if (i >= suggestion.length) { clearInterval(id); setDoneTyping(true) }
+      if (i >= suggestion.length) { clearInterval(id); setDoneTyping(true); onTypedRef.current?.() }
     }, TYPE_MS_PER_CHAR)
     return () => clearInterval(id)
   }, [suggestion])

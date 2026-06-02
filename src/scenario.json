@@ -2,21 +2,21 @@
   "roadStages": [
     {
       "id": "spark",
-      "label": "Idea Validation",
+      "label": "Customer Interviews Complete",
       "position": 0.25,
-      "subtitle": "in 2 weeks"
+      "subtitle": "in 4 weeks"
     },
     {
       "id": "garage",
       "label": "Business Case Due",
       "position": 0.55,
-      "subtitle": "in 5 weeks"
+      "subtitle": "in 9 weeks"
     },
     {
       "id": "testTrack",
-      "label": "Seed Funding Decision",
+      "label": "Venture Board Review",
       "position": 0.85,
-      "subtitle": "in 8 weeks"
+      "subtitle": "in 12 weeks"
     }
   ],
   "tooltips": {
@@ -92,7 +92,7 @@
     "1.1": {
       "id": "1.1",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Month 1 · Week 1",
       "milesMessages": [
         {
           "id": "greeting",
@@ -150,7 +150,7 @@
     "1.2": {
       "id": "1.2",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Month 1 · Week 1",
       "ianMessage": "I need to validate who my customer will be.",
       "milesResponse": "From our last session I pulled three landscaper profiles. Each one points the lawnmower in a different direction. Who's jumping out at you?",
       "personas": [
@@ -192,7 +192,7 @@
     "1.3": {
       "id": "1.3",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Month 1 · Week 1",
       "step": "Step 1 of 3 · Frame the problem",
       "milesOpeningPrompt": "Can you tell me a little bit more about what you're envisioning for the electric lawn mower?",
       "ianTestReply": "Yes, I'd like to test",
@@ -272,7 +272,7 @@
     "1.3b": {
       "id": "1.3b",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Month 1 · Week 2",
       "step": "Step 2 of 3 · Bias check",
       "milesIntro": "Now the honest part. Which of these are hunches? I sorted your claims left to right. Anything on the left is still opinion. Want to defend one, or go test it?",
       "items": [
@@ -317,7 +317,7 @@
     "1.3c": {
       "id": "1.3c",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Month 1 · Week 2",
       "step": "Step 3 of 3 · Evidence playbook",
       "milesIntro": "You caught three hunches back there, all about what landscapers actually want and will pay. Before you build, you need evidence on those. Here are five ways to get it. Where do you want to start?",
       "steps": [
@@ -374,9 +374,10 @@
             "id": "interviews",
             "label": "Customer interviews",
             "recommended": true,
-            "ianReply": "Let's start with the five interviews.",
+            "ianReply": "That makes sense, I'll start with the interviews instead.",
             "milesReply": "That's the one. Five calls, all three hunches tested directly, fastest signal you'll get this week.",
-            "advance": "1.3d"
+            "advance": "1.3d",
+            "viaInput": true
           },
           {
             "id": "observation",
@@ -387,10 +388,10 @@
             "advance": null
           },
           {
-            "id": "smoke",
-            "label": "Smoke test",
-            "ianReply": "What about a landing page to test demand?",
-            "milesReply": "Tempting, but a landing page before you know the value prop just gives you a noisy number. You'd be testing a guess with a guess. Come back to this after the interviews.",
+            "id": "research",
+            "label": "Existing research scan",
+            "ianReply": "Didn't we already do the research scan?",
+            "milesReply": "We did, that's the 3 papers and 2 surveys from last week. It didn't answer willingness-to-pay, which is exactly why we're here.",
             "advance": null
           },
           {
@@ -401,10 +402,10 @@
             "advance": null
           },
           {
-            "id": "research",
-            "label": "Existing research scan",
-            "ianReply": "Didn't we already do the research scan?",
-            "milesReply": "We did, that's the 3 papers and 2 surveys from last week. It didn't answer willingness-to-pay, which is exactly why we're here.",
+            "id": "smoke",
+            "label": "Smoke test",
+            "ianReply": "What about a landing page to test demand?",
+            "milesReply": "Tempting, but a landing page before you know the value prop just gives you a noisy number. You'd be testing a guess with a guess. Come back to this after the interviews.",
             "advance": null
           }
         ]
@@ -413,7 +414,7 @@
     "1.3d": {
       "id": "1.3d",
       "stage": "spark",
-      "timeIndicator": "Week 2 · Tuesday",
+      "timeIndicator": "Month 1 · Week 3",
       "milesIntro": "Your evidence plan points to customer interviews first. Laura is a strong place to start, since she already flagged the runtime problem in your prototype test. Here's what you know going in.",
       "personaCard": {
         "name": "Laura",
@@ -453,7 +454,7 @@
       "id": "1.4",
       "stage": "spark",
       "stageComplete": "spark",
-      "timeIndicator": "Week 2 · Friday",
+      "timeIndicator": "Month 1 · Week 4",
       "header": "Nice work this week, Ian.",
       "bullets": [
         "Picked Laura as the first interviewee",
@@ -478,7 +479,7 @@
     "1.5": {
       "id": "1.5",
       "stage": "spark",
-      "timeIndicator": "Month 1 · Wednesday",
+      "timeIndicator": "Month 2 · Week 1",
       "milesIntro": "Hello again, Ian. From your last conversation, it sounds like supply chain is where you're stuck. How do you want to keep going? You could meet someone who's solved this, or keep working through your customer personas.",
       "bridgeCard": {
         "name": "Priya Okafor",
@@ -511,8 +512,8 @@
     "2.1": {
       "id": "2.1",
       "stage": "garage",
-      "timeIndicator": "Month 1 · Wednesday",
-      "milesMessage": "Ian, I found three people who've been through the supplier gauntlet. Here's how they stack up, but Priya's the closest fit for what you're stuck on.",
+      "timeIndicator": "Month 2 · Week 1",
+      "milesMessage": "Welcome back. Your customer interviews are done, that's the willingness-to-pay question off your plate for now. What do you want to work on next?",
       "recommended": [
         {
           "id": "priya",
@@ -545,8 +546,6 @@
           "inventedNote": "INVENTED placeholder name, swap in a real contact."
         }
       ],
-      "directoryStats": "127 intrapreneurs · 43 mentors · 18 alumni",
-      "emptyNetworkMsg": "You haven't connected with anyone yet.",
       "actions": [
         {
           "label": "Connect with Priya →",
@@ -562,6 +561,7 @@
         "type": "pick-and-respond",
         "recommended": "priya",
         "presenterPath": [
+          "daniel",
           "priya"
         ],
         "options": [
@@ -569,15 +569,15 @@
             "id": "priya",
             "label": "Connect with Priya",
             "recommended": true,
-            "ianReply": "Priya it is, she's the closest to my exact problem.",
+            "ianReply": "Good point. Let's go with Priya.",
             "milesReply": "Agreed. I'll reach out and find time on your calendar.",
             "advance": "2.2"
           },
           {
             "id": "daniel",
             "label": "Connect with Daniel",
-            "ianReply": "What about Daniel in Manufacturing?",
-            "milesReply": "Worth knowing for when you scale, but he hasn't done battery sourcing. For the cost question you're stuck on this week, Priya's the sharper call.",
+            "ianReply": "I think I'll start with Daniel in Manufacturing.",
+            "milesReply": "Daniel knows the supplier landscape, but he hasn't done battery sourcing, and that's the exact thing slowing you down. Priya built the e-bike battery supply chain from scratch, so she's the sharper first call. Want to move forward with her?",
             "advance": null
           },
           {
@@ -591,13 +591,17 @@
       },
       "ianInput": {
         "driver": "chat",
-        "text": "Priya's the obvious first call, but who else has been through the supplier gauntlet?"
+        "text": "The interviews made it clear pricing is the open question. I want to talk to people who've worked out the cost side."
+      },
+      "milesContactsIntro": "Then these are the people to talk to. I found three who've been through the supplier gauntlet. Here's how they stack up.",
+      "contactsGate": {
+        "note": "Do NOT render the recommended contacts or the branch on load. Sequence: milesMessage (Miles asks) -> Ian sends ianInput (pricing goal) -> beat -> milesContactsIntro (Miles surfaces contacts) -> THEN the three contacts + pick-and-respond branch appear. Priya must not be visible before Ian has stated his goal."
       }
     },
     "2.2": {
       "id": "2.2",
       "stage": "garage",
-      "timeIndicator": "Month 1 · Wednesday",
+      "timeIndicator": "Month 2 · Week 2",
       "milesMessage": "Good news. While you were at lunch, Priya got back to me, and I put a hold on your calendar for Thursday at 2 PM. Does that work, or should I find another time?",
       "meetingCard": {
         "day": "Thursday",
@@ -628,7 +632,7 @@
     "2.3": {
       "id": "2.3",
       "stage": "garage",
-      "timeIndicator": "Month 1 · Friday",
+      "timeIndicator": "Month 2 · Week 3",
       "milesMessage": "Good meeting with Priya. I've logged the key takeaways and added her to your network. Anything she said that you want to dig into before we move on?",
       "networkContact": {
         "name": "Priya Okafor",
@@ -652,7 +656,7 @@
       "id": "2.4",
       "stage": "garage",
       "stageComplete": "garage",
-      "timeIndicator": "Month 1 · Friday",
+      "timeIndicator": "Month 2 · Week 4",
       "header": "You're not building alone anymore.",
       "bullets": [
         "Connected with Priya, Honda's e-bike battery lead",
@@ -669,7 +673,7 @@
     "3.1": {
       "id": "3.1",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
+      "timeIndicator": "Month 3 · Week 2",
       "milesMessage": "Welcome back. One thing caught my eye in the Business Model Canvas before the venture board review next week. Want to take a look?",
       "flaggedSection": "Revenue Streams",
       "flaggedTooltip": "Miles flagged this",
@@ -683,7 +687,7 @@
     "3.2": {
       "id": "3.2",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
+      "timeIndicator": "Month 3 · Week 2",
       "milesMessage": "Lithium pricing has moved since your February draft. Did you catch it? Worth updating your cost of materials before the venture board review.",
       "milesQuestion": "Want me to plug in Priya's real numbers and update the model?",
       "comparison": {
@@ -735,7 +739,7 @@
     "3.3": {
       "id": "3.3",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
+      "timeIndicator": "Month 3 · Week 2",
       "milesIntro": "Before the venture board review, want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
       "questions": [
         {
@@ -773,7 +777,7 @@
     "3.4": {
       "id": "3.4",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
+      "timeIndicator": "Month 3 · Week 3",
       "milesMessage": "The venture board review is next week. Want to see exactly where you stand?",
       "milesFollowup": "3 of 5 are solid. The two flags are normal at this stage, and there's a plan for each.",
       "scorecard": [
@@ -844,7 +848,7 @@
       "id": "3.5",
       "stage": "testTrack",
       "stageComplete": "testTrack",
-      "timeIndicator": "Month 3 · Monday",
+      "timeIndicator": "Month 3 · Week 3",
       "headline": "Ian's three months with Miles.",
       "columns": [
         {
@@ -1001,7 +1005,7 @@
     ]
   },
   "checklists": {
-    "description": "Per-stage progress checklists surfaced in a slide-over panel opened from a checklist control in the top bar (next to the Spark/Garage/Test Track stage area). Scripted, not wired to real completion. The panel shows the ACTIVE stage's checklist expanded; the other two stages appear locked/greyed until reached. Introduced as a checkpoint after the Spark wrap (1.4): Miles says intro, then the panel opens showing what's done and what's left for that stage.",
+    "description": "Per-stage progress checklists in a slide-over panel opened from a checklist control in the top bar. ALL stages are UNLOCKED and viewable so the intrapreneur can see upcoming tasks in every stage; the ACTIVE stage is expanded by default, the others are collapsed but expandable (NOT locked or greyed out). Scripted done/false state. Introduced as a checkpoint after the Spark wrap (1.4).",
     "stageOrder": [
       "spark",
       "garage",
@@ -1027,7 +1031,12 @@
           },
           {
             "text": "Conducted 10 customer interviews",
-            "done": false
+            "done": false,
+            "progress": {
+              "done": 1,
+              "total": 10,
+              "showBar": true
+            }
           },
           {
             "text": "Validate willingness-to-pay with customers",
@@ -1038,7 +1047,6 @@
       "garage": {
         "title": "Build Your Network",
         "stageLabel": "The Garage",
-        "locked": true,
         "milesIntro": "Here's where your network stands.",
         "items": [
           {
@@ -1062,7 +1070,6 @@
       "testTrack": {
         "title": "Pressure-Test the Model",
         "stageLabel": "The Test Track",
-        "locked": true,
         "milesIntro": "Here's where the model stands.",
         "items": [
           {

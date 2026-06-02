@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { BookOpen } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import BranchPicker from '../components/BranchPicker'
 import type { BranchOption } from '../components/BranchPicker'
-import Tooltip from '../components/Tooltip'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 import priyaAvatar from '../assets/priya-avatar.png'
 import karenAvatar  from '../assets/karen-avatar.svg'
 import danielAvatar from '../assets/daniel-avatar.svg'
@@ -14,70 +13,76 @@ import danielAvatar from '../assets/daniel-avatar.svg'
 interface GarageWelcomeProps { onAdvance: (screen: string) => void; showTooltip?: (msg: string) => void }
 
 const s = scenario.screens['2.1']
+const ianInput = (s as any).ianInput as { text: string }
 
-const fadeUp = (i: number) => ({
-  initial: { opacity: 0, y: 8 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay: i * 0.12, duration: 0.3 },
-})
+// Sequence: Miles asks -> Ian states his pricing goal -> Miles surfaces contacts -> contacts appear
+const PHASES = ['miles-open', 'ian-input', 'ian-sent', 'miles-contacts', 'contacts'] as const
+type Phase = (typeof PHASES)[number]
 
 export default function GarageWelcome({ onAdvance, showTooltip }: GarageWelcomeProps) {
-  const [showRest, setShowRest] = useState(false)
-
-  function handleShowTooltip(msg: string) {
-    showTooltip?.(msg)
-  }
+  const [phase, setPhase] = useState<Phase>('miles-open')
+  const reached = (p: Phase) => PHASES.indexOf(phase) >= PHASES.indexOf(p)
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
-      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
+      {/* Miles asks what's next (interviews are done) */}
+      <MilesMessage
+        text={s.milesMessage}
+        onDone={() => setTimeout(() => setPhase('ian-input'), BEAT_AFTER_MILES)}
+      />
 
+      {/* Ian states his pricing goal as a sent message */}
+      {reached('ian-sent') && (
+        <motion.div className="flex justify-end" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}>
+          <div style={{
+            background: 'var(--ink)', color: '#fff',
+            borderRadius: '14px 14px 4px 14px', padding: '10px 14px',
+            fontSize: 14, fontFamily: 'var(--font-cp-sans)', maxWidth: '80%',
+            lineHeight: 1.5, boxShadow: 'var(--shadow-1)',
+          }}>
+            {ianInput.text}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Only now does Miles surface the contacts */}
+      {reached('miles-contacts') && (
+        <MilesMessage
+          text={(s as any).milesContactsIntro}
+          onDone={() => setTimeout(() => setPhase('contacts'), BEAT_AFTER_MILES)}
+        />
+      )}
+
+      {/* Contacts + pick-and-respond branch (Daniel -> pushback -> Priya) */}
       <AnimatePresence>
-        {showRest && (
-          <motion.div
-            className="flex flex-col gap-5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Recommended contacts via BranchPicker */}
-            <motion.section {...fadeUp(1)}>
-              <h2 style={{ fontSize: 18, fontWeight: 600, color: '#231F20', fontFamily: 'Inter, sans-serif', margin: '0 0 10px' }}>
-                Recommended for you
-              </h2>
-              <BranchPicker
-                branch={s.branch as any}
-                onAdvance={onAdvance}
-                showTooltip={handleShowTooltip}
-                renderOption={(opt, isSelected, isRec) => (
-                  <ContactCard opt={opt} isSelected={isSelected} isRec={isRec} />
-                )}
-              />
-            </motion.section>
-
-            {/* Directory */}
-            <motion.div {...fadeUp(2)}>
-              <Tooltip text="The full directory isn't in this demo preview.">
-                <button className="w-full flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:bg-[#F5F5F5] transition-colors" style={{ background: '#fff', border: '1.5px solid #E5E5E5', cursor: 'pointer' }}>
-                  <BookOpen size={18} color="#6B6B6B" style={{ flexShrink: 0 }} />
-                  <div className="text-left">
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#231F20' }}>The directory</div>
-                    <div style={{ fontSize: 13, color: '#6B6B6B', marginTop: 1 }}>{s.directoryStats}</div>
-                  </div>
-                  <span style={{ marginLeft: 'auto', color: '#6B6B6B', fontSize: 20 }}>›</span>
-                </button>
-              </Tooltip>
-            </motion.div>
-
-            {/* IanInputBar */}
-            <IanInputBar
-              driver="chat"
-              placeholder="Ask Miles, or pick an option above"
-              onSubmit={() => {}}
+        {reached('contacts') && (
+          <motion.section initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 600, color: '#231F20', fontFamily: 'Inter, sans-serif', margin: '0 0 10px' }}>
+              Recommended for you
+            </h2>
+            <BranchPicker
+              branch={s.branch as any}
+              onAdvance={onAdvance}
+              showTooltip={showTooltip}
+              renderOption={(opt, isSelected, isRec) => (
+                <ContactCard opt={opt} isSelected={isSelected} isRec={isRec} />
+              )}
             />
-          </motion.div>
+          </motion.section>
         )}
       </AnimatePresence>
+
+      {/* Persistent input bar — drives Ian's pricing send; the branch owns the bar once contacts show */}
+      {phase !== 'contacts' && (
+        <IanInputBar
+          driver="chat"
+          placeholder="Ask Miles, or pick an option above"
+          suggestion={phase === 'ian-input' ? ianInput.text : undefined}
+          onSubmit={phase === 'ian-input'
+            ? () => { setPhase('ian-sent'); setTimeout(() => setPhase('miles-contacts'), BEAT_AFTER_MILES) }
+            : () => {}}
+        />
+      )}
     </div>
   )
 }

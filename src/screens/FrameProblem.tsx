@@ -39,8 +39,17 @@ export default function FrameProblem({ onAdvance }: Props) {
   const [activeTypingIdx, setActiveTypingIdx] = useState(0)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const charRef = useRef(0)
+  const inputBarRef = useRef<HTMLDivElement>(null)
 
   const reached = (p: Phase) => ORDER.indexOf(phase) >= ORDER.indexOf(p)
+
+  // The screen is tall, so the input bar lands below the fold. Bring it into view
+  // when it appears so Ian's reply is seen typing in, not already filled.
+  useEffect(() => {
+    if (phase !== 'done') return
+    const t = setTimeout(() => inputBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }), 60)
+    return () => clearTimeout(t)
+  }, [phase])
 
   // Beat after the sketch lands, then Miles starts structuring it
   useEffect(() => {
@@ -232,6 +241,7 @@ export default function FrameProblem({ onAdvance }: Props) {
       {/* Footer + IanInputBar */}
       {reached('done') && (
         <motion.div
+          ref={inputBarRef}
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col gap-3 mt-1"

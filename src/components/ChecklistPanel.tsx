@@ -12,6 +12,13 @@ interface ChecklistPanelProps {
   completedStages: Record<StageId, boolean>
 }
 
+interface ChecklistItem {
+  text: string
+  done: boolean
+  note?: string
+  progress?: { done: number; total: number; showBar?: boolean }
+}
+
 const checklists = scenario.checklists as {
   stageOrder: StageId[]
   stages: Record<StageId, {
@@ -19,8 +26,23 @@ const checklists = scenario.checklists as {
     stageLabel: string
     locked?: boolean
     milesIntro: string
-    items: { text: string; done: boolean; note?: string }[]
+    items: ChecklistItem[]
   }>
+}
+
+/** Thin progress bar driven by done/total */
+function ProgressBar({ done, total, accent }: { done: number; total: number; accent: string }) {
+  const pct = total > 0 ? Math.max(0, Math.min(1, done / total)) : 0
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
+      <div style={{ flex: 1, height: 5, borderRadius: 99, background: 'var(--bg-2)', overflow: 'hidden' }}>
+        <div style={{ width: `${pct * 100}%`, height: '100%', background: accent, borderRadius: 99, transition: 'width 0.3s ease' }} />
+      </div>
+      <span style={{ fontFamily: 'var(--font-cp-mono)', fontSize: 11, fontWeight: 600, color: accent, flexShrink: 0 }}>
+        {done}/{total}
+      </span>
+    </div>
+  )
 }
 
 const STAGE_ACCENT: Record<StageId, string> = {
@@ -221,7 +243,7 @@ export default function ChecklistPanel({ open, onClose, activeStage }: Checklist
                           <ul style={{ listStyle: 'none', margin: 0, padding: '2px 16px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {stage.items.map((it, j) => (
                               <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 11 }}>
-                                {/* Checkbox */}
+                                {/* Checkbox (or partial-progress dot for in-progress items) */}
                                 <span style={{
                                   width: 19, height: 19, borderRadius: 6, flexShrink: 0, marginTop: 1,
                                   display: 'grid', placeItems: 'center',
@@ -229,6 +251,9 @@ export default function ChecklistPanel({ open, onClose, activeStage }: Checklist
                                   border: it.done ? `1px solid ${accent}` : '1.5px solid var(--border-strong)',
                                 }}>
                                   {it.done && <Check size={13} color="#fff" strokeWidth={3} />}
+                                  {!it.done && it.progress && (
+                                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: accent, opacity: 0.55 }} />
+                                  )}
                                 </span>
                                 <div style={{ flex: 1, minWidth: 0 }}>
                                   <div style={{
@@ -238,6 +263,9 @@ export default function ChecklistPanel({ open, onClose, activeStage }: Checklist
                                   }}>
                                     {it.text}
                                   </div>
+                                  {it.progress && it.progress.showBar && (
+                                    <ProgressBar done={it.progress.done} total={it.progress.total} accent={accent} />
+                                  )}
                                   {it.note && (
                                     <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2, fontStyle: 'italic' }}>
                                       {it.note}

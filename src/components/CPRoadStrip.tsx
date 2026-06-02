@@ -6,9 +6,9 @@ interface CPRoadStripProps {
 }
 
 const NODES = [
-  { id: 'spark',  label: 'Idea Validation', subtitle: 'in 2 weeks', stageKey: 'spark'     as StageId, x: 140 },
-  { id: 'garage', label: 'Business Case Due',             subtitle: 'in 5 weeks', stageKey: 'garage'    as StageId, x: 500 },
-  { id: 'track',  label: 'Seed Funding Decision',         subtitle: 'in 8 weeks', stageKey: 'testTrack' as StageId, x: 860 },
+  { id: 'spark',  label: 'Customer Interviews Complete', subtitle: 'in 4 weeks',  stageKey: 'spark'     as StageId, x: 140 },
+  { id: 'garage', label: 'Business Case Due',            subtitle: 'in 9 weeks',  stageKey: 'garage'    as StageId, x: 500 },
+  { id: 'track',  label: 'Venture Board Review',         subtitle: 'in 12 weeks', stageKey: 'testTrack' as StageId, x: 860 },
 ]
 
 const W = 1000, ROAD_H = 64, MIDY = 32, AMP = 7, CYCLES = 1.6

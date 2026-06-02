@@ -7,6 +7,7 @@ import CPSubRail     from './components/CPSubRail'
 import PresenterGuide from './components/PresenterGuide'
 import RestartDialog  from './components/RestartDialog'
 import ChecklistPanel from './components/ChecklistPanel'
+import scenario from './scenario.json'
 
 import Landing            from './screens/Landing'
 import Dashboard          from './screens/Dashboard'
@@ -200,6 +201,17 @@ export default function App() {
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
                 style={{ minHeight: '100%' }}
               >
+                {(scenario.screens as Record<string, { timeIndicator?: string | null }>)[screen]?.timeIndicator && (
+                  <div style={{ padding: '0 20px', marginBottom: 2 }}>
+                    <span style={{
+                      fontFamily: 'var(--font-cp-mono)', fontSize: 11,
+                      textTransform: 'uppercase', letterSpacing: '0.14em',
+                      color: 'var(--muted)',
+                    }}>
+                      {(scenario.screens as Record<string, { timeIndicator?: string | null }>)[screen].timeIndicator}
+                    </span>
+                  </div>
+                )}
                 {renderScreen()}
               </motion.div>
             </AnimatePresence>

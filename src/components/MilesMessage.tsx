@@ -11,8 +11,8 @@ interface MilesMessageProps {
   onDone?: () => void
 }
 
-const CHARS_PER_SEC = 22
-const MS_PER_CHAR = 1000 / CHARS_PER_SEC
+// Match Ian's typing speed (IanInputBar uses 28ms/char) so Miles streams just as fast
+const MS_PER_CHAR = 28
 
 function randomThinkMs() {
   return 1400 + Math.random() * 800 // 1400–2200ms thinking pause
