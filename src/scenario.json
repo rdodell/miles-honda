@@ -49,9 +49,24 @@
     }
   ],
   "roadStages": [
-    { "id": "spark", "label": "Idea Validation", "position": 0.25, "subtitle": "in 4 weeks" },
-    { "id": "garage", "label": "Business Case Due", "position": 0.55, "subtitle": "in 9 weeks" },
-    { "id": "testTrack", "label": "Venture Board Review", "position": 0.85, "subtitle": "in 12 weeks" }
+    {
+      "id": "spark",
+      "label": "Idea Validation",
+      "position": 0.25,
+      "subtitle": "in 4 weeks"
+    },
+    {
+      "id": "garage",
+      "label": "Business Case Due",
+      "position": 0.55,
+      "subtitle": "in 9 weeks"
+    },
+    {
+      "id": "testTrack",
+      "label": "Venture Board Review",
+      "position": 0.85,
+      "subtitle": "in 12 weeks"
+    }
   ],
   "screens": {
     "0.1": {
@@ -580,13 +595,13 @@
       },
       "takeaways": [
         "Priya's supplier contacts added to your Key Partners",
-        "Battery cost actuals revised: $103/unit (vs. your $89 assumption)",
+        "Battery cost actuals revised: $730/unit (vs. your $620 assumption)",
         "She can save you 6 weeks on the internal safety review"
       ],
       "advance": "2.4",
       "ianInput": {
         "driver": "chat",
-        "text": "The $103 battery actuals are huge. Update the model with her real numbers before anything else."
+        "text": "The $730 battery actuals are huge. Update the model with her real numbers before anything else."
       }
     },
     "2.4": {
@@ -599,7 +614,7 @@
       "bullets": [
         "Connected with Priya, Honda's e-bike battery lead",
         "3 supplier contacts from Priya's network added",
-        "Battery cost assumption corrected, $37/unit better than expected"
+        "Got Priya's real supplier numbers to update the cost model"
       ],
       "milesFooter": "Next question: do the lawnmower's numbers hold up under pressure?",
       "ianInput": {
@@ -613,7 +628,7 @@
       "day": 59,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 1",
-      "milesMessage": "Your cost numbers are solid now, that's the biggest unknown closed. I'd take you straight into building the model. Sound good?",
+      "milesMessage": "The Garage closed your biggest unknown. The Test Track is where we build the model and pressure-test it before the board sees it. I'd take you straight in, sound good?",
       "ianInput": {
         "driver": "chat",
         "text": "Before we dive in, what tools do I have for this stage?"
@@ -657,7 +672,7 @@
           },
           {
             "id": "prep",
-            "label": "Venture Board Review Prep",
+            "label": "Leadership Review",
             "ianReply": "Should I prep for the board now?",
             "milesReply": "Prep comes after the model holds up. Start with the canvas.",
             "advance": null
@@ -687,7 +702,7 @@
       "day": 66,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 2",
-      "milesMessage": "Welcome back. Before the venture board review next week, one thing caught my eye in the Business Model Canvas: your cost of materials assumption is stale. Lithium pricing has moved since your February draft. Want to update it?",
+      "milesMessage": "Welcome back. You came out of the Garage with Priya's real supplier numbers, so let's get them into the Business Model Canvas. Your cost of materials still reflects your February draft, and her battery quote runs higher than you assumed (lithium's up since then). Want to plug it in?",
       "flaggedSection": "Cost Structure",
       "flaggedTooltip": "Miles flagged this",
       "bmcSectionTooltip": "Demo: would expand here.",
@@ -699,12 +714,12 @@
       "comparison": {
         "original": {
           "label": "Original assumption",
-          "value": "$148 / unit",
+          "value": "$900 / unit",
           "note": "Feb pricing"
         },
         "updated": {
           "label": "Updated benchmark",
-          "value": "$172 / unit",
+          "value": "$1,040 / unit",
           "note": "current spot + Priya's supplier quote"
         },
         "marginBefore": "31%",
@@ -714,19 +729,19 @@
         "intro": "Here's what changes.",
         "rows": [
           {
-            "item": "Battery cells",
-            "before": "$89",
-            "after": "$103"
+            "item": "Battery pack",
+            "before": "$620",
+            "after": "$730"
           },
           {
             "item": "Motor controller",
-            "before": "$38",
-            "after": "$46"
+            "before": "$190",
+            "after": "$210"
           },
           {
             "item": "Frame & deck",
-            "before": "$21",
-            "after": "$23"
+            "before": "$90",
+            "after": "$100"
           }
         ]
       },
@@ -734,10 +749,10 @@
         "driver": "chat",
         "text": "Yes, plug in her numbers and update it."
       },
-      "milesClose": "Updated. Your margin drops from 31% to 24%. Still workable, but 24% is the number the board will press on. Let's run a full readiness check so you walk in knowing exactly where you stand.",
+      "milesClose": "Updated. On your $2,000 price, that pulls your margin from 31% to 24%. Still workable, but 24% is the number the board will press on. The model holds together now, so the real question is how ready you are to defend it.",
       "ianClose": {
         "driver": "chat",
-        "text": "Got it. Let's run that readiness check."
+        "text": "Got it. So how ready am I, really?"
       },
       "advance": "3.2",
       "bmcGate": {
@@ -749,16 +764,16 @@
       "day": 70,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 3",
-      "milesMessage": "The venture board review is next week. Before you walk in, let's run a full readiness check: where you stand, and what they'll push on. Want to see it?",
+      "milesMessage": "The venture board review is next week. Here's the full readiness check: where you stand, and what they'll push on.",
       "ianInput": {
         "driver": "chat",
-        "text": "Yes. I'd rather hear the hard questions from you than in the review."
+        "text": "Good. I'd rather hear the hard questions from you than in the review."
       },
       "scorecard": [
         {
           "status": "pass",
           "label": "Customer validated",
-          "detail": "10 interviews, 3 paid pilots"
+          "detail": "10 interviews, strong willingness-to-pay signal"
         },
         {
           "status": "pass",
@@ -787,14 +802,14 @@
           "id": "q1",
           "header": "What if Laura's willingness-to-pay is wrong?",
           "challenge": "Your 10 interviews skewed toward Lauras who already complained about gas. The broader landscaper market hasn't signaled the same urgency, and your price point sits 22% above the closest competitor.",
-          "response": "Lead with the three paid pilots. That's revealed preference, not stated. Then acknowledge the sampling skew and show the plan to validate with a colder segment.",
+          "response": "Lead with the willingness-to-pay signal from the interviews: seven of the ten said they'd pay at or above $2k once you walk them through the gas and maintenance savings. It's stated intent, not revealed yet, so name that openly and show the next step to harden it, a small paid pilot or preorder with a colder segment.",
           "buttonTooltip": "Demo: would open coaching."
         },
         {
           "id": "q2",
           "header": "You've only started 2 of 4 outside-investment conversations. Where's the funding path?",
           "challenge": "The board needs a credible route to capital before it commits, and half those conversations haven't started yet.",
-          "response": "Two are already in motion, and Priya's network opens the other two. The ask is scoped to the pilot-to-scale phase with clear milestones, not an open-ended raise.",
+          "response": "Two are already in motion, and Priya's network opens the other two. The ask is scoped to the next phase, validation through first revenue, with clear milestones, not an open-ended raise.",
           "buttonTooltip": "Demo: would open coaching."
         },
         {
@@ -805,7 +820,7 @@
           "buttonTooltip": "Demo: would open coaching."
         }
       ],
-      "milesClose": "Every one of those has an answer, and you've got the evidence behind it: three paid pilots, transferable supplier terms, and a clear wedge-to-scale path. The flags have plans. You're ready for the venture board review.",
+      "milesClose": "Every one of those has an answer, and you've got the evidence behind it: ten interviews with a clear willingness-to-pay signal, transferable supplier terms, and a clear wedge-to-scale path. The flags have plans. You're ready for the venture board review.",
       "ianClose": {
         "driver": "chat",
         "text": "Then let's get it in front of the board."
@@ -825,7 +840,7 @@
       "columns": [
         {
           "stage": "spark",
-          "label": "Spark · Week 2",
+          "label": "Spark · Month 1",
           "bullets": [
             "Picked Laura as the first interviewee",
             "Built an evidence plan, interviews first",
@@ -834,11 +849,11 @@
         },
         {
           "stage": "garage",
-          "label": "The Garage · Month 1",
+          "label": "The Garage · Month 2",
           "bullets": [
             "Met with Priya (e-bike battery lead)",
-            "Updated Business Model Canvas",
-            "4 new contacts in the intrapreneur network"
+            "Priya's real supplier numbers are ready for the cost model",
+            "Came away with transferable supplier terms"
           ]
         },
         {
@@ -918,7 +933,7 @@
             "Financial Sensitivity Model",
             "Devil's Advocate",
             "Readiness Scorecard",
-            "Venture Board Review Prep",
+            "Leadership Review",
             "Prototyper",
             "GTM Plan Generator"
           ]
@@ -941,7 +956,7 @@
       "3.4"
     ],
     "autoSend": false,
-    "autoSendNote": "MANUAL SEND everywhere — nothing auto-proceeds between pages. Ian's scripted line auto-TYPES into the input bar (IanTyping), but it does NOT commit on its own: the presenter clicks Send to post it, and that send is what advances the screen. Branch screens advance on Ian's TAP. No screen navigates off a Miles message or a timer."
+    "autoSendNote": "MANUAL SEND everywhere. Nothing auto-proceeds between pages. Ian's scripted line auto-TYPES into the input bar (IanTyping), but it does NOT commit on its own: the presenter clicks Send to post it, and that send is what advances the screen. Branch screens advance on Ian's TAP. No screen navigates off a Miles message or a timer."
   },
   "checklists": {
     "description": "Per-stage progress checklists in a slide-over panel opened from a checklist control in the top bar. ALL stages are UNLOCKED and viewable so the intrapreneur can see upcoming tasks in every stage; the ACTIVE stage is expanded by default, the others are collapsed but expandable (NOT locked or greyed out). Scripted done/false state. Introduced as a checkpoint after the Spark wrap (1.4).",
