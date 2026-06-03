@@ -58,14 +58,26 @@ export default function BranchPicker({
   // Completed push-back exchanges accumulate as a transcript
   const [transcript, setTranscript] = useState<{ ianReply: string; milesReply: string }[]>([])
   const [current, setCurrent] = useState<Current | null>(null)
+  const [pending, setPending] = useState<string | null>(null)
   const [addressed, setAddressed] = useState<Set<string>>(new Set())
   const [resorted, setResorted] = useState<Record<string, string>>({})
 
   const currentOpt = current ? branch.options.find((o) => o.id === current.optId) ?? null : null
+  const pendingOpt = pending ? branch.options.find((o) => o.id === pending) ?? null : null
 
-  // Tapping an option IS the send: post its ianReply as a sent bubble, then Miles replies
+  // Tapping an option fills the input bar with Ian's reply — it TYPES in like a normal line,
+  // and the presenter's Send is what commits it (manual, like every other screen).
   function handlePick(opt: BranchOption) {
-    if (current) return
+    if (current || pending) return
+    setPending(opt.id)
+  }
+
+  // Manual Send commits the pending pick: post its ianReply as a sent bubble, then Miles replies
+  function commitPick() {
+    if (!pending) return
+    const opt = branch.options.find((o) => o.id === pending)
+    if (!opt) return
+    setPending(null)
     setCurrent({ optId: opt.id, phase: 'ian-sent' })
     setTimeout(() => {
       setCurrent((c) => (c && c.optId === opt.id && c.phase === 'ian-sent' ? { optId: opt.id, phase: 'miles-reply' } : c))
@@ -124,11 +136,11 @@ export default function BranchPicker({
       {/* Option list — tap to pick */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {branch.options.map((opt) => {
-          const isSelected = current?.optId === opt.id
+          const isSelected = current?.optId === opt.id || pending === opt.id
           const isRec = opt.recommended === true || opt.id === branch.recommended
           const isAddressed = addressed.has(opt.id)
           const resortLabel = resorted[opt.id]
-          const clickable = !current && !isAddressed
+          const clickable = !current && !pending && !isAddressed
           return (
             <motion.div
               key={opt.id}
@@ -166,8 +178,13 @@ export default function BranchPicker({
         )}
       </AnimatePresence>
 
-      {/* Input bar stays passive on branch screens — the pick is the send */}
-      <IanInputBar driver="chat" placeholder={placeholder} onSubmit={() => {}} />
+      {/* Input bar — a picked option's reply types in here; the manual Send commits it */}
+      <IanInputBar
+        driver="chat"
+        placeholder={placeholder}
+        suggestion={pendingOpt?.ianReply}
+        onSubmit={pendingOpt ? commitPick : () => {}}
+      />
     </div>
   )
 }
