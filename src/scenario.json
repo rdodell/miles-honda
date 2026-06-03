@@ -777,9 +777,9 @@
         },
         {
           "id": "q2",
-          "header": "Your COGS still assumes Honda's supplier pricing. What if we don't get those terms?",
-          "challenge": "Priya's quotes are favorable because she's been in those relationships for two years. A new venture in year one rarely gets the same pricing tier.",
-          "response": "Two angles. The venture is internal, so the relationships transfer, and here's the margin at standard-tier pricing. Both numbers still clear the hurdle.",
+          "header": "You've only started 2 of 4 outside-investment conversations. Where's the funding path?",
+          "challenge": "The board needs a credible route to capital before it commits, and half those conversations haven't started yet.",
+          "response": "Two are already in motion, and Priya's network opens the other two. The ask is scoped to the pilot-to-scale phase with clear milestones, not an open-ended raise.",
           "buttonTooltip": "Demo: would open coaching."
         },
         {

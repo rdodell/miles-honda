@@ -65,9 +65,10 @@ export default function ChecklistPanel({ open, onClose, activeStage, completedSt
   const activeIdx = activeStage ? order.indexOf(activeStage) : -1
   const isReached = (i: number) => i <= activeIdx || completedStages[order[i]] === true
 
-  // The whole journey is unlocked: Ian can see every stage and everything still
-  // due, end to end. All stages start expanded; each can be collapsed individually.
-  const [expanded, setExpanded] = useState<Set<StageId>>(new Set(order))
+  // The whole journey is unlocked, but only the ACTIVE stage is expanded by default;
+  // the others are collapsed and individually expandable so Ian can peek at upcoming tasks.
+  const defaultExpanded = () => new Set<StageId>([activeStage ?? order[0]])
+  const [expanded, setExpanded] = useState<Set<StageId>>(defaultExpanded)
 
   const toggle = (id: StageId) =>
     setExpanded((prev) => {
@@ -77,11 +78,11 @@ export default function ChecklistPanel({ open, onClose, activeStage, completedSt
       return next
     })
 
-  // Re-expand everything whenever the panel is (re)opened
+  // Reset to the active-stage-expanded default whenever the panel is (re)opened
   useEffect(() => {
-    if (open) setExpanded(new Set(order))
+    if (open) setExpanded(new Set<StageId>([activeStage ?? order[0]]))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+  }, [open, activeStage])
 
   // Esc closes the panel
   useEffect(() => {
@@ -167,8 +168,9 @@ export default function ChecklistPanel({ open, onClose, activeStage, completedSt
               </button>
             </div>
 
-            {/* Stage list */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* Stage list — minHeight:0 lets this flex child actually scroll instead of
+                growing past the viewport and clipping the bottom rows/stages */}
+            <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '14px 16px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
               {order.map((stageId, i) => {
                 const stage = checklists.stages[stageId]
                 const isOpen = expanded.has(stageId)
