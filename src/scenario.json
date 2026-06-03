@@ -450,10 +450,10 @@
       "day": 31,
       "stage": "spark",
       "timeIndicator": "Month 2 · Week 1",
-      "milesIntro": "Hello again, Ian. Supply chain keeps coming up as your biggest unknown, and it's the thing that drives your cost. How do you want to tackle it?",
+      "milesIntro": "Hello again, Ian. Customers are really price-sensitive right now, so your cost structure is what makes or breaks this, and the biggest unknown there is what your battery actually costs. How do you want to tackle it?",
       "ianInput": {
         "driver": "voice",
-        "text": "Supply chain's the thing keeping me up. If someone's already solved this, I'd rather talk to them than guess.",
+        "text": "If I can't get the cost down, the price won't work and customers won't purchase the product. That's what's keeping me up, so if someone's already solved it, I'd rather talk to them than guess.",
         "voiceNote": "Shown as a sent audio clip / voice memo, the one voice moment in the flow."
       },
       "advance": "2.1"
