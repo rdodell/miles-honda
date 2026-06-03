@@ -41,19 +41,11 @@
     },
     {
       "screen": "3.1",
-      "action": "Revenue Streams (flagged section)"
+      "action": "Send — update the flagged Cost Structure"
     },
     {
       "screen": "3.2",
-      "action": "Yes, update"
-    },
-    {
-      "screen": "3.3",
-      "action": "Continue to readiness check"
-    },
-    {
-      "screen": "3.4",
-      "action": "See my prep plan"
+      "action": "Send — run the readiness check"
     }
   ],
   "screens": {

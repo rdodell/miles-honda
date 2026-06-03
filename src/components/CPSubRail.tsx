@@ -55,8 +55,8 @@ const STAGE_TOOLS: Record<string, {
   track: {
     label: 'Test Track',
     tools: [
-      { id: 'readiness', name: 'Readiness check',  Icon: CheckSquare, imgSrc: iconReadiness, screens: ['3.1', '3.2', '3.3'] },
-      { id: 'scorecard', name: 'Readiness scorecard', Icon: CheckSquare, imgSrc: iconScorecard, screens: ['3.4'] },
+      { id: 'readiness', name: 'Readiness check',  Icon: CheckSquare, imgSrc: iconReadiness, screens: ['3.1', '3.2'] },
+      { id: 'scorecard', name: 'Readiness scorecard', Icon: CheckSquare, imgSrc: iconScorecard, screens: [] },
       { id: 'deck',      name: 'Deck & evidence',  Icon: FileText, imgSrc: iconDeck, screens: ['3.5'] },
     ],
   },

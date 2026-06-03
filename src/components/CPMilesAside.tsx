@@ -197,7 +197,6 @@ const TIME_LABELS: Record<string, string> = {
   '2.1': 'Month 1 · Wednesday', '2.2': 'Month 1 · Wednesday',
   '2.3': 'Month 1 · Friday', '2.4': 'Month 1 · Friday',
   '3.1': 'Month 3 · Monday', '3.2': 'Month 3 · Monday',
-  '3.3': 'Month 3 · Monday', '3.4': 'Month 3 · Monday',
   '3.5': 'Month 3 · Monday',
 }
 
