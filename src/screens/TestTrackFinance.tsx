@@ -39,7 +39,7 @@ function BoardCard({ q, index, delay }: { q: (typeof s.boardQuestions)[number]; 
     >
       <button onClick={() => setExpanded(!expanded)} className="w-full flex items-start justify-between gap-2 text-left">
         <div className="flex items-start gap-2.5">
-          <span className="w-6 h-6 rounded-full bg-[#9575CD]/10 text-[#9575CD] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{index + 1}</span>
+          <span className="w-6 h-6 rounded-full bg-[#6B6570]/10 text-[#6B6570] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{index + 1}</span>
           <span className="font-semibold text-sm text-[#1A1A1A] leading-snug">{q.header}</span>
         </div>
         {expanded ? <ChevronUp size={16} className="text-[#A09A94] flex-shrink-0 mt-0.5" /> : <ChevronDown size={16} className="text-[#A09A94] flex-shrink-0 mt-0.5" />}
@@ -51,7 +51,7 @@ function BoardCard({ q, index, delay }: { q: (typeof s.boardQuestions)[number]; 
             <p className="text-xs text-[#6B6570] leading-relaxed">{q.challenge}</p>
           </div>
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7CB342] mb-1">How Ian answers</div>
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7A1420] mb-1">How Ian answers</div>
             <p className="text-xs text-[#1A1A1A] leading-relaxed">{q.response}</p>
           </div>
         </div>
