@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 
 interface GarageEmailProps {
   onAdvance: (screen: string) => void
@@ -28,7 +29,7 @@ export default function GarageEmail({ onAdvance }: GarageEmailProps) {
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
 
-      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
+      <MilesMessage text={s.milesMessage} onDone={() => setTimeout(() => setShowRest(true), BEAT_AFTER_MILES)} />
 
       {/* Meeting card */}
       {showRest && (

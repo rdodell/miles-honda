@@ -1,127 +1,141 @@
-﻿import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { TrendingDown } from 'lucide-react'
+import { CheckCircle2, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES, BEAT_BEFORE_ADVANCE } from '../timing'
 
-interface TestTrackFinanceProps {
-  onAdvance: (screen: string) => void
-}
+interface Props { onAdvance: (screen: string) => void }
 
 const s = scenario.screens['3.2']
-const ianInput = (s as any).ianInput as { driver: string; text: string }
-const primaryAdvance = (s.actions.find((a) => (a as any).primary) as any)?.advance ?? '3.3'
-const cmp = s.comparison
-const tbl = s.updatedTable
+const ianInput = (s as any).ianInput as { text: string }
+const ianClose = (s as any).ianClose as { text: string }
+const CONTENT_BEAT = 1400
 
-const fadeUp = (i: number) => ({
-  initial: { opacity: 0, y: 8 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay: i * 0.1, duration: 0.3 },
-})
+// Full readiness check (no branch): Miles proposes -> Ian sends -> scorecard -> Miles line ->
+// board questions -> Miles close (resolves) -> Ian sends close -> advance to recap
+const PHASES = ['propose', 'ian-input', 'scorecard', 'scoreline', 'questions', 'close', 'ian-close', 'done'] as const
+type Phase = (typeof PHASES)[number]
 
-export default function TestTrackFinance({ onAdvance }: TestTrackFinanceProps) {
-  const [showDetails, setShowDetails] = useState(false)
-  const [showActions, setShowActions] = useState(false)
+function IanBubble({ text }: { text: string }) {
+  return (
+    <motion.div className="flex justify-end" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}>
+      <div style={{ background: 'var(--ink)', color: '#fff', borderRadius: '14px 14px 4px 14px', padding: '10px 14px', fontSize: 14, fontFamily: 'var(--font-cp-sans)', maxWidth: '80%', lineHeight: 1.5, boxShadow: 'var(--shadow-1)' }}>
+        {text}
+      </div>
+    </motion.div>
+  )
+}
+
+function BoardCard({ q, index, delay }: { q: (typeof s.boardQuestions)[number]; index: number; delay: number }) {
+  const [expanded, setExpanded] = useState(true)
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.3 }}
+      className="bg-white border border-[#E8E4DE] rounded-2xl p-4 shadow-sm"
+    >
+      <button onClick={() => setExpanded(!expanded)} className="w-full flex items-start justify-between gap-2 text-left">
+        <div className="flex items-start gap-2.5">
+          <span className="w-6 h-6 rounded-full bg-[#9575CD]/10 text-[#9575CD] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{index + 1}</span>
+          <span className="font-semibold text-sm text-[#1A1A1A] leading-snug">{q.header}</span>
+        </div>
+        {expanded ? <ChevronUp size={16} className="text-[#A09A94] flex-shrink-0 mt-0.5" /> : <ChevronDown size={16} className="text-[#A09A94] flex-shrink-0 mt-0.5" />}
+      </button>
+      {expanded && (
+        <div className="mt-3 space-y-3">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7A1420] mb-1">The challenge</div>
+            <p className="text-xs text-[#6B6570] leading-relaxed">{q.challenge}</p>
+          </div>
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7CB342] mb-1">How Ian answers</div>
+            <p className="text-xs text-[#1A1A1A] leading-relaxed">{q.response}</p>
+          </div>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+export default function TestTrackFinance({ onAdvance }: Props) {
+  const [phase, setPhase] = useState<Phase>('propose')
+  const reached = (p: Phase) => PHASES.indexOf(phase) >= PHASES.indexOf(p)
+
+  // Content-view beats: pause on the scorecard and the board questions
+  useEffect(() => {
+    if (phase === 'scorecard') { const t = setTimeout(() => setPhase('scoreline'), CONTENT_BEAT); return () => clearTimeout(t) }
+    if (phase === 'questions') { const t = setTimeout(() => setPhase('close'), CONTENT_BEAT + s.boardQuestions.length * 200); return () => clearTimeout(t) }
+  }, [phase])
+
+  const activeIan =
+    phase === 'ian-input' ? ianInput.text : phase === 'ian-close' ? ianClose.text : undefined
+
+  function sendIan() {
+    if (phase === 'ian-input') setPhase('scorecard')
+    else if (phase === 'ian-close') { setPhase('done'); setTimeout(() => onAdvance(s.advance), BEAT_BEFORE_ADVANCE) }
+  }
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
-      <MilesMessage text={s.milesMessage} onDone={() => setShowDetails(true)} />
+      {/* Miles proposes the readiness check */}
+      <MilesMessage text={s.milesMessage} onDone={() => setTimeout(() => setPhase('ian-input'), BEAT_AFTER_MILES)} />
 
-      {showDetails && (
+      {/* Ian agrees to run it (sent) */}
+      {reached('scorecard') && <IanBubble text={ianInput.text} />}
+
+      {/* Scorecard */}
+      {reached('scorecard') && (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white border border-[#E8E4DE] rounded-2xl p-4 shadow-sm">
+          <div className="space-y-3">
+            {s.scorecard.map((row, i) => (
+              <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} className="flex items-start gap-3">
+                {row.status === 'pass'
+                  ? <CheckCircle2 size={18} className="text-[#7CB342] flex-shrink-0 mt-0.5" />
+                  : <AlertTriangle size={18} className="text-amber-500 flex-shrink-0 mt-0.5" />}
+                <div>
+                  <div className="text-sm font-medium text-[#1A1A1A]">{row.label}</div>
+                  <div className="text-xs text-[#A09A94]">{row.detail}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Miles reads the scorecard, sets up the board questions */}
+      {reached('scoreline') && (
+        <MilesMessage text={s.milesScorecardLine} onDone={() => setTimeout(() => setPhase('questions'), BEAT_AFTER_MILES)} />
+      )}
+
+      {/* What the board will push on */}
+      {reached('questions') && (
         <>
-          {/* Comparison card */}
-          <motion.div {...fadeUp(0)} className="bg-white border border-[#E8E4DE] rounded-2xl p-4 shadow-sm">
-            <div className="grid grid-cols-2 gap-3 mb-3">
-              <div className="bg-[#F2EEE8] rounded-xl p-3">
-                <div className="text-[10px] font-semibold uppercase tracking-wide text-[#A09A94] mb-1">{cmp.original.label}</div>
-                <div className="text-lg font-bold text-[#1A1A1A]">{cmp.original.value}</div>
-                <div className="text-xs text-[#A09A94]">{cmp.original.note}</div>
-              </div>
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
-                <div className="text-[10px] font-semibold uppercase tracking-wide text-amber-600 mb-1">{cmp.updated.label}</div>
-                <div className="text-lg font-bold text-amber-700">{cmp.updated.value}</div>
-                <div className="text-xs text-amber-500">{cmp.updated.note}</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 bg-red-50 rounded-xl px-3 py-2">
-              <TrendingDown size={14} className="text-[#CC0000]" />
-              <span className="text-xs text-[#CC0000] font-medium">Gross margin: {cmp.marginBefore} → {cmp.marginAfter}</span>
-            </div>
-          </motion.div>
-
-          {/* Updated table */}
-          <motion.div {...fadeUp(1)} className="bg-white border border-[#E8E4DE] rounded-2xl p-4 shadow-sm">
-            <p className="text-sm text-[#6B6570] mb-3">{tbl.intro}</p>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-[10px] font-semibold uppercase tracking-wide text-[#A09A94]">
-                  <th className="text-left pb-2">Item</th>
-                  <th className="text-right pb-2">Before</th>
-                  <th className="text-right pb-2">After</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#E8E4DE]">
-                {tbl.rows.map((row, i) => (
-                  <tr key={i}>
-                    <td className="py-2 text-[#1A1A1A]">{row.item}</td>
-                    <td className="py-2 text-right text-[#A09A94]">{row.before}</td>
-                    <td className="py-2 text-right font-semibold text-amber-700">{row.after}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </motion.div>
-
-          {/* Miles question */}
-          <motion.div {...fadeUp(2)}>
-            <MilesMessage text={s.milesQuestion} onDone={() => setShowActions(true)} />
-          </motion.div>
+          {s.boardQuestions.map((q, i) => (
+            <BoardCard key={q.id} q={q} index={i} delay={i * 0.15} />
+          ))}
         </>
       )}
 
-      {/* Action buttons — revealed after Miles finishes the question */}
-      {showActions && (
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex gap-2"
-        >
-          {s.actions.map((action) => (
-            (action as any).primary ? (
-              <button
-                key={action.label}
-                onClick={() => onAdvance((action as any).advance)}
-                className="flex-1 text-white font-semibold py-3 rounded-xl transition-colors shadow-sm"
-                style={{ background: '#7A1420' }}
-                onMouseEnter={e => (e.currentTarget.style.background = '#5C0F18')}
-                onMouseLeave={e => (e.currentTarget.style.background = '#7A1420')}
-              >
-                {action.label}
-              </button>
-            ) : (
-              <button
-                key={action.label}
-                onClick={() => onAdvance((action as any).advance)}
-                className="flex-1 bg-white font-semibold py-3 rounded-xl transition-colors"
-                style={{ border: '1.5px solid #7A1420', color: '#7A1420' }}
-              >
-                {action.label}
-              </button>
-            )
-          ))}
-        </motion.div>
+      {/* Miles resolves every flag — "you're ready for the venture board review" */}
+      {reached('close') && (
+        <MilesMessage text={s.milesClose} onDone={() => setTimeout(() => setPhase('ian-close'), BEAT_AFTER_MILES)} />
       )}
 
-      {showActions && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
-          <IanInputBar
-            driver="chat"
-            suggestion={ianInput.text}
-            onSubmit={() => onAdvance(primaryAdvance)}
-          />
-        </motion.div>
+      {/* Ian's closing line (sent) before advancing to the recap */}
+      {reached('done') && <IanBubble text={ianClose.text} />}
+
+      {/* Input bar — Ian sends his lines (run them at me; then let's go to the board) */}
+      {reached('ian-input') && (
+        <IanInputBar
+          driver="chat"
+          autoSend={false}
+          placeholder="Ask Miles something…"
+          suggestion={activeIan}
+          onSubmit={activeIan ? sendIan : () => {}}
+        />
       )}
     </div>
   )

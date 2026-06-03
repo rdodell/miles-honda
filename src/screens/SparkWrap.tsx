@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, ListChecks } from 'lucide-react'
 import MilesAvatar from '../components/MilesAvatar'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 
 interface SparkWrapProps {
   onAdvance: (screen: string) => void
@@ -47,17 +48,33 @@ export default function SparkWrap({ onAdvance, onOpenChecklist }: SparkWrapProps
         </motion.p>
       </motion.div>
 
-      {/* Checklist checkpoint — Miles surfaces the checklist, then the panel auto-opens */}
+      {/* Checklist checkpoint — Miles surfaces the checklist; Ian opens it via the link */}
       <MilesMessage
         text={checklistIntro}
-        onDone={() => {
-          onOpenChecklist?.()
-          setCheckpointDone(true)
-        }}
+        onDone={() => setTimeout(() => setCheckpointDone(true), BEAT_AFTER_MILES)}
       />
 
       {checkpointDone && (
-        <motion.div {...fadeUp(0)}>
+        <motion.div {...fadeUp(0)} className="flex flex-col gap-3">
+          {/* Highlighted link — Ian opens the checklist himself, when he's ready */}
+          <button
+            onClick={() => onOpenChecklist?.()}
+            style={{
+              alignSelf: 'flex-start',
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'rgba(244,185,66,0.15)',
+              border: '1px solid #F4B942',
+              color: '#B8851E',
+              borderRadius: 10, padding: '9px 14px',
+              fontFamily: 'var(--font-cp-sans)', fontSize: 14, fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            <ListChecks size={15} />
+            <span style={{ textDecoration: 'underline', textUnderlineOffset: 3 }}>Here's where your checklist stands</span>
+            <span aria-hidden>→</span>
+          </button>
+
           <IanInputBar
             driver="chat"
             suggestion={ianInput.text}

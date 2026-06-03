@@ -57,8 +57,13 @@ const STAGE_SOFT: Record<StageId, string> = {
   testTrack: 'rgba(122,20,32,0.08)',
 }
 
-export default function ChecklistPanel({ open, onClose, activeStage }: ChecklistPanelProps) {
+export default function ChecklistPanel({ open, onClose, activeStage, completedStages }: ChecklistPanelProps) {
   const order = checklists.stageOrder
+
+  // A stage's scripted "done" items only count once Ian has reached that stage.
+  // Future stages (relative to the active one) are shown as still to-do, not complete.
+  const activeIdx = activeStage ? order.indexOf(activeStage) : -1
+  const isReached = (i: number) => i <= activeIdx || completedStages[order[i]] === true
 
   // The whole journey is unlocked: Ian can see every stage and everything still
   // due, end to end. All stages start expanded; each can be collapsed individually.
@@ -168,9 +173,11 @@ export default function ChecklistPanel({ open, onClose, activeStage }: Checklist
                 const stage = checklists.stages[stageId]
                 const isOpen = expanded.has(stageId)
                 const isCurrent = activeStage === stageId
+                const reached = isReached(i)
                 const accent = STAGE_ACCENT[stageId]
-                const done = stage.items.filter((it) => it.done).length
                 const total = stage.items.length
+                // Only count items done once Ian has reached this stage
+                const done = reached ? stage.items.filter((it) => it.done).length : 0
 
                 return (
                   <div
@@ -241,30 +248,34 @@ export default function ChecklistPanel({ open, onClose, activeStage }: Checklist
                           style={{ overflow: 'hidden' }}
                         >
                           <ul style={{ listStyle: 'none', margin: 0, padding: '2px 16px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                            {stage.items.map((it, j) => (
+                            {stage.items.map((it, j) => {
+                              // Future stages: items render as still to-do (not complete) and no progress
+                              const itemDone = reached && it.done
+                              const showProgress = reached && !!it.progress
+                              return (
                               <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 11 }}>
                                 {/* Checkbox (or partial-progress dot for in-progress items) */}
                                 <span style={{
                                   width: 19, height: 19, borderRadius: 6, flexShrink: 0, marginTop: 1,
                                   display: 'grid', placeItems: 'center',
-                                  background: it.done ? accent : 'transparent',
-                                  border: it.done ? `1px solid ${accent}` : '1.5px solid var(--border-strong)',
+                                  background: itemDone ? accent : 'transparent',
+                                  border: itemDone ? `1px solid ${accent}` : '1.5px solid var(--border-strong)',
                                 }}>
-                                  {it.done && <Check size={13} color="#fff" strokeWidth={3} />}
-                                  {!it.done && it.progress && (
+                                  {itemDone && <Check size={13} color="#fff" strokeWidth={3} />}
+                                  {!itemDone && showProgress && (
                                     <span style={{ width: 7, height: 7, borderRadius: '50%', background: accent, opacity: 0.55 }} />
                                   )}
                                 </span>
                                 <div style={{ flex: 1, minWidth: 0 }}>
                                   <div style={{
                                     fontSize: 14, lineHeight: 1.4,
-                                    color: it.done ? 'var(--muted)' : 'var(--ink)',
-                                    textDecoration: it.done ? 'line-through' : 'none',
+                                    color: itemDone ? 'var(--muted)' : 'var(--ink)',
+                                    textDecoration: itemDone ? 'line-through' : 'none',
                                   }}>
                                     {it.text}
                                   </div>
-                                  {it.progress && it.progress.showBar && (
-                                    <ProgressBar done={it.progress.done} total={it.progress.total} accent={accent} />
+                                  {showProgress && it.progress!.showBar && (
+                                    <ProgressBar done={it.progress!.done} total={it.progress!.total} accent={accent} />
                                   )}
                                   {it.note && (
                                     <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2, fontStyle: 'italic' }}>
@@ -273,7 +284,7 @@ export default function ChecklistPanel({ open, onClose, activeStage }: Checklist
                                   )}
                                 </div>
                               </li>
-                            ))}
+                            )})}
                           </ul>
                         </motion.div>
                       )}

@@ -396,34 +396,13 @@
       "id": "1.5",
       "stage": "spark",
       "timeIndicator": "Month 2 · Week 1",
-      "milesIntro": "Hello again, Ian. From your last conversation, it sounds like supply chain is where you're stuck. How do you want to keep going? You could meet someone who's solved this, or keep working through your customer personas.",
-      "bridgeCard": {
-        "name": "Priya Okafor",
-        "title": "Project Manager, Honda R&D",
-        "initial": "P",
-        "color": "#5B5FD9",
-        "note": "Built e-bike battery supply chain · saves 6 weeks on internal safety review"
-      },
-      "choice": {
-        "options": [
-          {
-            "label": "Connect with Priya →",
-            "advance": "2.1",
-            "primary": true
-          },
-          {
-            "label": "Keep working on personas",
-            "advance": "2.1",
-            "soft": true,
-            "milesReply": "Personas are worth a revisit, but the supplier cost is your riskiest open question right now. Let's meet Priya first. You can come back to the personas anytime."
-          }
-        ]
-      },
+      "milesIntro": "Hello again, Ian. Supply chain keeps coming up as your biggest unknown, and it's the thing that drives your cost. How do you want to tackle it?",
       "ianInput": {
         "driver": "voice",
         "text": "Supply chain's the thing keeping me up. If someone's already solved this, I'd rather talk to them than guess.",
         "voiceNote": "Shown as a sent audio clip / voice memo, the one voice moment in the flow."
-      }
+      },
+      "advance": "2.1"
     },
     "2.1": {
       "id": "2.1",
@@ -649,22 +628,15 @@
       "id": "3.1",
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 2",
-      "milesMessage": "Welcome back. One thing caught my eye in the Business Model Canvas before the venture board review next week. Want to take a look?",
-      "flaggedSection": "Revenue Streams",
+      "milesMessage": "Welcome back. Before the venture board review next week, one thing caught my eye in the Business Model Canvas: your cost of materials assumption is stale. Lithium pricing has moved since your February draft. Want to update it?",
+      "flaggedSection": "Cost Structure",
       "flaggedTooltip": "Miles flagged this",
-      "bmcAdvance": "3.2",
       "bmcSectionTooltip": "Demo: would expand here.",
       "ianInput": {
         "driver": "chat",
-        "text": "Yeah, show me what's off in the revenue section."
-      }
-    },
-    "3.2": {
-      "id": "3.2",
-      "stage": "testTrack",
-      "timeIndicator": "Month 3 · Week 2",
-      "milesMessage": "Lithium pricing has moved since your February draft. Did you catch it? Worth updating your cost of materials before the venture board review.",
-      "milesQuestion": "Want me to plug in Priya's real numbers and update the model?",
+        "text": "Yeah, show me what's off."
+      },
+      "milesUpdateIntro": "Here's what's moved. Want me to plug in Priya's real numbers and update the model?",
       "comparison": {
         "original": {
           "label": "Original assumption",
@@ -699,24 +671,50 @@
           }
         ]
       },
-      "actions": [
-        {
-          "label": "Update the model",
-          "advance": "3.3",
-          "primary": true
-        }
-      ],
-      "ianInput": {
-        "driver": "chat",
-        "text": "Update the model with Priya's numbers."
+      "milesClose": "Updated. Your margin drops from 31% to 24%. Still workable, but 24% is the number the board will press on. Let's run a full readiness check so you walk in knowing exactly where you stand.",
+      "advance": "3.2",
+      "bmcGate": {
+        "note": "BMC UPDATE beat (merges the old BMC flag + financial update). Sequence: milesMessage flags the Cost Structure block in the Business Model Canvas -> Ian auto-sends ianInput ('show me what's off') -> render the BMC grid with the Cost Structure section flagged -> beat -> milesUpdateIntro -> reveal the comparison ($148->$172/unit) and updatedTable, animating the margin from 31% to 24% -> milesClose (names 24% as the board's pressure point, teases the readiness check) -> advance to 3.2."
       }
     },
-    "3.3": {
-      "id": "3.3",
+    "3.2": {
+      "id": "3.2",
       "stage": "testTrack",
-      "timeIndicator": "Month 3 · Week 2",
-      "milesIntro": "Before the venture board review, want to stress-test this together? Here's what a skeptical CFO is going to push on. Better you hear it from me first.",
-      "questions": [
+      "timeIndicator": "Month 3 · Week 3",
+      "milesMessage": "The venture board review is next week. Before you walk in, let's run a full readiness check: where you stand, and what they'll push on. Want to see it?",
+      "ianInput": {
+        "driver": "chat",
+        "text": "Yes. I'd rather hear the hard questions from you than in the review."
+      },
+      "scorecard": [
+        {
+          "status": "pass",
+          "label": "Customer validated",
+          "detail": "10 interviews, 3 paid pilots"
+        },
+        {
+          "status": "pass",
+          "label": "Business model",
+          "detail": "3 versions compared, one chosen"
+        },
+        {
+          "status": "warn",
+          "label": "Financials",
+          "detail": "24% margin after the update, sensitivity still tight"
+        },
+        {
+          "status": "pass",
+          "label": "Competitive landscape",
+          "detail": "mapped, 4 direct competitors profiled"
+        },
+        {
+          "status": "warn",
+          "label": "Path to outside investment",
+          "detail": "2 of 4 conversations started"
+        }
+      ],
+      "milesScorecardLine": "Three of five are solid. The two flags, your margin and the investment path, are normal at this stage. But the board won't stop there. Here's what a skeptical CFO opens with, and how you answer each.",
+      "boardQuestions": [
         {
           "id": "q1",
           "header": "What if Laura's willingness-to-pay is wrong?",
@@ -735,88 +733,18 @@
           "id": "q3",
           "header": "Sole-entrepreneur landscapers are 12% of the market. Where's the scale story?",
           "challenge": "Even if you win 100% of Lauras, that ceiling is too low for Honda's portfolio criteria.",
-          "response": "Laura is the wedge, not the destination. Show the adjacency path. Once the product proves out with sole operators, the case for Matt (commercial fleet) becomes much easier to make internally and externally.",
+          "response": "Laura is the wedge, not the destination. Show the adjacency path. Once the product proves out with sole operators, the case for commercial landscaping crews becomes much easier to make internally and externally.",
           "buttonTooltip": "Demo: would open coaching."
         }
       ],
-      "footerCta": {
-        "label": "Continue to readiness check →",
-        "advance": "3.4",
-        "primary": true
-      },
-      "ianInput": {
+      "milesClose": "Every one of those has an answer, and you've got the evidence behind it: three paid pilots, transferable supplier terms, and a clear wedge-to-scale path. The flags have plans. You're ready for the venture board review.",
+      "ianClose": {
         "driver": "chat",
-        "text": "Run them at me. I'd rather hear the hard ones from you than in the review."
-      }
-    },
-    "3.4": {
-      "id": "3.4",
-      "stage": "testTrack",
-      "timeIndicator": "Month 3 · Week 3",
-      "milesMessage": "The venture board review is next week. Want to see exactly where you stand?",
-      "milesFollowup": "3 of 5 are solid. The two flags are normal at this stage, and there's a plan for each.",
-      "scorecard": [
-        {
-          "status": "pass",
-          "label": "Customer validated",
-          "detail": "10 interviews, 3 paid pilots"
-        },
-        {
-          "status": "pass",
-          "label": "Business model",
-          "detail": "3 versions compared, one chosen"
-        },
-        {
-          "status": "warn",
-          "label": "Financials",
-          "detail": "updated, but margin sensitivity still tight"
-        },
-        {
-          "status": "pass",
-          "label": "Competitive landscape",
-          "detail": "mapped, 4 direct competitors profiled"
-        },
-        {
-          "status": "warn",
-          "label": "Path to outside investment",
-          "detail": "2 of 4 conversations started"
-        }
-      ],
-      "actions": [
-        {
-          "label": "Go to the venture board review",
-          "tooltip": "Demo: would launch review flow."
-        },
-        {
-          "label": "See my prep plan →",
-          "advance": "3.5",
-          "primary": true
-        }
-      ],
-      "branch": {
-        "type": "pick-and-respond",
-        "recommended": "prep",
-        "presenterPath": [
-          "seedreview",
-          "prep"
-        ],
-        "options": [
-          {
-            "id": "prep",
-            "label": "See my prep plan",
-            "recommended": true,
-            "ianReply": "Show me the prep plan.",
-            "milesReply": "Smart. Here's what to lock before next week.",
-            "advance": "3.5"
-          },
-          {
-            "id": "seedreview",
-            "label": "Go to the venture board review",
-            "ianReply": "I think I'm ready, let's just go to the review.",
-            "milesReply": "You're close, but the two flags are exactly what a CFO opens with. Twenty minutes on the prep plan and you walk in covered. Worth it.",
-            "advance": null
-          }
-        ]
+        "text": "Then let's get it in front of the board."
+      },
+      "advance": "3.5",
+      "readinessGate": {
+        "note": "FULL READINESS CHECK (merges the old CFO devil's-advocate screen + the readiness scorecard; this is the Test Track culmination and it must RESOLVE, no branch). Sequence: milesMessage proposes the check -> Ian auto-sends ianInput ('run them at me') -> render the scorecard (5 rows, 3 pass / 2 warn) -> beat -> milesScorecardLine -> render the boardQuestions cards (what the board will push on, each with its scripted response) -> beat -> milesClose (resolves every flag, ends 'you're ready for the venture board review') -> Ian auto-sends ianClose -> advance to 3.5. No pick-and-respond branch here; the check completes and flows straight to the recap."
       }
     },
     "3.5": {
@@ -975,8 +903,7 @@
     ],
     "branchScreens": [
       "2.1",
-      "3.0",
-      "3.4"
+      "3.0"
     ],
     "autoSend": false,
     "autoSendNote": "Ian's scripted line auto-TYPES in the input bar, but the user must CLICK the input bar (Send) to commit and advance to the next slide. The viaInput acceptance on 1.3c also types in and waits for a click on the input bar (still no second card tap). Set autoSend:true to make the typed lines commit on their own."

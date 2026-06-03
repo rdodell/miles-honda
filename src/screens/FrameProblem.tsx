@@ -4,6 +4,7 @@ import { Flag, PencilLine } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 import ianSketch from '../assets/ian-sketch-lawnmower.png'
 
 interface Props { onAdvance: (screen: string) => void }
@@ -234,7 +235,7 @@ export default function FrameProblem({ onAdvance }: Props) {
       {reached('closing') && (
         <MilesMessage
           text={sketch.milesClosingLine}
-          onDone={() => setPhase((p) => (p === 'closing' ? 'done' : p))}
+          onDone={() => setTimeout(() => setPhase((p) => (p === 'closing' ? 'done' : p)), BEAT_AFTER_MILES)}
         />
       )}
 

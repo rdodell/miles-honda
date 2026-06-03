@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 import priyaAvatar from '../assets/priya-avatar.png'
 
 interface GarageMeetingProps {
@@ -42,7 +43,7 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
         }}>Thursday · After the call with Priya</span>
       </motion.div>
 
-      <MilesMessage text={s.milesMessage} onDone={() => setShowRest(true)} />
+      <MilesMessage text={s.milesMessage} onDone={() => setTimeout(() => setShowRest(true), BEAT_AFTER_MILES)} />
 
       <AnimatePresence>
         {showRest && (

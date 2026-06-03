@@ -25,8 +25,6 @@ import GarageWrap         from './screens/GarageWrap'
 import TestTrackEntry     from './screens/TestTrackEntry'
 import TestTrackWelcome   from './screens/TestTrackWelcome'
 import TestTrackFinance   from './screens/TestTrackFinance'
-import TestTrackRedTeam   from './screens/TestTrackRedTeam'
-import TestTrackReadiness from './screens/TestTrackReadiness'
 import JourneyComplete    from './screens/JourneyComplete'
 import Tools              from './screens/Tools'
 
@@ -38,8 +36,7 @@ const SCREEN_TO_STAGE: Record<string, StageId | null> = {
   '1.3d': 'spark', '1.4': 'spark', '1.5': 'spark',
   '2.1': 'garage', '2.2': 'garage', '2.3': 'garage', '2.4': 'garage',
   '3.0': 'testTrack',
-  '3.1': 'testTrack', '3.2': 'testTrack', '3.3': 'testTrack',
-  '3.4': 'testTrack', '3.5': 'testTrack',
+  '3.1': 'testTrack', '3.2': 'testTrack', '3.5': 'testTrack',
   'T.1': null,
 }
 
@@ -137,8 +134,6 @@ export default function App() {
       case '3.0':  return <TestTrackEntry onAdvance={advance} showTooltip={showTooltip} />
       case '3.1':  return <TestTrackWelcome {...commonProps} />
       case '3.2':  return <TestTrackFinance onAdvance={advance} />
-      case '3.3':  return <TestTrackRedTeam onAdvance={advance} />
-      case '3.4':  return <TestTrackReadiness onAdvance={advance} />
       case '3.5':  return <JourneyComplete onAdvance={advance} />
       case 'T.1':  return <Tools showTooltip={showTooltip} />
       default:     return <Landing onAdvance={advance} />
