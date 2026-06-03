@@ -387,14 +387,14 @@
           "Regional trade shows (4 in the next 90 days)"
         ]
       },
-      "milesFollowup": "Ready to book that first call? Or want to refine the script first?",
+      "milesFollowup": "Ready to book that first call with Laura?",
       "cta": {
         "label": "Book the call →",
         "advance": "1.4"
       },
       "ianInput": {
         "driver": "chat",
-        "text": "Laura looks right. Book the call, but let's tighten the script first."
+        "text": "Laura looks right. Let's book the call."
       }
     },
     "1.4": {
