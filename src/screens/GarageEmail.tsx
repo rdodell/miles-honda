@@ -1,13 +1,13 @@
 // Screen 2.2 — Priya scheduling confirmation
 // Miles has made the intro; Priya replied; ready to book.
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CalendarDays, Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
-import { BEAT_AFTER_MILES } from '../timing'
+import { BEAT_AFTER_MILES, BEAT_AFTER_CONTENT } from '../timing'
 
 interface GarageEmailProps {
   onAdvance: (screen: string) => void
@@ -25,6 +25,14 @@ const fadeUp = (i: number) => ({
 export default function GarageEmail({ onAdvance }: GarageEmailProps) {
   const m = s.meetingCard
   const [showRest, setShowRest] = useState(false)
+  const [showInput, setShowInput] = useState(false)
+
+  // Hold a beat after the meeting card lands before Ian's reply types in
+  useEffect(() => {
+    if (!showRest) return
+    const t = setTimeout(() => setShowInput(true), BEAT_AFTER_CONTENT)
+    return () => clearTimeout(t)
+  }, [showRest])
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
@@ -95,9 +103,9 @@ export default function GarageEmail({ onAdvance }: GarageEmailProps) {
       </motion.div>
       )}
 
-      {/* Ian types his reply to advance */}
-      {showRest && (
-        <motion.div {...fadeUp(2)}>
+      {/* Ian types his reply to advance — held a beat after the card */}
+      {showInput && (
+        <motion.div {...fadeUp(0)}>
           <IanInputBar
             driver="chat"
             suggestion={ianInput.text}

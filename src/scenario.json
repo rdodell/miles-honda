@@ -458,7 +458,7 @@
             "recommended": true,
             "ianReply": "Good point. Let's go with Priya.",
             "milesReply": "Agreed. I'll reach out and find time on your calendar.",
-            "advance": "2.2"
+            "advance": null
           },
           {
             "id": "daniel",
@@ -474,7 +474,11 @@
             "milesReply": "Save Karen for when you're prepping the seed conversation, that's her strength. She's lighter on supply chain, which is the thing in your way right now.",
             "advance": null
           }
-        ]
+        ],
+        "confirm": {
+          "text": "Yes, I'll move forward with Priya.",
+          "advance": "2.2"
+        }
       },
       "ianInput": {
         "driver": "chat",

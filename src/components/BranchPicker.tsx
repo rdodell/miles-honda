@@ -20,6 +20,9 @@ interface BranchPickerProps {
     recommended: string
     presenterPath: string[]
     options: BranchOption[]
+    /** When set, the recommended option is not click-to-advance; instead Ian
+     *  types this confirmation after a push-back, and sending it advances. */
+    confirm?: { text: string; advance: string }
   }
   onAdvance: (screen: string) => void
   showTooltip?: (msg: string) => void
@@ -60,6 +63,15 @@ export default function BranchPicker({
   const [current, setCurrent] = useState<Current | null>(null)
   const [addressed, setAddressed] = useState<Set<string>>(new Set())
   const [resorted, setResorted] = useState<Record<string, string>>({})
+  const [confirmed, setConfirmed] = useState(false)
+
+  // Typed-confirm flow (2.1): Ian types the confirmation and sending it advances.
+  function handleConfirm() {
+    if (confirmed || !branch.confirm) return
+    setConfirmed(true)
+    const target = branch.confirm.advance
+    setTimeout(() => onAdvance(target), BEAT_BEFORE_ADVANCE)
+  }
 
   const currentOpt = current ? branch.options.find((o) => o.id === current.optId) ?? null : null
 
@@ -128,7 +140,10 @@ export default function BranchPicker({
           const isRec = opt.recommended === true || opt.id === branch.recommended
           const isAddressed = addressed.has(opt.id)
           const resortLabel = resorted[opt.id]
-          const clickable = !current && !isAddressed
+          // With a typed-confirm flow, the recommended option is display-only —
+          // Ian confirms by typing, not by clicking it.
+          const isConfirmTarget = !!branch.confirm && (opt.recommended === true || opt.id === branch.recommended)
+          const clickable = !current && !isAddressed && !confirmed && !isConfirmTarget
           return (
             <motion.div
               key={opt.id}
@@ -166,8 +181,20 @@ export default function BranchPicker({
         )}
       </AnimatePresence>
 
-      {/* Input bar stays passive on branch screens — the pick is the send */}
-      <IanInputBar driver="chat" placeholder={placeholder} onSubmit={() => {}} />
+      {/* Ian's typed confirmation (2.1), shown as a sent bubble once committed */}
+      {confirmed && branch.confirm && <IanBubble text={branch.confirm.text} />}
+
+      {/* Input bar: active typed-confirm after a push-back; otherwise passive (the pick is the send) */}
+      {branch.confirm && !confirmed && !current && transcript.length > 0 ? (
+        <IanInputBar
+          driver="chat"
+          placeholder={placeholder}
+          suggestion={branch.confirm.text}
+          onSubmit={handleConfirm}
+        />
+      ) : (
+        <IanInputBar driver="chat" placeholder={placeholder} onSubmit={() => {}} />
+      )}
     </div>
   )
 }

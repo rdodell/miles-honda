@@ -1,13 +1,13 @@
 // Screen 2.3 — Post-meeting recap: Priya is now in Ian's network
 // This screen appears after Ian and Priya have actually met on Thursday.
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
-import { BEAT_AFTER_MILES } from '../timing'
+import { BEAT_AFTER_MILES, BEAT_AFTER_CONTENT } from '../timing'
 import priyaAvatar from '../assets/priya-avatar.png'
 
 interface GarageMeetingProps {
@@ -26,6 +26,14 @@ const fadeUp = (i: number) => ({
 export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
   const c = s.networkContact
   const [showRest, setShowRest] = useState(false)
+  const [showInput, setShowInput] = useState(false)
+
+  // Hold a beat after the network recap reveals before Ian's reply types in
+  useEffect(() => {
+    if (!showRest) return
+    const t = setTimeout(() => setShowInput(true), BEAT_AFTER_CONTENT)
+    return () => clearTimeout(t)
+  }, [showRest])
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
@@ -94,14 +102,16 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
         </div>
       </motion.section>
 
-      {/* Ian sends his input line to advance */}
-      <motion.div {...fadeUp(6)}>
-        <IanInputBar
-          driver="chat"
-          suggestion={(s as any).ianInput?.text}
-          onSubmit={() => onAdvance(s.advance)}
-        />
-      </motion.div>
+      {/* Ian sends his input line to advance — held a beat after the recap */}
+      {showInput && (
+        <motion.div {...fadeUp(0)}>
+          <IanInputBar
+            driver="chat"
+            suggestion={(s as any).ianInput?.text}
+            onSubmit={() => onAdvance(s.advance)}
+          />
+        </motion.div>
+      )}
           </motion.div>
         )}
       </AnimatePresence>

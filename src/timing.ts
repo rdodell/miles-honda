@@ -2,3 +2,4 @@
 export const BEAT_AFTER_MILES = 800        // after Miles finishes, before Ian's input/typing begins
 export const BEAT_BEFORE_MILES_REPLY = 700 // on branch screens, after Ian's pick before Miles replies
 export const BEAT_BEFORE_ADVANCE = 900     // after an advancing reply, hold before navigating
+export const BEAT_AFTER_CONTENT = 1300     // after a content card/recap reveals, before Ian's input appears
