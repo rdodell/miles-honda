@@ -1,4 +1,5 @@
 import { LayoutGrid, ListChecks } from 'lucide-react'
+import scenario from '../scenario.json'
 import ianAvatar      from '../assets/ian-avatar.png'
 import iconSparkStage from '../assets/icon-spark-stage.png'
 import iconHandshake  from '../assets/icon-handshake.png'
@@ -36,9 +37,12 @@ function cpStageId(s: StageId | null): string | null {
 }
 
 export default function CPTopbar({
-  activeStage, completedStages, onNavigate, showTooltip, onOpenChecklist,
+  activeStage, completedStages, currentScreen, onNavigate, showTooltip, onOpenChecklist,
 }: CPTopbarProps) {
   const cpActive = cpStageId(activeStage)
+  // Venture sub-line tracks the current screen's timeline day; falls back to just "Prototype"
+  const currentDay = (scenario.screens as Record<string, { day?: number }>)[currentScreen]?.day
+  const ventureMeta = currentDay != null ? `Day ${currentDay} · Prototype` : 'Prototype'
 
   function handleTab(tab: typeof TABS[number]) {
     if (activeStage === tab.stageKey) {
@@ -204,7 +208,7 @@ export default function CPTopbar({
               color: 'var(--muted)', marginTop: 2,
               fontFamily: 'var(--font-cp-mono)',
             }}>
-              Day 84 · Prototype
+              {ventureMeta}
             </div>
           </div>
           <img

@@ -102,6 +102,7 @@
     },
     "1.1": {
       "id": "1.1",
+      "day": 2,
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 1",
       "milesMessages": [
@@ -160,6 +161,7 @@
     },
     "1.2": {
       "id": "1.2",
+      "day": 2,
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 1",
       "ianMessage": "I need to validate who my customer will be.",
@@ -171,6 +173,7 @@
     },
     "1.3": {
       "id": "1.3",
+      "day": 2,
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 1",
       "step": "Step 1 of 3 · Frame the problem",
@@ -251,6 +254,7 @@
     },
     "1.3b": {
       "id": "1.3b",
+      "day": 9,
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 2",
       "step": "Step 2 of 3 · Bias check",
@@ -296,6 +300,7 @@
     },
     "1.3c": {
       "id": "1.3c",
+      "day": 9,
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 2",
       "step": "Step 3 of 3 · Evidence playbook",
@@ -360,6 +365,7 @@
     },
     "1.3d": {
       "id": "1.3d",
+      "day": 16,
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 3",
       "milesIntro": "I checked our internal customer discovery tools, and Laura is the best fit to talk to first. She's a solo landscaper in Phoenix whose pain points line up with the problem you framed, and three of her clients have already asked her to switch to electric. Here's what you know going in.",
@@ -399,6 +405,7 @@
     },
     "1.4": {
       "id": "1.4",
+      "day": 23,
       "stage": "spark",
       "stageComplete": "spark",
       "timeIndicator": "Month 1 · Week 4",
@@ -425,6 +432,7 @@
     },
     "1.5": {
       "id": "1.5",
+      "day": 30,
       "stage": "spark",
       "timeIndicator": "Month 2 · Week 1",
       "milesIntro": "Hello again, Ian. Supply chain keeps coming up as your biggest unknown, and it's the thing that drives your cost. How do you want to tackle it?",
@@ -437,6 +445,7 @@
     },
     "2.1": {
       "id": "2.1",
+      "day": 30,
       "stage": "garage",
       "timeIndicator": "Month 2 · Week 1",
       "milesMessage": "Welcome back. Your customer interviews are done, that's the willingness-to-pay question off your plate for now. What do you want to work on next?",
@@ -526,6 +535,7 @@
     },
     "2.2": {
       "id": "2.2",
+      "day": 37,
       "stage": "garage",
       "timeIndicator": "Month 2 · Week 2",
       "milesMessage": "Good news. While you were at lunch, Priya got back to me, and I put a hold on your calendar for Thursday at 2 PM. Does that work, or should I find another time?",
@@ -557,6 +567,7 @@
     },
     "2.3": {
       "id": "2.3",
+      "day": 44,
       "stage": "garage",
       "timeIndicator": "Month 2 · Week 3",
       "milesMessage": "Good meeting with Priya. I've logged the key takeaways and added her to your network. Anything she said that you want to dig into before we move on?",
@@ -580,6 +591,7 @@
     },
     "2.4": {
       "id": "2.4",
+      "day": 51,
       "stage": "garage",
       "stageComplete": "garage",
       "timeIndicator": "Month 2 · Week 4",
@@ -598,6 +610,7 @@
     },
     "3.0": {
       "id": "3.0",
+      "day": 58,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 1",
       "milesMessage": "Your cost numbers are solid now, that's the biggest unknown closed. I'd take you straight into building the model. Sound good?",
@@ -671,6 +684,7 @@
     },
     "3.1": {
       "id": "3.1",
+      "day": 65,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 2",
       "milesMessage": "Welcome back. Before the venture board review next week, one thing caught my eye in the Business Model Canvas: your cost of materials assumption is stale. Lithium pricing has moved since your February draft. Want to update it?",
@@ -732,6 +746,7 @@
     },
     "3.2": {
       "id": "3.2",
+      "day": 72,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 3",
       "milesMessage": "The venture board review is next week. Before you walk in, let's run a full readiness check: where you stand, and what they'll push on. Want to see it?",
@@ -802,6 +817,7 @@
     },
     "3.5": {
       "id": "3.5",
+      "day": 72,
       "stage": "testTrack",
       "stageComplete": "testTrack",
       "timeIndicator": "Month 3 · Week 3",

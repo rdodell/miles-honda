@@ -1,5 +1,6 @@
 import { Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare } from 'lucide-react'
 import { RocketSparkIcon } from './icons'
+import scenario from '../scenario.json'
 import ianAvatar      from '../assets/ian-avatar.png'
 import iconSparkStage from '../assets/icon-spark-stage.png'
 import iconSpark      from '../assets/icon-spark.png'
@@ -80,6 +81,10 @@ export default function CPSubRail({ activeStage, currentScreen, showTooltip }: C
   }
   const activeTool = getActiveTool()
   const activeToolDef = stageDef?.tools.find((t) => t.id === activeTool)
+
+  // Day pill tracks the current screen's timeline day; hidden on screens without a day (e.g. the intro)
+  const currentDay = (scenario.screens as Record<string, { day?: number }>)[currentScreen]?.day
+  const venturePills = [...(currentDay != null ? [`Day ${currentDay}`] : []), 'Prototype']
 
   return (
     <div style={{
@@ -205,7 +210,7 @@ export default function CPSubRail({ activeStage, currentScreen, showTooltip }: C
           Electric lawn mower for landscaping pros
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
-          {['Day 84', 'Prototype'].map((pill) => (
+          {venturePills.map((pill) => (
             <span key={pill} style={{
               fontFamily: 'var(--font-cp-mono)', fontSize: 10,
               background: 'var(--bg-2)', border: '1px solid var(--border)',
