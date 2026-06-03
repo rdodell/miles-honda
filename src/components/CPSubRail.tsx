@@ -1,4 +1,4 @@
-import { Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare } from 'lucide-react'
+import { Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare, Rocket } from 'lucide-react'
 import ianAvatar      from '../assets/ian-avatar.png'
 import iconSparkStage from '../assets/icon-spark-stage.png'
 import iconSpark      from '../assets/icon-spark.png'
@@ -9,7 +9,6 @@ import iconChat       from '../assets/icon-chat.png'
 import iconPuzzle     from '../assets/icon-puzzle.png'
 import iconDirectory   from '../assets/icon-directory.png'
 import iconSavedPeople from '../assets/icon-saved-people.png'
-import iconScorecard   from '../assets/icon-scorecard.png'
 import iconDeck        from '../assets/icon-deck.png'
 import iconReadiness   from '../assets/icon-readiness.png'
 
@@ -18,6 +17,7 @@ type StageId = 'spark' | 'garage' | 'testTrack'
 interface CPSubRailProps {
   activeStage: StageId | null
   currentScreen: string
+  showTooltip?: (msg: string) => void
 }
 
 const STAGE_ICONS: Record<string, string> = {
@@ -34,7 +34,7 @@ const STAGE_ICON_FILTER: Record<string, string> = {
 
 const STAGE_TOOLS: Record<string, {
   label: string
-  tools: { id: string; name: string; Icon: React.FC<{ size?: number }>; imgSrc?: string; screens: string[] }[]
+  tools: { id: string; name: string; Icon: React.FC<{ size?: number }>; imgSrc?: string; screens: string[]; tooltip?: string }[]
 }> = {
   spark: {
     label: 'Spark',
@@ -56,7 +56,7 @@ const STAGE_TOOLS: Record<string, {
     label: 'Test Track',
     tools: [
       { id: 'readiness', name: 'Readiness check',  Icon: CheckSquare, imgSrc: iconReadiness, screens: ['3.1', '3.2'] },
-      { id: 'scorecard', name: 'Readiness scorecard', Icon: CheckSquare, imgSrc: iconScorecard, screens: [] },
+      { id: 'gtm',       name: 'GTM Plan Generator', Icon: Rocket, screens: [], tooltip: 'Demo: GTM Plan Generator would open here.' },
       { id: 'deck',      name: 'Deck & evidence',  Icon: FileText, imgSrc: iconDeck, screens: ['3.5'] },
     ],
   },
@@ -67,7 +67,7 @@ function cpStageKey(s: StageId | null): string | null {
   return s === 'testTrack' ? 'track' : s
 }
 
-export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps) {
+export default function CPSubRail({ activeStage, currentScreen, showTooltip }: CPSubRailProps) {
   const cpKey = cpStageKey(activeStage)
   const stageDef = cpKey ? STAGE_TOOLS[cpKey] : null
   const stageIcon = cpKey ? STAGE_ICONS[cpKey] : null
@@ -130,6 +130,7 @@ export default function CPSubRail({ activeStage, currentScreen }: CPSubRailProps
               return (
                 <div
                   key={tool.id}
+                  onClick={tool.tooltip ? () => showTooltip?.(tool.tooltip!) : undefined}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 10,
                     padding: '10px 12px', marginBottom: 16,

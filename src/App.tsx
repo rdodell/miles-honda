@@ -180,7 +180,7 @@ export default function App() {
             borderRight: '1px solid rgba(255,255,255,0.65)',
             overflow: 'hidden',
           }}>
-            <CPSubRail activeStage={activeStage} currentScreen={screen} />
+            <CPSubRail activeStage={activeStage} currentScreen={screen} showTooltip={showTooltip} />
           </aside>
 
           {/* Row 3 col 2: Main work area */}
