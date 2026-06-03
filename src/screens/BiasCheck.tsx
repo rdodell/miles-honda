@@ -4,6 +4,7 @@ import { Flag } from 'lucide-react'
 import MilesMessage from '../components/MilesMessage'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 
 interface Props { onAdvance: (screen: string) => void }
 const s = scenario.screens['1.3b']
@@ -19,10 +20,10 @@ export default function BiasCheck({ onAdvance }: Props) {
   const [showRest, setShowRest] = useState(false)
   const [showInput, setShowInput] = useState(false)
 
-  // After the hunches chart settles, reveal Ian's input
+  // After the hunches chart settles, hold a clear beat before Ian's input types in
   useEffect(() => {
     if (!showRest) return
-    const t = setTimeout(() => setShowInput(true), 900)
+    const t = setTimeout(() => setShowInput(true), BEAT_AFTER_MILES)
     return () => clearTimeout(t)
   }, [showRest])
 

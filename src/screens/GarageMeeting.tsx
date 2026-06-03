@@ -25,6 +25,9 @@ const fadeUp = (i: number) => ({
 
 export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
   const c = s.networkContact
+  // Derive the header count from the actual connections shown (Ian met only Priya), not the recommended list
+  const connections = [c]
+  const connectionLabel = `${connections.length} connection${connections.length === 1 ? '' : 's'}`
   const [showRest, setShowRest] = useState(false)
   const [showInput, setShowInput] = useState(false)
 
@@ -67,7 +70,7 @@ export default function GarageMeeting({ onAdvance }: GarageMeetingProps) {
           <h2 style={{ fontSize: 18, fontWeight: 600, color: '#231F20', fontFamily: 'Inter, sans-serif', margin: 0 }}>
             Your network
           </h2>
-          <span style={{ fontSize: 13, color: '#5B5FD9', fontWeight: 600 }}>3 connections</span>
+          <span style={{ fontSize: 13, color: '#5B5FD9', fontWeight: 600 }}>{connectionLabel}</span>
         </div>
 
         <div className="flex items-center gap-3 bg-white rounded-2xl p-3.5 shadow-sm" style={{ border: '1.5px solid #E5E5E5' }}>

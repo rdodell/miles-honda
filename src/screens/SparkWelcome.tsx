@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
 import InputBar from '../components/InputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 
 interface SparkWelcomeProps {
   onAdvance: (screen: string) => void
@@ -25,6 +26,14 @@ const fadeUp = (delay: number) => ({
 
 export default function SparkWelcome({ onAdvance }: SparkWelcomeProps) {
   const [showRest, setShowRest] = useState(false)
+  const [showInput, setShowInput] = useState(false)
+
+  // Hold a clear beat after Miles before Ian's line types into the bar
+  useEffect(() => {
+    if (!showRest) return
+    const t = setTimeout(() => setShowInput(true), BEAT_AFTER_MILES)
+    return () => clearTimeout(t)
+  }, [showRest])
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
@@ -80,15 +89,17 @@ export default function SparkWelcome({ onAdvance }: SparkWelcomeProps) {
               {s.promptMessage}
             </motion.p>
 
-            {/* Unified input bar — Voice | Chat | Scratch Pad */}
-            <motion.div {...fadeUp(0.2)}>
-              <InputBar
-                onChat={() => onAdvance((s.inputModes.find((m) => m.id === 'chat') as any)?.advance ?? '1.3')}
-                suggestion={(s as any).ianInput?.text}
-                typeSuggestion
-                autoSend={(scenario.inputModel as { autoSend?: boolean }).autoSend === true}
-              />
-            </motion.div>
+            {/* Unified input bar — Voice | Chat | Scratch Pad — held a beat after Miles */}
+            {showInput && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                <InputBar
+                  onChat={() => onAdvance((s.inputModes.find((m) => m.id === 'chat') as any)?.advance ?? '1.3')}
+                  suggestion={(s as any).ianInput?.text}
+                  typeSuggestion
+                  autoSend={(scenario.inputModel as { autoSend?: boolean }).autoSend === true}
+                />
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

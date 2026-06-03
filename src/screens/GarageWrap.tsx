@@ -1,11 +1,13 @@
 // Screen 2.4 — Garage wrap: network summary before jumping to Test Track
 // Uses dream-indigo gradient (punctuation screen, not a daily-work screen)
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
 import MilesAvatar from '../components/MilesAvatar'
 import IanInputBar from '../components/IanInputBar'
 import scenario from '../scenario.json'
+import { BEAT_AFTER_MILES } from '../timing'
 
 interface GarageWrapProps {
   onAdvance: (screen: string) => void
@@ -20,6 +22,14 @@ const fadeUp = (i: number) => ({
 })
 
 export default function GarageWrap({ onAdvance }: GarageWrapProps) {
+  const [showInput, setShowInput] = useState(false)
+
+  // Let the summary card settle, then a clear beat before Ian's reply types in
+  useEffect(() => {
+    const t = setTimeout(() => setShowInput(true), BEAT_AFTER_MILES + 600)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
 
@@ -55,14 +65,16 @@ export default function GarageWrap({ onAdvance }: GarageWrapProps) {
         </motion.p>
       </motion.div>
 
-      {/* Ian sends his input line to advance to 3.1 */}
-      <motion.div {...fadeUp(5)}>
-        <IanInputBar
-          driver="chat"
-          suggestion={(s as any).ianInput?.text}
-          onSubmit={() => onAdvance((s as any).advance ?? '3.1')}
-        />
-      </motion.div>
+      {/* Ian sends his input line to advance to 3.1 — held a beat after the card */}
+      {showInput && (
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+          <IanInputBar
+            driver="chat"
+            suggestion={(s as any).ianInput?.text}
+            onSubmit={() => onAdvance((s as any).advance ?? '3.1')}
+          />
+        </motion.div>
+      )}
 
     </div>
   )

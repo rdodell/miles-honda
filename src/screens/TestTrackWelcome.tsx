@@ -11,12 +11,14 @@ interface Props { onAdvance: (screen: string) => void; showTooltip?: (msg: strin
 
 const s = scenario.screens['3.1']
 const ianInput = (s as any).ianInput as { text: string }
+const ianConfirm = (s as any).ianConfirm as { text: string }
 const cmp = s.comparison
 const tbl = s.updatedTable
-const CONTENT_BEAT = 1400 // time to take in the canvas / comparison before moving on
+const CONTENT_BEAT = 1400 // time to take in the canvas / proposal before moving on
 
-// Miles flags Cost Structure -> Ian asks -> BMC grid -> Miles update -> comparison (margin animates) -> Miles close -> advance
-const PHASES = ['flag', 'ian-input', 'bmc', 'update', 'comparison', 'close'] as const
+// Flag -> Ian asks -> BMC grid -> Miles proposes update (PROPOSED comparison) ->
+// Ian confirms -> ONLY THEN the model commits (margin lands at 24%) -> Miles close -> advance
+const PHASES = ['flag', 'ian-input', 'bmc', 'propose', 'ian-confirm', 'commit', 'close'] as const
 type Phase = (typeof PHASES)[number]
 
 function IanBubble({ text }: { text: string }) {
@@ -29,7 +31,7 @@ function IanBubble({ text }: { text: string }) {
   )
 }
 
-// Margin counts from "before" to "after"
+// Margin counts from "before" to "after" — runs once the model commits
 function AnimatedMargin({ before, after }: { before: string; after: string }) {
   const from = parseInt(before, 10)
   const to = parseInt(after, 10)
@@ -49,12 +51,21 @@ function AnimatedMargin({ before, after }: { before: string; after: string }) {
 export default function TestTrackWelcome({ onAdvance }: Props) {
   const [phase, setPhase] = useState<Phase>('flag')
   const reached = (p: Phase) => PHASES.indexOf(phase) >= PHASES.indexOf(p)
+  const committed = reached('commit')
 
-  // Content-view beats: pause on the canvas and the comparison before continuing
+  // Content-view beats: pause on the canvas and on the committed model before continuing
   useEffect(() => {
-    if (phase === 'bmc') { const t = setTimeout(() => setPhase('update'), CONTENT_BEAT); return () => clearTimeout(t) }
-    if (phase === 'comparison') { const t = setTimeout(() => setPhase('close'), CONTENT_BEAT); return () => clearTimeout(t) }
+    if (phase === 'bmc') { const t = setTimeout(() => setPhase('propose'), CONTENT_BEAT); return () => clearTimeout(t) }
+    if (phase === 'commit') { const t = setTimeout(() => setPhase('close'), CONTENT_BEAT); return () => clearTimeout(t) }
   }, [phase])
+
+  const activeIan =
+    phase === 'ian-input' ? ianInput.text : phase === 'ian-confirm' ? ianConfirm.text : undefined
+
+  function sendIan() {
+    if (phase === 'ian-input') setPhase('bmc')
+    else if (phase === 'ian-confirm') setPhase('commit')
+  }
 
   return (
     <div className="flex flex-col gap-4 px-5 py-5 pb-20">
@@ -72,12 +83,12 @@ export default function TestTrackWelcome({ onAdvance }: Props) {
       )}
 
       {/* Miles proposes plugging in the real numbers */}
-      {reached('update') && (
-        <MilesMessage text={s.milesUpdateIntro} onDone={() => setTimeout(() => setPhase('comparison'), BEAT_AFTER_MILES)} />
+      {reached('propose') && (
+        <MilesMessage text={s.milesUpdateIntro} onDone={() => setTimeout(() => setPhase('ian-confirm'), BEAT_AFTER_MILES)} />
       )}
 
-      {/* Comparison + updated cost table, margin dropping 31% -> 24% */}
-      {reached('comparison') && (
+      {/* Comparison + cost table — PROPOSED until Ian confirms, then committed */}
+      {reached('propose') && (
         <>
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-white border border-[#E8E4DE] rounded-2xl p-4 shadow-sm">
             <div className="grid grid-cols-2 gap-3 mb-3">
@@ -87,14 +98,22 @@ export default function TestTrackWelcome({ onAdvance }: Props) {
                 <div className="text-xs text-[#A09A94]">{cmp.original.note}</div>
               </div>
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
-                <div className="text-[10px] font-semibold uppercase tracking-wide text-amber-600 mb-1">{cmp.updated.label}</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-amber-600 mb-1">
+                  {committed ? cmp.updated.label : 'Proposed benchmark'}
+                </div>
                 <div className="text-lg font-bold text-amber-700">{cmp.updated.value}</div>
                 <div className="text-xs text-amber-500">{cmp.updated.note}</div>
               </div>
             </div>
             <div className="flex items-center gap-2 bg-red-50 rounded-xl px-3 py-2">
               <TrendingDown size={14} className="text-[#CC0000]" />
-              <AnimatedMargin before={cmp.marginBefore} after={cmp.marginAfter} />
+              {committed ? (
+                <AnimatedMargin before={cmp.marginBefore} after={cmp.marginAfter} />
+              ) : (
+                <span className="text-xs text-[#A09A94] font-medium">
+                  Projected gross margin: {cmp.marginBefore} → {cmp.marginAfter}
+                </span>
+              )}
             </div>
           </motion.div>
 
@@ -105,7 +124,7 @@ export default function TestTrackWelcome({ onAdvance }: Props) {
                 <tr className="text-[10px] font-semibold uppercase tracking-wide text-[#A09A94]">
                   <th className="text-left pb-2">Item</th>
                   <th className="text-right pb-2">Before</th>
-                  <th className="text-right pb-2">After</th>
+                  <th className="text-right pb-2">{committed ? 'After' : 'Proposed'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E8E4DE]">
@@ -122,19 +141,21 @@ export default function TestTrackWelcome({ onAdvance }: Props) {
         </>
       )}
 
+      {/* Ian confirms the update (sent) */}
+      {committed && <IanBubble text={ianConfirm.text} />}
+
       {/* Miles names 24% as the board's pressure point, teases the readiness check, then advances */}
       {reached('close') && (
         <MilesMessage text={s.milesClose} onDone={() => setTimeout(() => onAdvance(s.advance), BEAT_BEFORE_ADVANCE)} />
       )}
 
-      {/* Input bar — Ian sends "show me what's off"; passive after */}
+      {/* Input bar — Ian auto-sends "show me what's off", then "yes, update it"; passive otherwise */}
       {reached('ian-input') && (
         <IanInputBar
           driver="chat"
-          autoSend={false}
           placeholder="Ask Miles something…"
-          suggestion={phase === 'ian-input' ? ianInput.text : undefined}
-          onSubmit={phase === 'ian-input' ? () => setPhase('bmc') : () => {}}
+          suggestion={activeIan}
+          onSubmit={activeIan ? sendIan : () => {}}
         />
       )}
     </div>

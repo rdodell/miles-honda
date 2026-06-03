@@ -131,7 +131,6 @@ export default function TestTrackFinance({ onAdvance }: Props) {
       {reached('ian-input') && (
         <IanInputBar
           driver="chat"
-          autoSend={false}
           placeholder="Ask Miles something…"
           suggestion={activeIan}
           onSubmit={activeIan ? sendIan : () => {}}

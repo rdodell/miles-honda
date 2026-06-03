@@ -41,12 +41,17 @@
     },
     {
       "screen": "3.1",
-      "action": "Send — update the flagged Cost Structure"
+      "action": "Update the flagged Cost Structure"
     },
     {
       "screen": "3.2",
-      "action": "Send — run the readiness check"
+      "action": "Run the readiness check"
     }
+  ],
+  "roadStages": [
+    { "id": "spark", "label": "Idea Validation", "position": 0.25, "subtitle": "in 4 weeks" },
+    { "id": "garage", "label": "Business Case Due", "position": 0.55, "subtitle": "in 9 weeks" },
+    { "id": "testTrack", "label": "Venture Board Review", "position": 0.85, "subtitle": "in 12 weeks" }
   ],
   "screens": {
     "0.1": {
@@ -60,6 +65,40 @@
         "label": "Start Ian's journey",
         "advance": "1.1"
       }
+    },
+    "D.1": {
+      "id": "D.1",
+      "stage": null,
+      "milesMessage": "Welcome back, Ian. Here's where the lawn mower project stands. What do you want to work on today?",
+      "weekActivity": [
+        {
+          "label": "Laura call booked",
+          "stage": "spark",
+          "detail": "Thursday 10 AM · 30 min"
+        },
+        {
+          "label": "Priya meeting confirmed",
+          "stage": "garage",
+          "detail": "Thursday 2 PM · battery supply chain"
+        },
+        {
+          "label": "Cost Structure flagged",
+          "stage": "testTrack",
+          "detail": "Update before venture board review"
+        }
+      ],
+      "suggestions": [
+        {
+          "label": "Continue in Spark",
+          "advance": "1.1",
+          "stage": "spark"
+        },
+        {
+          "label": "Open the Test Track",
+          "advance": "3.1",
+          "stage": "testTrack"
+        }
+      ]
     },
     "1.1": {
       "id": "1.1",
@@ -116,7 +155,7 @@
       "footerReason": "Segment choice is your highest-leverage move right now. It shapes your pricing, channels, and proof points for the next 90 days.",
       "ianInput": {
         "driver": "chat",
-        "text": "Honestly, I need to nail down who actually buys this before I work on any more product design."
+        "text": "Honestly, I need to nail down who actually buys this before I build anything else."
       }
     },
     "1.2": {
@@ -135,7 +174,9 @@
       "stage": "spark",
       "timeIndicator": "Month 1 · Week 1",
       "step": "Step 1 of 3 · Frame the problem",
-      "milesIntro": "Good, this gives us a lot to work with. Let me turn your sketch into five questions we can actually pressure-test, and you flag the ones that are still guesses.",
+      "milesOpeningPrompt": "Can you tell me a little bit more about what you're envisioning for the electric lawn mower?",
+      "ianTestReply": "Yes, I'd like to test",
+      "milesIntro": "Before we build, let's pin down the real problem. Five questions. Answer what you know, and flag what's still a guess. Which one are you least sure about?",
       "questions": [
         {
           "q": "Who has this problem?",
@@ -206,9 +247,7 @@
           }
         ],
         "milesClosingLine": "The 'why you' I pulled from our earlier chat, and it's still a hunch. And you crossed out the price stuff yourself, so 'how do you know' is the real gap. Want to test it?"
-      },
-      "milesOpeningPrompt": "Can you tell me a little bit more about what you're envisioning for the electric lawn mower?",
-      "ianTestReply": "Yes, I'd like to test"
+      }
     },
     "1.3b": {
       "id": "1.3b",
@@ -273,7 +312,7 @@
           "n": "02",
           "title": "Direct observation",
           "sub": "Ride-along on a mowing route",
-          "status": "After 10 interviews",
+          "status": "After 3 interviews",
           "tone": "muted"
         },
         {
@@ -458,7 +497,7 @@
             "recommended": true,
             "ianReply": "Good point. Let's go with Priya.",
             "milesReply": "Agreed. I'll reach out and find time on your calendar.",
-            "advance": null
+            "advance": "2.2"
           },
           {
             "id": "daniel",
@@ -474,11 +513,7 @@
             "milesReply": "Save Karen for when you're prepping the seed conversation, that's her strength. She's lighter on supply chain, which is the thing in your way right now.",
             "advance": null
           }
-        ],
-        "confirm": {
-          "text": "Yes, I'll move forward with Priya.",
-          "advance": "2.2"
-        }
+        ]
       },
       "ianInput": {
         "driver": "chat",
@@ -534,7 +569,7 @@
       },
       "takeaways": [
         "Priya's supplier contacts added to your Key Partners",
-        "Battery cost actuals revised: $103/unit (vs. your $140 assumption)",
+        "Battery cost actuals revised: $103/unit (vs. your $89 assumption)",
         "She can save you 6 weeks on the internal safety review"
       ],
       "advance": "2.4",
@@ -613,6 +648,20 @@
             "ianReply": "Should I prep for the board now?",
             "milesReply": "Prep comes after the model holds up. Start with the canvas.",
             "advance": null
+          },
+          {
+            "id": "prototyper",
+            "label": "Prototyper",
+            "ianReply": "What about the prototyper?",
+            "milesReply": "That's for once the model holds up. Lay out the canvas first.",
+            "advance": null
+          },
+          {
+            "id": "gtm",
+            "label": "GTM Plan Generator",
+            "ianReply": "Should I build the GTM plan?",
+            "milesReply": "Go-to-market comes after the board says go. Start with the canvas.",
+            "advance": null
           }
         ]
       },
@@ -667,10 +716,14 @@
           }
         ]
       },
+      "ianConfirm": {
+        "driver": "chat",
+        "text": "Yes, plug in her numbers and update it."
+      },
       "milesClose": "Updated. Your margin drops from 31% to 24%. Still workable, but 24% is the number the board will press on. Let's run a full readiness check so you walk in knowing exactly where you stand.",
       "advance": "3.2",
       "bmcGate": {
-        "note": "BMC UPDATE beat (merges the old BMC flag + financial update). Sequence: milesMessage flags the Cost Structure block in the Business Model Canvas -> Ian auto-sends ianInput ('show me what's off') -> render the BMC grid with the Cost Structure section flagged -> beat -> milesUpdateIntro -> reveal the comparison ($148->$172/unit) and updatedTable, animating the margin from 31% to 24% -> milesClose (names 24% as the board's pressure point, teases the readiness check) -> advance to 3.2."
+        "note": "BMC UPDATE beat (merges the old BMC flag + financial update). Sequence: milesMessage flags the Cost Structure block in the Business Model Canvas -> beat -> Ian auto-sends ianInput ('show me what's off') -> render the BMC grid with the Cost Structure section flagged -> beat -> milesUpdateIntro asks whether to update, shown alongside the comparison ($148->$172/unit) and updatedTable as the PROPOSED change (margin preview 31%->24%) -> beat -> Ian auto-sends ianConfirm ('yes, update it') -> ONLY THEN the model commits (margin lands at 24%, values settle) -> beat -> milesClose (names 24% as the board's pressure point, teases the readiness check) -> advance to 3.2. The financials must not read as 'Updated' until after Ian's ianConfirm."
       }
     },
     "3.2": {
@@ -765,7 +818,7 @@
           "bullets": [
             "Met with Priya (e-bike battery lead)",
             "Updated Business Model Canvas",
-            "2 new contacts in the intrapreneur network"
+            "4 new contacts in the intrapreneur network"
           ]
         },
         {
@@ -784,8 +837,8 @@
           "label": "customer interviews"
         },
         {
-          "value": "2",
-          "label": "Honda intrapreneurs connected"
+          "value": "1",
+          "label": "Honda intrapreneur connected"
         },
         {
           "value": "3",
@@ -815,14 +868,13 @@
           "stage": "spark",
           "header": "Spark · Ideate, test, and validate with customers",
           "tools": [
-            "Idea Capture & Refinement",
-            "Social Listening",
+            "Problem Validation & Refinement",
+            "Social Listening & Idea Capture",
             "SWOT",
             "5 E's Journey Map",
             "Ecosystem Map",
             "Customer Persona Builder",
-            "Interview Question Generator",
-            "Problem Validation"
+            "Interview Question Generator"
           ]
         },
         {
@@ -854,40 +906,6 @@
       ],
       "milesCorner": "Not sure where to start? Just ask, and I'll match you to the right tool.",
       "toolTooltip": "Demo: would open this tool."
-    },
-    "D.1": {
-      "id": "D.1",
-      "stage": null,
-      "milesMessage": "Welcome back, Ian. Here's where the lawn mower project stands. What do you want to work on today?",
-      "weekActivity": [
-        {
-          "label": "Laura call booked",
-          "stage": "spark",
-          "detail": "Thursday 10 AM · 30 min"
-        },
-        {
-          "label": "Priya meeting confirmed",
-          "stage": "garage",
-          "detail": "Thursday 2 PM · battery supply chain"
-        },
-        {
-          "label": "Revenue Streams flagged",
-          "stage": "testTrack",
-          "detail": "Update before venture board review"
-        }
-      ],
-      "suggestions": [
-        {
-          "label": "Continue in Spark",
-          "advance": "1.1",
-          "stage": "spark"
-        },
-        {
-          "label": "Open the Test Track",
-          "advance": "3.1",
-          "stage": "testTrack"
-        }
-      ]
     }
   },
   "inputModel": {
@@ -899,10 +917,11 @@
     ],
     "branchScreens": [
       "2.1",
-      "3.0"
+      "3.0",
+      "3.4"
     ],
-    "autoSend": false,
-    "autoSendNote": "Ian's scripted line auto-TYPES in the input bar, but the user must CLICK the input bar (Send) to commit and advance to the next slide. The viaInput acceptance on 1.3c also types in and waits for a click on the input bar (still no second card tap). Set autoSend:true to make the typed lines commit on their own."
+    "autoSend": true,
+    "autoSendNote": "Ian's scripted responses AUTO-SEND: his ianInput (and the viaInput acceptance on 1.3c) types in via IanTyping and commits on its own, no manual Send tap. Sequence per turn: Miles message -> BEAT_AFTER_MILES -> Ian's line auto-types -> short beat after typing completes -> auto-send (post the message) -> BEAT_BEFORE_ADVANCE -> navigate. Branch screens still require Ian to TAP an option; only the typed/scripted responses auto-send."
   },
   "checklists": {
     "description": "Per-stage progress checklists in a slide-over panel opened from a checklist control in the top bar. ALL stages are UNLOCKED and viewable so the intrapreneur can see upcoming tasks in every stage; the ACTIVE stage is expanded by default, the others are collapsed but expandable (NOT locked or greyed out). Scripted done/false state. Introduced as a checkpoint after the Spark wrap (1.4).",
@@ -940,7 +959,8 @@
           },
           {
             "text": "Validate willingness-to-pay with customers",
-            "done": false
+            "done": false,
+            "note": "the blank 'how do you know'"
           }
         ]
       },
@@ -991,25 +1011,5 @@
         ]
       }
     }
-  },
-  "roadStages": [
-    {
-      "id": "spark",
-      "label": "Idea Validation",
-      "position": 0.25,
-      "subtitle": "in 4 weeks"
-    },
-    {
-      "id": "garage",
-      "label": "Business Case Due",
-      "position": 0.55,
-      "subtitle": "in 9 weeks"
-    },
-    {
-      "id": "testTrack",
-      "label": "Venture Board Review",
-      "position": 0.85,
-      "subtitle": "in 12 weeks"
-    }
-  ]
+  }
 }
