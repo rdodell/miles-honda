@@ -1,4 +1,5 @@
-import { Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare, Rocket } from 'lucide-react'
+import { Calendar, MessageSquare, Users, FileText, BookOpen, CheckSquare } from 'lucide-react'
+import { RocketSparkIcon } from './icons'
 import ianAvatar      from '../assets/ian-avatar.png'
 import iconSparkStage from '../assets/icon-spark-stage.png'
 import iconSpark      from '../assets/icon-spark.png'
@@ -56,7 +57,7 @@ const STAGE_TOOLS: Record<string, {
     label: 'Test Track',
     tools: [
       { id: 'readiness', name: 'Readiness check',  Icon: CheckSquare, imgSrc: iconReadiness, screens: ['3.1', '3.2'] },
-      { id: 'gtm',       name: 'GTM Plan Generator', Icon: Rocket, screens: [], tooltip: 'Demo: GTM Plan Generator would open here.' },
+      { id: 'gtm',       name: 'GTM Plan Generator', Icon: RocketSparkIcon, screens: [], tooltip: 'Demo: GTM Plan Generator would open here.' },
       { id: 'deck',      name: 'Deck & evidence',  Icon: FileText, imgSrc: iconDeck, screens: ['3.5'] },
     ],
   },

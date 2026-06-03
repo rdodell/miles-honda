@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Mic, MessageCircle, Box, Upload, X } from 'lucide-react'
+import { Mic, MessageCircle, MessageSquareText, Pencil, Upload, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BEAT_BEFORE_ADVANCE } from '../timing'
 
@@ -14,8 +14,8 @@ interface InputBarProps {
 
 const MODES = [
   { id: 'voice',   label: 'Voice',   Icon: Mic },
-  { id: 'chat',    label: 'Chat',    Icon: MessageCircle },
-  { id: 'sandbox', label: 'Sandbox', Icon: Box },
+  { id: 'chat',    label: 'Chat',    Icon: MessageSquareText },
+  { id: 'sandbox', label: 'Sandbox', Icon: Pencil },
 ] as const
 
 type Mode = typeof MODES[number]['id']

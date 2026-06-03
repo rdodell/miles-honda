@@ -1,6 +1,6 @@
 import MilesAvatar from './MilesAvatar'
 import scenario from '../scenario.json'
-import { Mic, MessageCircle, Wrench } from 'lucide-react'
+import { Mic, MessageCircle, MessageSquareText, Pencil } from 'lucide-react'
 import ianAvatar from '../assets/ian-avatar.png'
 
 interface CPMilesAsideProps {
@@ -144,8 +144,8 @@ export default function CPMilesAside({ currentScreen }: CPMilesAsideProps) {
         <div style={{ display: 'flex', gap: 6 }}>
           {[
             { label: 'Voice',   Icon: Mic },
-            { label: 'Chat',    Icon: MessageCircle, active: true },
-            { label: 'Sandbox', Icon: Wrench },
+            { label: 'Chat',    Icon: MessageSquareText, active: true },
+            { label: 'Sandbox', Icon: Pencil },
           ].map(({ label, Icon, active }) => (
             <div
               key={label}
