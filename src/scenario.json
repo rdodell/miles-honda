@@ -746,7 +746,7 @@
     },
     "3.2": {
       "id": "3.2",
-      "day": 73,
+      "day": 70,
       "stage": "testTrack",
       "timeIndicator": "Month 3 · Week 3",
       "milesMessage": "The venture board review is next week. Before you walk in, let's run a full readiness check: where you stand, and what they'll push on. Want to see it?",
@@ -817,7 +817,7 @@
     },
     "3.5": {
       "id": "3.5",
-      "day": 73,
+      "day": 70,
       "stage": "testTrack",
       "stageComplete": "testTrack",
       "timeIndicator": "Month 3 · Week 3",
