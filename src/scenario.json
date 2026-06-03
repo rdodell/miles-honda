@@ -721,6 +721,10 @@
         "text": "Yes, plug in her numbers and update it."
       },
       "milesClose": "Updated. Your margin drops from 31% to 24%. Still workable, but 24% is the number the board will press on. Let's run a full readiness check so you walk in knowing exactly where you stand.",
+      "ianClose": {
+        "driver": "chat",
+        "text": "Got it. Let's run that readiness check."
+      },
       "advance": "3.2",
       "bmcGate": {
         "note": "BMC UPDATE beat (merges the old BMC flag + financial update). Sequence: milesMessage flags the Cost Structure block in the Business Model Canvas -> beat -> Ian auto-sends ianInput ('show me what's off') -> render the BMC grid with the Cost Structure section flagged -> beat -> milesUpdateIntro asks whether to update, shown alongside the comparison ($148->$172/unit) and updatedTable as the PROPOSED change (margin preview 31%->24%) -> beat -> Ian auto-sends ianConfirm ('yes, update it') -> ONLY THEN the model commits (margin lands at 24%, values settle) -> beat -> milesClose (names 24% as the board's pressure point, teases the readiness check) -> advance to 3.2. The financials must not read as 'Updated' until after Ian's ianConfirm."
@@ -920,8 +924,8 @@
       "3.0",
       "3.4"
     ],
-    "autoSend": true,
-    "autoSendNote": "Ian's scripted responses AUTO-SEND: his ianInput (and the viaInput acceptance on 1.3c) types in via IanTyping and commits on its own, no manual Send tap. Sequence per turn: Miles message -> BEAT_AFTER_MILES -> Ian's line auto-types -> short beat after typing completes -> auto-send (post the message) -> BEAT_BEFORE_ADVANCE -> navigate. Branch screens still require Ian to TAP an option; only the typed/scripted responses auto-send."
+    "autoSend": false,
+    "autoSendNote": "MANUAL SEND everywhere — nothing auto-proceeds between pages. Ian's scripted line auto-TYPES into the input bar (IanTyping), but it does NOT commit on its own: the presenter clicks Send to post it, and that send is what advances the screen. Branch screens advance on Ian's TAP. No screen navigates off a Miles message or a timer."
   },
   "checklists": {
     "description": "Per-stage progress checklists in a slide-over panel opened from a checklist control in the top bar. ALL stages are UNLOCKED and viewable so the intrapreneur can see upcoming tasks in every stage; the ACTIVE stage is expanded by default, the others are collapsed but expandable (NOT locked or greyed out). Scripted done/false state. Introduced as a checkpoint after the Spark wrap (1.4).",

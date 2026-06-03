@@ -12,13 +12,15 @@ interface Props { onAdvance: (screen: string) => void; showTooltip?: (msg: strin
 const s = scenario.screens['3.1']
 const ianInput = (s as any).ianInput as { text: string }
 const ianConfirm = (s as any).ianConfirm as { text: string }
+const ianClose = (s as any).ianClose as { text: string }
 const cmp = s.comparison
 const tbl = s.updatedTable
 const CONTENT_BEAT = 1400 // time to take in the canvas / proposal before moving on
 
 // Flag -> Ian asks -> BMC grid -> Miles proposes update (PROPOSED comparison) ->
-// Ian confirms -> ONLY THEN the model commits (margin lands at 24%) -> Miles close -> advance
-const PHASES = ['flag', 'ian-input', 'bmc', 'propose', 'ian-confirm', 'commit', 'close'] as const
+// Ian confirms -> ONLY THEN the model commits (margin lands at 24%) -> Miles close ->
+// Ian sends the closing line (manual) -> advance. No auto-advance off the Miles message.
+const PHASES = ['flag', 'ian-input', 'bmc', 'propose', 'ian-confirm', 'commit', 'close', 'ian-close', 'done'] as const
 type Phase = (typeof PHASES)[number]
 
 function IanBubble({ text }: { text: string }) {
@@ -60,11 +62,15 @@ export default function TestTrackWelcome({ onAdvance }: Props) {
   }, [phase])
 
   const activeIan =
-    phase === 'ian-input' ? ianInput.text : phase === 'ian-confirm' ? ianConfirm.text : undefined
+    phase === 'ian-input' ? ianInput.text
+    : phase === 'ian-confirm' ? ianConfirm.text
+    : phase === 'ian-close' ? ianClose.text
+    : undefined
 
   function sendIan() {
     if (phase === 'ian-input') setPhase('bmc')
     else if (phase === 'ian-confirm') setPhase('commit')
+    else if (phase === 'ian-close') { setPhase('done'); setTimeout(() => onAdvance(s.advance), BEAT_BEFORE_ADVANCE) }
   }
 
   return (
@@ -144,12 +150,15 @@ export default function TestTrackWelcome({ onAdvance }: Props) {
       {/* Ian confirms the update (sent) */}
       {committed && <IanBubble text={ianConfirm.text} />}
 
-      {/* Miles names 24% as the board's pressure point, teases the readiness check, then advances */}
+      {/* Miles names 24% as the board's pressure point, teases the readiness check */}
       {reached('close') && (
-        <MilesMessage text={s.milesClose} onDone={() => setTimeout(() => onAdvance(s.advance), BEAT_BEFORE_ADVANCE)} />
+        <MilesMessage text={s.milesClose} onDone={() => setTimeout(() => setPhase('ian-close'), BEAT_AFTER_MILES)} />
       )}
 
-      {/* Input bar — Ian auto-sends "show me what's off", then "yes, update it"; passive otherwise */}
+      {/* Ian's closing line (sent) — the manual Send is what advances to 3.2 */}
+      {reached('done') && <IanBubble text={ianClose.text} />}
+
+      {/* Input bar — Ian sends "show me what's off", then "yes, update it", then "let's run it" (each a manual Send) */}
       {reached('ian-input') && (
         <IanInputBar
           driver="chat"

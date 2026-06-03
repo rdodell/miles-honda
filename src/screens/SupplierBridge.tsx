@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Mic } from 'lucide-react'
 import { motion } from 'framer-motion'
 import MilesMessage from '../components/MilesMessage'
@@ -33,19 +33,12 @@ export default function SupplierBridge({ onAdvance }: Props) {
   const [showInput, setShowInput] = useState(false)
   const [sent, setSent] = useState(false)
 
-  // Ian sends his one voice memo, then we advance to the Garage
+  // Ian sends his one voice memo (manual: presenter taps the voice bar), then we advance to the Garage
   function send() {
     if (sent) return
     setSent(true)
     setTimeout(() => onAdvance((s as any).advance), BEAT_BEFORE_ADVANCE + 700)
   }
-
-  // Auto-send (global autoSend): once the voice bar appears, Ian "records" for a beat then it posts on its own
-  useEffect(() => {
-    if (!showInput || sent) return
-    const t = setTimeout(() => send(), 1100)
-    return () => clearTimeout(t)
-  }, [showInput, sent])
 
   return (
     <div className="flex flex-col gap-5 px-5 py-5 pb-20">
